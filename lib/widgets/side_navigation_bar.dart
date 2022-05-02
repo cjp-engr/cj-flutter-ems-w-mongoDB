@@ -13,22 +13,22 @@ class SideNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-      ),
       body: Row(
         children: [
           Expanded(
             flex: 2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.notes,
-                    size: 100,
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.notes,
+                      size: 100,
+                    ),
                   ),
                 ),
                 IconButton(
@@ -38,11 +38,21 @@ class SideNavigationBar extends StatelessWidget {
                     size: 100,
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 150),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.switch_account_outlined,
+                      size: 100,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           Expanded(
-            flex: 10,
+            flex: 15,
             child: Column(
               children: [
                 _widgetOptions[1],
