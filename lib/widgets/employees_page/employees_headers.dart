@@ -11,6 +11,7 @@ class EmployeesHeaders extends StatefulWidget {
 class _EmployeesHeadersState extends State<EmployeesHeaders> {
   TextEditingController nameController = TextEditingController();
   DateTime _dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,11 +39,14 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
             Container(
               padding: const EdgeInsets.only(left: 5),
               height: 50.0,
-              width: MediaQuery.of(context).size.width / 3.5 / 2,
+              width: MediaQuery.of(context).size.width / 6.5,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.0),
                 border: Border.all(
-                    color: Colors.black, style: BorderStyle.solid, width: 1),
+                  color: Colors.black,
+                  style: BorderStyle.solid,
+                  width: 1,
+                ),
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
@@ -89,9 +93,18 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 2.0),
               height: 50.0,
-              width: MediaQuery.of(context).size.width / 3.5 / 2,
+              width: MediaQuery.of(context).size.width / 6.5,
               child: ElevatedButton(
-                child: const Text("Date"),
+                child: Row(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(right: 40),
+                      child: Text('Date'),
+                    ),
+                    Icon(Icons.arrow_drop_down),
+                    Icon(Icons.calendar_month_outlined),
+                  ],
+                ),
                 onPressed: () async {
                   _dateTime = (await DatePicker.showSimpleDatePicker(
                         context,

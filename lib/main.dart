@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
           bodyText2: TextStyle(
-            fontSize: 19.0,
+            fontSize: 10.0,
             fontWeight: FontWeight.w400,
           ),
           caption: TextStyle(

@@ -38,6 +38,13 @@ class SideNavigationBar extends StatelessWidget {
                     size: 100,
                   ),
                 ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.note_sharp,
+                    size: 100,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 150),
                   child: IconButton(

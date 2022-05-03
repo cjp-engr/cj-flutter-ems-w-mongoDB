@@ -12,7 +12,6 @@ class EmployeesList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(
               top: 10,
-              bottom: 10,
               right: 20,
             ),
             child: Container(
@@ -27,13 +26,33 @@ class EmployeesList extends StatelessWidget {
                   left: 20,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text('EMPLOYEE'),
-                    Text('CONTACT INFORMATION'),
-                    Text('SCHEDULE'),
                     Padding(
-                      padding: EdgeInsets.only(right: 20),
+                      padding: EdgeInsets.only(
+                        left: 60,
+                        right: 40,
+                      ),
+                      child: Text('EMPLOYEE'),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: 20,
+                        left: 40,
+                      ),
+                      child: Text('CONTACT INFORMATION'),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: 20,
+                        left: 200,
+                      ),
+                      child: Text('SCHEDULE'),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: 20,
+                        left: 185,
+                      ),
                       child: Text('STATUS'),
                     ),
                   ],
@@ -41,7 +60,147 @@ class EmployeesList extends StatelessWidget {
               ),
             ),
           ),
-          Row(),
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 30,
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 1.6,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const Divider(
+                  color: Colors.black,
+                ),
+                itemCount: 20,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 6,
+                        child: Row(
+                          children: [
+                            ClipOval(
+                              child: SizedBox.fromSize(
+                                size: const Size.fromRadius(27), // Image radius
+                                child: Image.asset(
+                                  'assets/images/flutter_logo.png',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  'Carmen Joy Palsario',
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
+                                Text(
+                                  'Software Engineer',
+                                  style: Theme.of(context).textTheme.bodyText2,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 6,
+                        child: Column(
+                          children: const [
+                            Text('carmen.palsario@eigital.com'),
+                            Text('+63 916-275-6844'),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 20,
+                          left: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            Column(
+                              children: [
+                                const Text('CLOCK IN'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text('CLOCK OUT'),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              children: [
+                                const Text('CLOCK OUT'),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text('CLOCK IN'),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: const [
+                                        Text('Break Time'),
+                                        Text('00H 00M'),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      children: const [
+                                        Text('Time Worked'),
+                                        Text('00H 00M'),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text('VIEW HOURS'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          right: 25,
+                          left: 25,
+                        ),
+                        child: Text('ACTIVE'),
+                      ),
+                    ],
+                  ),
+                ),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+              ),
+            ),
+          ),
         ],
       ),
     );
