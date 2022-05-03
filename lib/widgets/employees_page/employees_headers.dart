@@ -1,3 +1,4 @@
+import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 
@@ -136,7 +137,12 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
               height: 50.0,
               padding: const EdgeInsets.only(left: 2, right: 20),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const ShowInfoDialogEmployee(),
+                  );
+                },
                 child: Text(
                   '+ADD NEW EMPLOYEE',
                   style: Theme.of(context).textTheme.button!.merge(
