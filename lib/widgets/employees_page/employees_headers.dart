@@ -144,7 +144,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                   );
                 },
                 child: Text(
-                  '+ADD NEW EMPLOYEE',
+                  '+ ADD NEW EMPLOYEE',
                   style: Theme.of(context).textTheme.button!.merge(
                         const TextStyle(
                           fontWeight: FontWeight.bold,
