@@ -15,6 +15,7 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
   Widget build(BuildContext context) {
     final _fieldWidth = MediaQuery.of(context).size.width / 1.4 / 2.2;
     const _fieldHeight = 50.0;
+
     return Dialog(
       child: SingleChildScrollView(
         child: Container(
@@ -48,6 +49,7 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
                   key: _formKey,
                   autovalidateMode: _autovalidateMode,
                   child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
