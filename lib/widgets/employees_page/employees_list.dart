@@ -1,3 +1,4 @@
+import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesList extends StatelessWidget {
@@ -71,129 +72,140 @@ class EmployeesList extends StatelessWidget {
                   color: Colors.black,
                 ),
                 itemCount: 20,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 6,
-                        child: Row(
-                          children: [
-                            ClipOval(
-                              child: SizedBox.fromSize(
-                                size: const Size.fromRadius(27), // Image radius
-                                child: Image.asset(
-                                  'assets/images/flutter_logo.png',
-                                  fit: BoxFit.cover,
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const ShowInfoDialogEmployee(),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 6,
+                          child: Row(
+                            children: [
+                              ClipOval(
+                                child: SizedBox.fromSize(
+                                  size:
+                                      const Size.fromRadius(27), // Image radius
+                                  child: Image.asset(
+                                    'assets/images/flutter_logo.png',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  'Carmen Joy Palsario',
-                                  style: Theme.of(context).textTheme.bodyText2,
-                                ),
-                                Text(
-                                  'Software Engineer',
-                                  style: Theme.of(context).textTheme.bodyText2,
-                                ),
-                              ],
-                            ),
-                          ],
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    'Carmen Joy Palsario',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                  Text(
+                                    'Software Engineer',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 6,
-                        child: Column(
-                          children: const [
-                            Text('carmen.palsario@eigital.com'),
-                            Text('+63 916-275-6844'),
-                          ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 6,
+                          child: Column(
+                            children: const [
+                              Text('carmen.palsario@eigital.com'),
+                              Text('+63 916-275-6844'),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: 20,
-                          left: 20,
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            right: 20,
+                            left: 20,
+                          ),
+                          child: Row(
+                            children: [
+                              Column(
+                                children: [
+                                  const Text('CLOCK IN'),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: const Text('CLOCK OUT'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                children: [
+                                  const Text('CLOCK OUT'),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: const Text('CLOCK IN'),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Column(
+                                        children: const [
+                                          Text('Break Time'),
+                                          Text('00H 00M'),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        children: const [
+                                          Text('Time Worked'),
+                                          Text('00H 00M'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: const Text('VIEW HOURS'),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            Column(
-                              children: [
-                                const Text('CLOCK IN'),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text('CLOCK OUT'),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Column(
-                              children: [
-                                const Text('CLOCK OUT'),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text('CLOCK IN'),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: const [
-                                        Text('Break Time'),
-                                        Text('00H 00M'),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Column(
-                                      children: const [
-                                        Text('Time Worked'),
-                                        Text('00H 00M'),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text('VIEW HOURS'),
-                                ),
-                              ],
-                            ),
-                          ],
+                        const Padding(
+                          padding: EdgeInsets.only(
+                            right: 25,
+                            left: 25,
+                          ),
+                          child: Text('ACTIVE'),
                         ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          right: 25,
-                          left: 25,
-                        ),
-                        child: Text('ACTIVE'),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 scrollDirection: Axis.vertical,
