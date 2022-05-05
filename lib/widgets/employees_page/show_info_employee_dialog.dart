@@ -20,31 +20,28 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
       child: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width / 1.4,
-          height: MediaQuery.of(context).size.height / 1.3,
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(Icons.close),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('DONE'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 30,
+                    ),
+                    child: Text(
+                      'CONTACT INFORMATION',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ],
               ),
-              // Header
-              const Text('CONTACT INFORMATION'),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 1.5,
+                height: MediaQuery.of(context).size.height / 1.3,
                 child: Form(
                   key: _formKey,
                   autovalidateMode: _autovalidateMode,
@@ -106,13 +103,37 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _weeklyHoursField(
-                            _fieldWidth,
-                            _fieldHeight,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _editPINbutton(
+                                _fieldWidth,
+                                _fieldHeight,
+                              ),
+                              _imageField(
+                                _fieldWidth,
+                                _fieldHeight,
+                              ),
+                            ],
                           ),
-                          _editPINbutton(
-                            _fieldWidth,
-                            _fieldHeight,
+                          Column(
+                            children: [
+                              _weeklyHoursField(
+                                _fieldWidth,
+                                _fieldHeight,
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  _doneButton(),
+                                  _cancelButton(),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -134,19 +155,28 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         top: 10,
         bottom: 10,
       ),
-      child: SizedBox(
-        height: _fieldHeight,
-        width: _fieldWidth,
-        child: TextFormField(
-          keyboardType: TextInputType.name,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(),
-            filled: true,
-            labelText: 'First Name',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'FIRST NAME',
+            style: Theme.of(context).textTheme.bodyText1,
           ),
-        ),
+          SizedBox(
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: TextFormField(
+              keyboardType: TextInputType.name,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'First Name',
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -158,19 +188,28 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         top: 10,
         bottom: 10,
       ),
-      child: SizedBox(
-        height: _fieldHeight,
-        width: _fieldWidth,
-        child: TextFormField(
-          keyboardType: TextInputType.name,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(),
-            filled: true,
-            labelText: 'Last Name',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'LAST NAME',
+            style: Theme.of(context).textTheme.bodyText1,
           ),
-        ),
+          SizedBox(
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: TextFormField(
+              keyboardType: TextInputType.name,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'Last Name',
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -182,19 +221,28 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         top: 10,
         bottom: 10,
       ),
-      child: SizedBox(
-        height: _fieldHeight,
-        width: _fieldWidth,
-        child: TextFormField(
-          keyboardType: TextInputType.name,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(),
-            filled: true,
-            labelText: 'Email',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'EMAIL',
+            style: Theme.of(context).textTheme.bodyText1,
           ),
-        ),
+          SizedBox(
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: TextFormField(
+              keyboardType: TextInputType.name,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'Email',
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -208,46 +256,55 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
             top: 10,
             bottom: 10,
           ),
-          child: SizedBox(
-            height: _fieldHeight,
-            width: _fieldWidth,
-            child: TextFormField(
-              keyboardType: TextInputType.name,
-              autocorrect: false,
-              decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                border: const OutlineInputBorder(),
-                filled: true,
-                labelText: 'Phone Number',
-                prefixIcon: Container(
-                  width: 90,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                        color: Colors.black,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'PHONE NUMBER',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              SizedBox(
+                height: _fieldHeight,
+                width: _fieldWidth,
+                child: TextFormField(
+                  keyboardType: TextInputType.name,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    border: const OutlineInputBorder(),
+                    filled: true,
+                    labelText: 'Phone Number',
+                    prefixIcon: Container(
+                      width: 90,
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          right: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.map,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.map,
+                            ),
+                            Text(
+                              '+63',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            const Icon(
+                              Icons.arrow_drop_down,
+                            ),
+                          ],
                         ),
-                        Text(
-                          '+63',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const Icon(
-                          Icons.arrow_drop_down,
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ],
@@ -261,19 +318,28 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         top: 10,
         bottom: 10,
       ),
-      child: SizedBox(
-        height: _fieldHeight,
-        width: _fieldWidth,
-        child: TextFormField(
-          keyboardType: TextInputType.name,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(),
-            filled: true,
-            labelText: 'Employee ID',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'EMPLOYEE ID',
+            style: Theme.of(context).textTheme.bodyText1,
           ),
-        ),
+          SizedBox(
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: TextFormField(
+              keyboardType: TextInputType.name,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: 'Employee ID',
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -285,39 +351,48 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         top: 10,
         bottom: 10,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(
-            style: BorderStyle.solid,
-            width: 1,
-          ),
-        ),
-        height: _fieldHeight,
-        width: _fieldWidth,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButtonFormField<String>(
-            items: <String>[
-              'Manager',
-              'Assistant Manager',
-              'Cashier',
-              'Janitor',
-              'Bartender'
-            ].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              );
-            }).toList(),
-            onChanged: (_) {},
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'JOB ROLE',
             style: Theme.of(context).textTheme.bodyText1,
-            isExpanded: true,
-            menuMaxHeight: 200,
           ),
-        ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              border: Border.all(
+                style: BorderStyle.solid,
+                width: 1,
+              ),
+            ),
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButtonFormField<String>(
+                items: <String>[
+                  'Manager',
+                  'Assistant Manager',
+                  'Cashier',
+                  'Janitor',
+                  'Bartender'
+                ].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
+                onChanged: (_) {},
+                style: Theme.of(context).textTheme.bodyText1,
+                isExpanded: true,
+                menuMaxHeight: 200,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -329,37 +404,46 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         top: 10,
         bottom: 10,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5.0),
-          border: Border.all(
-            style: BorderStyle.solid,
-            width: 1,
-          ),
-        ),
-        height: _fieldHeight,
-        width: _fieldWidth,
-        child: DropdownButtonHideUnderline(
-          child: DropdownButtonFormField<String>(
-            items: <String>[
-              'Hourly',
-              'Salary',
-              'My Test',
-            ].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              );
-            }).toList(),
-            onChanged: (_) {},
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'PAY TYPE',
             style: Theme.of(context).textTheme.bodyText1,
-            isExpanded: true,
-            menuMaxHeight: 200,
           ),
-        ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              border: Border.all(
+                style: BorderStyle.solid,
+                width: 1,
+              ),
+            ),
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: DropdownButtonHideUnderline(
+              child: DropdownButtonFormField<String>(
+                items: <String>[
+                  'Hourly',
+                  'Salary',
+                  'My Test',
+                ].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
+                onChanged: (_) {},
+                style: Theme.of(context).textTheme.bodyText1,
+                isExpanded: true,
+                menuMaxHeight: 200,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -371,24 +455,66 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         top: 10,
         bottom: 10,
       ),
-      child: SizedBox(
-        height: _fieldHeight,
-        width: _fieldWidth,
-        child: TextFormField(
-          keyboardType: TextInputType.name,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(),
-            filled: true,
-            labelText: '\$0.00',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'HOURLY RATE',
+            style: Theme.of(context).textTheme.bodyText1,
           ),
-        ),
+          SizedBox(
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: TextFormField(
+              keyboardType: TextInputType.name,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: '\$0.00',
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _weeklyHoursField(final _fieldWidth, _fieldHeight) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 20,
+        top: 10,
+        bottom: 10,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'WEEKLY HOURS',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          SizedBox(
+            height: _fieldHeight,
+            width: _fieldWidth,
+            child: TextFormField(
+              keyboardType: TextInputType.name,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                border: OutlineInputBorder(),
+                filled: true,
+                labelText: '0',
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _editPINbutton(final _fieldWidth, _fieldHeight) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -398,24 +524,18 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
       child: SizedBox(
         height: _fieldHeight,
         width: _fieldWidth,
-        child: TextFormField(
-          keyboardType: TextInputType.name,
-          autocorrect: false,
-          decoration: const InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(),
-            filled: true,
-            labelText: '0',
-          ),
+        child: ElevatedButton(
+          onPressed: () {},
+          child: const Text('EDIT PIN'),
         ),
       ),
     );
   }
 
-  Widget _editPINbutton(final _fieldWidth, _fieldHeight) {
+  Widget _imageField(final _fieldWidth, _fieldHeight) {
     return Padding(
       padding: const EdgeInsets.only(
-        right: 20,
+        left: 20,
         top: 10,
         bottom: 10,
       ),
@@ -424,7 +544,43 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         width: _fieldWidth,
         child: ElevatedButton(
           onPressed: () {},
-          child: const Text('EDIT PIN'),
+          child: const Text('UPLOAD PHOTO'),
+        ),
+      ),
+    );
+  }
+
+  Widget _doneButton() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+      ),
+      child: SizedBox(
+        height: 50,
+        width: 100,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: const Text('DONE'),
+        ),
+      ),
+    );
+  }
+
+  Widget _cancelButton() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 10,
+        left: 20,
+        top: 10,
+        bottom: 10,
+      ),
+      child: SizedBox(
+        height: 50,
+        width: 100,
+        child: ElevatedButton(
+          onPressed: () {},
+          child: const Text('CANCEL'),
         ),
       ),
     );
