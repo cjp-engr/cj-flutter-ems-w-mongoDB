@@ -579,7 +579,9 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         height: 50,
         width: 100,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           child: const Text('CANCEL'),
         ),
       ),
