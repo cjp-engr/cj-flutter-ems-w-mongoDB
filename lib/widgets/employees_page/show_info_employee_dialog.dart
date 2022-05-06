@@ -1,3 +1,4 @@
+import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
 import 'package:flutter/material.dart';
 
 class ShowInfoDialogEmployee extends StatefulWidget {
@@ -232,7 +233,7 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.emailAddress,
               autocorrect: false,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -267,7 +268,7 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
                 height: _fieldHeight,
                 width: _fieldWidth,
                 child: TextFormField(
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.phone,
                   autocorrect: false,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -466,7 +467,7 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.number,
               autocorrect: false,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -499,7 +500,7 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.number,
               autocorrect: false,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -525,7 +526,12 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         height: _fieldHeight,
         width: _fieldWidth,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => const EmployeePinDialog(),
+            );
+          },
           child: const Text('EDIT PIN'),
         ),
       ),

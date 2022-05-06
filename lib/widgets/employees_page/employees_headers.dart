@@ -50,7 +50,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                 ),
               ),
               child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
+                child: DropdownButtonFormField<String>(
                   items: <String>[
                     'All',
                     'Active',
@@ -66,7 +66,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                     );
                   }).toList(),
                   onChanged: (_) {},
-                  style: Theme.of(context).textTheme.bodyText2,
+                  style: Theme.of(context).textTheme.bodyText1,
                   isExpanded: true,
                 ),
               ),
