@@ -1,14 +1,15 @@
 import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
+import 'package:ems_app/widgets/employees_page/employee_upload_photo_dialog.dart';
 import 'package:flutter/material.dart';
 
-class ShowInfoDialogEmployee extends StatefulWidget {
-  const ShowInfoDialogEmployee({Key? key}) : super(key: key);
+class ShowInfoEmployeeDialog extends StatefulWidget {
+  const ShowInfoEmployeeDialog({Key? key}) : super(key: key);
 
   @override
-  State<ShowInfoDialogEmployee> createState() => _ShowInfoDialogEmployeeState();
+  State<ShowInfoEmployeeDialog> createState() => _ShowInfoEmployeeDialogState();
 }
 
-class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
+class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
@@ -36,7 +37,11 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
                     ),
                     child: Text(
                       'CONTACT INFORMATION',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.headline5!.merge(
+                            const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                     ),
                   ),
                 ],
@@ -549,7 +554,12 @@ class _ShowInfoDialogEmployeeState extends State<ShowInfoDialogEmployee> {
         height: _fieldHeight,
         width: _fieldWidth,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => const EmployeeUploadPhotoDialog(),
+            );
+          },
           child: const Text('UPLOAD PHOTO'),
         ),
       ),

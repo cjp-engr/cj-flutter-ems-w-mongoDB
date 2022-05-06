@@ -52,6 +52,8 @@ flutter:
     - assets/images/flutter_logo.png
     - assets/images/asterisk_filled.png
     - assets/images/asterisk_unfilled.png
+    - assets/images/camera_icon.png
+    
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

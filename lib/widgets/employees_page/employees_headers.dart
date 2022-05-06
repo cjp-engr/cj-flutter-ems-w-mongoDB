@@ -140,7 +140,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => const ShowInfoDialogEmployee(),
+                    builder: (context) => const ShowInfoEmployeeDialog(),
                   );
                 },
                 child: Text(
