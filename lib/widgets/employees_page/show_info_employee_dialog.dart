@@ -1,3 +1,4 @@
+import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/country_codes_dialog.dart';
 import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
 import 'package:ems_app/widgets/employees_page/employee_upload_photo_dialog.dart';
@@ -187,6 +188,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
@@ -219,6 +221,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
@@ -251,6 +254,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
@@ -285,6 +289,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 height: _fieldHeight,
                 width: _fieldWidth,
                 child: TextFormField(
+                  style: Theme.of(context).textTheme.bodyText1,
                   textAlignVertical: TextAlignVertical.top,
                   keyboardType: TextInputType.phone,
                   autocorrect: false,
@@ -353,6 +358,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
@@ -485,6 +491,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
               autocorrect: false,
@@ -517,6 +524,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
               autocorrect: false,
@@ -549,14 +557,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             );
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color(0xfffeb062),
+            primary: yellowButton,
           ),
           child: Text(
             'EDIT PIN',
             style: Theme.of(context).textTheme.bodyText1!.merge(
-                  const TextStyle(
+                  TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff002651),
+                    color: darkBlueText,
                   ),
                 ),
           ),
@@ -581,14 +589,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             );
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color(0xffff304f),
+            primary: redButton,
           ),
           child: Text(
             'UPLOAD PHOTO',
             style: Theme.of(context).textTheme.bodyText1!.merge(
-                  const TextStyle(
+                  TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff002651),
+                    color: darkBlueText,
                   ),
                 ),
           ),
@@ -609,14 +617,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         child: ElevatedButton(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
-            primary: const Color(0xfffeb062),
+            primary: yellowButton,
           ),
           child: Text(
             'DONE',
             style: Theme.of(context).textTheme.bodyText1!.merge(
-                  const TextStyle(
+                  TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff002651),
+                    color: darkBlueText,
                   ),
                 ),
           ),
@@ -641,14 +649,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             Navigator.pop(context);
           },
           style: ElevatedButton.styleFrom(
-            primary: const Color(0xffff304f),
+            primary: redButton,
           ),
           child: Text(
             'CANCEL',
             style: Theme.of(context).textTheme.bodyText1!.merge(
-                  const TextStyle(
+                  TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xff002651),
+                    color: darkBlueText,
                   ),
                 ),
           ),

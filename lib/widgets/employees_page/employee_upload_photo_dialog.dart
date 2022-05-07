@@ -1,3 +1,4 @@
+import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeUploadPhotoDialog extends StatelessWidget {
@@ -54,8 +55,19 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
                       height: 70,
                       width: 350,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: yellowButton,
+                        ),
                         onPressed: () {},
-                        child: const Text('UPLOAD PHOTO'),
+                        child: Text(
+                          'UPLOAD PHOTO',
+                          style: Theme.of(context).textTheme.bodyText1!.merge(
+                                TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: darkBlueText,
+                                ),
+                              ),
+                        ),
                       ),
                     ),
                   ),
@@ -70,10 +82,21 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 70,
-                  width: 330 / 2,
+                  width: 177,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: yellowButton,
+                    ),
                     onPressed: () {},
-                    child: const Text('CHOOSE PHOTO'),
+                    child: Text(
+                      'CHOOSE PHOTO',
+                      style: Theme.of(context).textTheme.bodyText1!.merge(
+                            TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: darkBlueText,
+                            ),
+                          ),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -81,12 +104,23 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 70,
-                  width: 330 / 2,
+                  width: 150,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: redButton,
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text('CANCEL'),
+                    child: Text(
+                      'CANCEL',
+                      style: Theme.of(context).textTheme.bodyText1!.merge(
+                            TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: darkBlueText,
+                            ),
+                          ),
+                    ),
                   ),
                 ),
               ],

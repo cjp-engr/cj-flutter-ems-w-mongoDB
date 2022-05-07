@@ -28,6 +28,9 @@ class CountryCodesDialog extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   const SearchCountryCode(),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   FutureBuilder(
                     future: readJsonData(),
                     builder: (context, data) {
@@ -37,7 +40,7 @@ class CountryCodesDialog extends StatelessWidget {
                         var items = data.data as List<CountryCodes>;
 
                         return SizedBox(
-                          height: MediaQuery.of(context).size.height / 2.7,
+                          height: MediaQuery.of(context).size.height / 3,
                           child: ListView.builder(
                             itemBuilder: (context, index) {
                               return GestureDetector(
@@ -90,6 +93,14 @@ class SearchCountryCode extends StatefulWidget {
 class _SearchCountryCodeState extends State<SearchCountryCode> {
   @override
   Widget build(BuildContext context) {
-    return const TextField();
+    return TextField(
+      autocorrect: false,
+      textAlignVertical: TextAlignVertical.bottom,
+      onChanged: (String? countrySearch) {
+        if (countrySearch != null) {
+          log(countrySearch);
+        }
+      },
+    );
   }
 }

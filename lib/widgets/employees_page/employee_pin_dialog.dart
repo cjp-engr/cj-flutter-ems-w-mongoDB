@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class EmployeePinDialog extends StatelessWidget {
@@ -74,8 +75,19 @@ class EmployeePinDialog extends StatelessWidget {
               width: 400,
               height: 50,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: yellowButton,
+                ),
                 onPressed: () {},
-                child: const Text('ENTER'),
+                child: Text(
+                  'ENTER',
+                  style: Theme.of(context).textTheme.bodyText1!.merge(
+                        TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: darkBlueText,
+                        ),
+                      ),
+                ),
               ),
             ),
           ],
@@ -101,7 +113,7 @@ class PinKey extends StatelessWidget {
         height: 350,
         decoration: BoxDecoration(
           border: Border.all(
-            color: Colors.black,
+            color: darkBlueText,
           ),
         ),
         child: TextButton(
@@ -113,8 +125,8 @@ class PinKey extends StatelessWidget {
             children: [
               Text(
                 character,
-                style: const TextStyle(
-                  color: Colors.black,
+                style: TextStyle(
+                  color: darkBlueText,
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
