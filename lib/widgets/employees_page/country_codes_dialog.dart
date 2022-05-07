@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:ems_app/models/country_codes.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -7,27 +10,86 @@ class CountryCodesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Container(
-        width: MediaQuery.of(context).size.width / 2,
-        height: MediaQuery.of(context).size.height / 2,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: FutureBuilder(
-          future: readJsonData(),
-          builder: (context, data) {
-            if (data.hasError) {
-              return Center(child: Text("${data.error}"));
-            } else if (data.hasData) {
-              return const Text('has data');
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Container(
+            width: MediaQuery.of(context).size.width / 2.7,
+            height: MediaQuery.of(context).size.height / 2,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 2.5,
+              child: Column(
+                children: [
+                  Text(
+                    'Select your phone code',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  const SearchCountryCode(),
+                  FutureBuilder(
+                    future: readJsonData(),
+                    builder: (context, data) {
+                      if (data.hasError) {
+                        return Center(child: Text("${data.error}"));
+                      } else if (data.hasData) {
+                        var items = data.data as List<CountryCodes>;
+
+                        return SizedBox(
+                          height: MediaQuery.of(context).size.height / 2.7,
+                          child: ListView.builder(
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  log(items[index].name!);
+                                },
+                                child: Card(
+                                  elevation: 0,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 70,
+                                        child: Text(items[index].code!),
+                                      ),
+                                      const SizedBox(
+                                        width: 50,
+                                      ),
+                                      Text(items[index].name!),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
+  }
+}
+
+class SearchCountryCode extends StatefulWidget {
+  const SearchCountryCode({Key? key}) : super(key: key);
+
+  @override
+  State<SearchCountryCode> createState() => _SearchCountryCodeState();
+}
+
+class _SearchCountryCodeState extends State<SearchCountryCode> {
+  @override
+  Widget build(BuildContext context) {
+    return const TextField();
   }
 }
