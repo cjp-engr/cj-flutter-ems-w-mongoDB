@@ -182,7 +182,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'FIRST NAME',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           SizedBox(
             height: _fieldHeight,
@@ -215,7 +219,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'LAST NAME',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           SizedBox(
             height: _fieldHeight,
@@ -248,7 +256,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'EMAIL',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           SizedBox(
             height: _fieldHeight,
@@ -283,7 +295,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             children: [
               Text(
                 'PHONE NUMBER',
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyText1!.merge(
+                      const TextStyle(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
               ),
               SizedBox(
                 height: _fieldHeight,
@@ -298,37 +314,40 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                     border: const OutlineInputBorder(),
                     filled: true,
                     //labelText: 'Phone Number',
-                    prefixIcon: Container(
-                      width: 90,
-                      decoration: const BoxDecoration(
-                        border: Border(
-                          right: BorderSide(
-                            color: Colors.black,
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Container(
+                        width: 90,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            right: BorderSide(
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const CountryCodesDialog(),
-                          );
-                        },
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 15,
+                        child: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const CountryCodesDialog(),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 15,
+                                ),
+                                child: Text(
+                                  '+63',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
                               ),
-                              child: Text(
-                                '+63',
-                                style: Theme.of(context).textTheme.bodyText1,
+                              const Icon(
+                                Icons.arrow_drop_down,
                               ),
-                            ),
-                            const Icon(
-                              Icons.arrow_drop_down,
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -352,7 +371,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'EMPLOYEE ID',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           SizedBox(
             height: _fieldHeight,
@@ -385,7 +408,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'JOB ROLE',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           Container(
             decoration: BoxDecoration(
@@ -399,6 +426,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             width: _fieldWidth,
             child: DropdownButtonHideUnderline(
               child: DropdownButtonFormField<String>(
+                decoration: const InputDecoration(border: InputBorder.none),
                 items: <String>[
                   'Manager',
                   'Assistant Manager',
@@ -408,9 +436,12 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(
-                      value,
-                      overflow: TextOverflow.ellipsis,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        value,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   );
                 }).toList(),
@@ -436,7 +467,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'PAY TYPE',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           Container(
             decoration: BoxDecoration(
@@ -450,6 +485,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             width: _fieldWidth,
             child: DropdownButtonHideUnderline(
               child: DropdownButtonFormField<String>(
+                decoration: const InputDecoration(border: InputBorder.none),
                 items: <String>[
                   'Hourly',
                   'Salary',
@@ -457,9 +493,12 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(
-                      value,
-                      overflow: TextOverflow.ellipsis,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        value,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   );
                 }).toList(),
@@ -485,7 +524,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'HOURLY RATE',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           SizedBox(
             height: _fieldHeight,
@@ -518,7 +561,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         children: [
           Text(
             'WEEKLY HOURS',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
           ),
           SizedBox(
             height: _fieldHeight,
