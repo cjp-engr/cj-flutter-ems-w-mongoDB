@@ -39,24 +39,24 @@ class EmployeesList extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                         right: 20,
-                        left: 40,
+                        left: 70,
                       ),
                       child: Text('CONTACT INFORMATION'),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                        right: 20,
-                        left: 200,
+                        // right: 20,
+                        left: 240,
                       ),
                       child: Text('SCHEDULE'),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: 20,
-                        left: 185,
-                      ),
-                      child: Text('STATUS'),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //     right: 20,
+                    //     left: 185,
+                    //   ),
+                    //   child: Text('STATUS'),
+                    // ),
                   ],
                 ),
               ),
@@ -141,9 +141,12 @@ class EmployeesList extends StatelessWidget {
                                   const SizedBox(
                                     height: 30,
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text('CLOCK OUT'),
+                                  SizedBox(
+                                    width: 115,
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('CLOCK OUT'),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -156,9 +159,12 @@ class EmployeesList extends StatelessWidget {
                                   const SizedBox(
                                     height: 30,
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    child: const Text('CLOCK IN'),
+                                  SizedBox(
+                                    width: 115,
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('CLOCK IN'),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -189,28 +195,31 @@ class EmployeesList extends StatelessWidget {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            const EmployeeViewHoursDialog(),
-                                      );
-                                    },
-                                    child: const Text('VIEW HOURS'),
+                                  SizedBox(
+                                    width: 150,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              const EmployeeViewHoursDialog(),
+                                        );
+                                      },
+                                      child: const Text('VIEW HOURS'),
+                                    ),
                                   ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            right: 25,
-                            left: 25,
-                          ),
-                          child: Text('ACTIVE'),
-                        ),
+                        // const Padding(
+                        //   padding: EdgeInsets.only(
+                        //     right: 25,
+                        //     left: 25,
+                        //   ),
+                        //   child: Text('ACTIVE'),
+                        // ),
                       ],
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:ems_app/widgets/employees_page/employee_set_hours.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeViewHoursDialog extends StatelessWidget {
@@ -37,26 +38,74 @@ class EmployeeViewHoursDialog extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width / 6.5,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'START TIME',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 6.5,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const EmployeeSetHours(),
+                            );
+                          },
+                          child: const Text('Start'),
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 6.5,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'END TIME',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 6.5,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const EmployeeSetHours(),
+                            );
+                          },
+                          child: const Text('End'),
+                        ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 5.5,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'JOB TYPE',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 5.5,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                        ),
+                      ),
+                    ],
                   ),
                   IconButton(
                     onPressed: () {},

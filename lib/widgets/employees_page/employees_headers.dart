@@ -37,42 +37,42 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // Container(
+            //   padding: const EdgeInsets.only(left: 5),
+            //   height: 50.0,
+            //   width: MediaQuery.of(context).size.width / 6.5,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(5.0),
+            //     border: Border.all(
+            //       color: Colors.black,
+            //       style: BorderStyle.solid,
+            //       width: 1,
+            //     ),
+            //   ),
+            //   child: DropdownButtonHideUnderline(
+            //     child: DropdownButtonFormField<String>(
+            //       items: <String>[
+            //         'All',
+            //         'Active',
+            //         'Inactive',
+            //         'Unverified',
+            //       ].map((String value) {
+            //         return DropdownMenuItem<String>(
+            //           value: value,
+            //           child: Text(
+            //             value,
+            //             overflow: TextOverflow.ellipsis,
+            //           ),
+            //         );
+            //       }).toList(),
+            //       onChanged: (_) {},
+            //       style: Theme.of(context).textTheme.bodyText1,
+            //       isExpanded: true,
+            //     ),
+            //   ),
+            // ),
             Container(
-              padding: const EdgeInsets.only(left: 5),
-              height: 50.0,
-              width: MediaQuery.of(context).size.width / 6.5,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(
-                  color: Colors.black,
-                  style: BorderStyle.solid,
-                  width: 1,
-                ),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButtonFormField<String>(
-                  items: <String>[
-                    'All',
-                    'Active',
-                    'Inactive',
-                    'Unverified',
-                  ].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (_) {},
-                  style: Theme.of(context).textTheme.bodyText1,
-                  isExpanded: true,
-                ),
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width / 1.5 / 2,
+              width: MediaQuery.of(context).size.width / 2.5,
               height: 50.0,
               padding: const EdgeInsets.symmetric(horizontal: 2.0),
               //margin: const EdgeInsets.all(20),
@@ -94,12 +94,12 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 2.0),
               height: 50.0,
-              width: MediaQuery.of(context).size.width / 6.5,
+              width: MediaQuery.of(context).size.width / 6,
               child: ElevatedButton(
                 child: Row(
                   children: const [
                     Padding(
-                      padding: EdgeInsets.only(right: 40),
+                      padding: EdgeInsets.only(right: 50),
                       child: Text('Date'),
                     ),
                     Icon(Icons.arrow_drop_down),
@@ -136,20 +136,23 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
             Container(
               height: 50.0,
               padding: const EdgeInsets.only(left: 2, right: 20),
-              child: ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => const ShowInfoEmployeeDialog(),
-                  );
-                },
-                child: Text(
-                  '+ ADD NEW EMPLOYEE',
-                  style: Theme.of(context).textTheme.button!.merge(
-                        const TextStyle(
-                          fontWeight: FontWeight.bold,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 3.8,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const ShowInfoEmployeeDialog(),
+                    );
+                  },
+                  child: Text(
+                    '+ ADD NEW EMPLOYEE',
+                    style: Theme.of(context).textTheme.button!.merge(
+                          const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
+                  ),
                 ),
               ),
             ),
