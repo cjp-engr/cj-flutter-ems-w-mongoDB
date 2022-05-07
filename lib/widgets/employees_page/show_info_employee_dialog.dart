@@ -1,3 +1,4 @@
+import 'package:ems_app/widgets/employees_page/country_codes_dialog.dart';
 import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
 import 'package:ems_app/widgets/employees_page/employee_upload_photo_dialog.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +33,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 30,
+                    padding: const EdgeInsets.only(
+                      top: 25,
+                      bottom: 10,
                     ),
                     child: Text(
                       'CONTACT INFORMATION',
@@ -67,6 +69,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -79,6 +84,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                             _fieldHeight,
                           ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,6 +101,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -106,6 +117,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                           ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -115,6 +129,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                               _editPINbutton(
                                 _fieldWidth,
                                 _fieldHeight,
+                              ),
+                              const SizedBox(
+                                height: 10,
                               ),
                               _imageField(
                                 _fieldWidth,
@@ -129,7 +146,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                                 _fieldHeight,
                               ),
                               const SizedBox(
-                                height: 20,
+                                height: 5,
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -158,8 +175,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,13 +187,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'First Name',
+                //labelText: 'First Name',
               ),
             ),
           ),
@@ -191,8 +207,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,13 +219,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Last Name',
+                //labelText: 'Last Name',
               ),
             ),
           ),
@@ -224,8 +239,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,13 +251,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Email',
+                //labelText: 'Email',
               ),
             ),
           ),
@@ -259,8 +273,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         Padding(
           padding: const EdgeInsets.only(
             right: 20,
-            top: 10,
-            bottom: 10,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,13 +285,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 height: _fieldHeight,
                 width: _fieldWidth,
                 child: TextFormField(
+                  textAlignVertical: TextAlignVertical.top,
                   keyboardType: TextInputType.phone,
                   autocorrect: false,
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     border: const OutlineInputBorder(),
                     filled: true,
-                    labelText: 'Phone Number',
+                    //labelText: 'Phone Number',
                     prefixIcon: Container(
                       width: 90,
                       decoration: const BoxDecoration(
@@ -290,15 +303,22 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                         ),
                       ),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const CountryCodesDialog(),
+                          );
+                        },
                         child: Row(
                           children: [
-                            const Icon(
-                              Icons.map,
-                            ),
-                            Text(
-                              '+63',
-                              style: Theme.of(context).textTheme.bodyText1,
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 15,
+                              ),
+                              child: Text(
+                                '+63',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
                             ),
                             const Icon(
                               Icons.arrow_drop_down,
@@ -321,8 +341,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,13 +353,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
               decoration: const InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 border: OutlineInputBorder(),
                 filled: true,
-                labelText: 'Employee ID',
+                //labelText: 'Employee ID',
               ),
             ),
           ),
@@ -354,8 +373,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -407,8 +424,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -458,8 +473,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -472,6 +485,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
               autocorrect: false,
               decoration: const InputDecoration(
@@ -491,8 +505,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -505,6 +517,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             height: _fieldHeight,
             width: _fieldWidth,
             child: TextFormField(
+              textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
               autocorrect: false,
               decoration: const InputDecoration(
@@ -524,8 +537,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: SizedBox(
         height: _fieldHeight,
@@ -537,7 +548,18 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               builder: (context) => const EmployeePinDialog(),
             );
           },
-          child: const Text('EDIT PIN'),
+          style: ElevatedButton.styleFrom(
+            primary: const Color(0xfffeb062),
+          ),
+          child: Text(
+            'EDIT PIN',
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff002651),
+                  ),
+                ),
+          ),
         ),
       ),
     );
@@ -547,8 +569,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
-        top: 10,
-        bottom: 10,
       ),
       child: SizedBox(
         height: _fieldHeight,
@@ -560,7 +580,18 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               builder: (context) => const EmployeeUploadPhotoDialog(),
             );
           },
-          child: const Text('UPLOAD PHOTO'),
+          style: ElevatedButton.styleFrom(
+            primary: const Color(0xffff304f),
+          ),
+          child: Text(
+            'UPLOAD PHOTO',
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff002651),
+                  ),
+                ),
+          ),
         ),
       ),
     );
@@ -577,7 +608,18 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         width: 100,
         child: ElevatedButton(
           onPressed: () {},
-          child: const Text('DONE'),
+          style: ElevatedButton.styleFrom(
+            primary: const Color(0xfffeb062),
+          ),
+          child: Text(
+            'DONE',
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff002651),
+                  ),
+                ),
+          ),
         ),
       ),
     );
@@ -593,12 +635,23 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
       ),
       child: SizedBox(
         height: 50,
-        width: 100,
+        width: 110,
         child: ElevatedButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Text('CANCEL'),
+          style: ElevatedButton.styleFrom(
+            primary: const Color(0xffff304f),
+          ),
+          child: Text(
+            'CANCEL',
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff002651),
+                  ),
+                ),
+          ),
         ),
       ),
     );

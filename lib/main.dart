@@ -17,15 +17,15 @@ class MyApp extends StatelessWidget {
         textTheme: const TextTheme(
           button: TextStyle(
             fontSize: 15.0,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w600,
           ),
           headline5: TextStyle(
             fontSize: 45.0,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w600,
           ),
           headline6: TextStyle(
             fontSize: 26.5,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w600,
           ),
           subtitle1: TextStyle(
             fontSize: 25.0,
@@ -36,11 +36,11 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
           bodyText1: TextStyle(
-            fontSize: 21.0,
+            fontSize: 18.0,
             fontWeight: FontWeight.w400,
           ),
           bodyText2: TextStyle(
-            fontSize: 10.0,
+            fontSize: 15.0,
             fontWeight: FontWeight.w400,
           ),
           caption: TextStyle(
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w300,
           ),
         ).apply(
-          fontFamily: 'Questrial',
+          fontFamily: 'Poppins',
         ),
       ),
       home: const SideNavigationBar(),

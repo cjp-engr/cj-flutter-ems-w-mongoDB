@@ -145,11 +145,15 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                       builder: (context) => const ShowInfoEmployeeDialog(),
                     );
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0xfffeb062),
+                  ),
                   child: Text(
                     '+ ADD NEW EMPLOYEE',
-                    style: Theme.of(context).textTheme.button!.merge(
+                    style: Theme.of(context).textTheme.bodyText1!.merge(
                           const TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: Color(0xff002651),
                           ),
                         ),
                   ),

@@ -115,7 +115,7 @@ class PinKey extends StatelessWidget {
                 character,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 50,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
               ),

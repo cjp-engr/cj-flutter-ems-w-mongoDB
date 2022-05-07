@@ -29,34 +29,18 @@ class EmployeesList extends StatelessWidget {
                 ),
                 child: Row(
                   children: const [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 60,
-                        right: 40,
-                      ),
-                      child: Text('EMPLOYEE'),
+                    SizedBox(
+                      width: 70,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: 20,
-                        left: 70,
-                      ),
-                      child: Text('CONTACT INFORMATION'),
+                    Text('EMPLOYEE'),
+                    SizedBox(
+                      width: 155,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        // right: 20,
-                        left: 240,
-                      ),
-                      child: Text('SCHEDULE'),
+                    Text('CONTACT INFORMATION'),
+                    SizedBox(
+                      width: 190,
                     ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //     right: 20,
-                    //     left: 185,
-                    //   ),
-                    //   child: Text('STATUS'),
-                    // ),
+                    Text('SCHEDULE'),
                   ],
                 ),
               ),
@@ -86,7 +70,7 @@ class EmployeesList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 6,
+                          width: MediaQuery.of(context).size.width / 4.5,
                           child: Row(
                             children: [
                               ClipOval(
@@ -100,7 +84,7 @@ class EmployeesList extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                width: 20,
+                                width: 10,
                               ),
                               Column(
                                 children: [
@@ -120,7 +104,7 @@ class EmployeesList extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 6,
+                          width: MediaQuery.of(context).size.width / 4.5,
                           child: Column(
                             children: const [
                               Text('carmen.palsario@eigital.com'),
@@ -133,93 +117,61 @@ class EmployeesList extends StatelessWidget {
                             right: 20,
                             left: 20,
                           ),
-                          child: Row(
+                          child: Column(
                             children: [
-                              Column(
+                              Row(
                                 children: [
-                                  const Text('CLOCK IN'),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: 115,
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      child: const Text('CLOCK OUT'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                children: [
-                                  const Text('CLOCK OUT'),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    width: 115,
-                                    child: ElevatedButton(
-                                      onPressed: () {},
-                                      child: const Text('CLOCK IN'),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Column(
-                                        children: const [
-                                          Text('Break Time'),
-                                          Text('00H 00M'),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Column(
-                                        children: const [
-                                          Text('Time Worked'),
-                                          Text('00H 00M'),
-                                        ],
-                                      ),
+                                  Column(
+                                    children: const [
+                                      Text('Break Time'),
+                                      Text('00H 00M'),
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 20,
+                                    width: 10,
                                   ),
-                                  SizedBox(
-                                    width: 150,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              const EmployeeViewHoursDialog(),
-                                        );
-                                      },
-                                      child: const Text('VIEW HOURS'),
-                                    ),
+                                  Column(
+                                    children: const [
+                                      Text('Time Worked'),
+                                      Text('00H 00M'),
+                                    ],
                                   ),
                                 ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                width: 250,
+                                height: 50,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: const Color(0xffff304f),
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          const EmployeeViewHoursDialog(),
+                                    );
+                                  },
+                                  child: Text(
+                                    'VIEW HOURS',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .merge(
+                                          const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xff002651),
+                                          ),
+                                        ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        // const Padding(
-                        //   padding: EdgeInsets.only(
-                        //     right: 25,
-                        //     left: 25,
-                        //   ),
-                        //   child: Text('ACTIVE'),
-                        // ),
                       ],
                     ),
                   ),
