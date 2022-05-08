@@ -196,12 +196,18 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: focusedFieldColor,
+                    width: 3,
+                  ),
+                ),
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 filled: true,
-                //labelText: 'First Name',
               ),
+              cursorColor: focusedFieldColor,
             ),
           ),
         ],
@@ -233,12 +239,18 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: focusedFieldColor,
+                    width: 3,
+                  ),
+                ),
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 filled: true,
-                //labelText: 'Last Name',
               ),
+              cursorColor: focusedFieldColor,
             ),
           ),
         ],
@@ -270,12 +282,18 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: focusedFieldColor,
+                    width: 3,
+                  ),
+                ),
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 filled: true,
-                //labelText: 'Email',
               ),
+              cursorColor: focusedFieldColor,
             ),
           ),
         ],
@@ -312,8 +330,13 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                   decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     border: const OutlineInputBorder(),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: focusedFieldColor,
+                        width: 3,
+                      ),
+                    ),
                     filled: true,
-                    //labelText: 'Phone Number',
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Container(
@@ -352,6 +375,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                       ),
                     ),
                   ),
+                  cursorColor: focusedFieldColor,
                 ),
               ),
             ],
@@ -385,12 +409,18 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: focusedFieldColor,
+                    width: 3,
+                  ),
+                ),
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 filled: true,
-                //labelText: 'Employee ID',
               ),
+              cursorColor: focusedFieldColor,
             ),
           ),
         ],
@@ -426,7 +456,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
             width: _fieldWidth,
             child: DropdownButtonHideUnderline(
               child: DropdownButtonFormField<String>(
-                decoration: const InputDecoration(border: InputBorder.none),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
                 items: <String>[
                   'Manager',
                   'Assistant Manager',
@@ -538,12 +570,19 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: focusedFieldColor,
+                    width: 3,
+                  ),
+                ),
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 filled: true,
                 labelText: '\$0.00',
               ),
+              cursorColor: focusedFieldColor,
             ),
           ),
         ],
@@ -575,12 +614,19 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: focusedFieldColor,
+                    width: 3,
+                  ),
+                ),
                 floatingLabelBehavior: FloatingLabelBehavior.never,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 filled: true,
                 labelText: '0',
               ),
+              cursorColor: focusedFieldColor,
             ),
           ),
         ],

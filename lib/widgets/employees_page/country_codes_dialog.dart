@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/country_codes.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:flutter/material.dart';
@@ -94,8 +95,20 @@ class _SearchCountryCodeState extends State<SearchCountryCode> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: Theme.of(context).textTheme.bodyText1,
+      decoration: InputDecoration(
+        labelText: 'Search...',
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: focusedFieldColor,
+            width: 3,
+          ),
+        ),
+      ),
       autocorrect: false,
       textAlignVertical: TextAlignVertical.bottom,
+      cursorColor: focusedFieldColor,
       onChanged: (String? countrySearch) {
         if (countrySearch != null) {
           log(countrySearch);
