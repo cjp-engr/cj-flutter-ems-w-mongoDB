@@ -1,6 +1,6 @@
-class CountryCodeException implements Exception {
+class CustomException implements Exception {
   String message;
-  CountryCodeException([this.message = 'Something went wrong']) {
+  CustomException([this.message = 'Something went wrong']) {
     message = 'News Exception: $message';
   }
 

@@ -1,7 +1,9 @@
+import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/employee_view_hours_dialog.dart';
 import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmployeesList extends StatelessWidget {
   const EmployeesList({Key? key}) : super(key: key);
@@ -53,132 +55,142 @@ class EmployeesList extends StatelessWidget {
             ),
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 1.6,
-              child: ListView.separated(
-                separatorBuilder: (context, index) => const Divider(
-                  color: Colors.black,
-                ),
-                itemCount: 20,
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => const ShowInfoEmployeeDialog(),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 4.5,
-                          child: Row(
-                            children: [
-                              ClipOval(
-                                child: SizedBox.fromSize(
-                                  size:
-                                      const Size.fromRadius(27), // Image radius
-                                  child: Image.asset(
-                                    'assets/images/flutter_logo.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Column(
+              child: BlocBuilder<EmployeesBloc, EmployeesState>(
+                builder: (context, state) {
+                  return ListView.separated(
+                    separatorBuilder: (context, index) => const Divider(
+                      color: Colors.black,
+                    ),
+                    itemCount: state.employeesList.length,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const ShowInfoEmployeeDialog(),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 4.5,
+                              child: Row(
                                 children: [
-                                  Text(
-                                    'Carmen Joy Palsario',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2,
-                                  ),
-                                  Text(
-                                    'Software Engineer',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText2,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 4.5,
-                          child: Column(
-                            children: const [
-                              Text('carmen.palsario@eigital.com'),
-                              Text('+63 916-275-6844'),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            right: 20,
-                            left: 20,
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Column(
-                                    children: const [
-                                      Text('Break Time'),
-                                      Text('00H 00M'),
-                                    ],
+                                  ClipOval(
+                                    child: SizedBox.fromSize(
+                                      size: const Size.fromRadius(
+                                          27), // Image radius
+                                      child: Image.asset(
+                                        'assets/images/flutter_logo.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 10,
                                   ),
                                   Column(
-                                    children: const [
-                                      Text('Time Worked'),
-                                      Text('00H 00M'),
+                                    children: [
+                                      Text(
+                                        state.employeesList[index].firstName! +
+                                            " " +
+                                            state
+                                                .employeesList[index].lastName!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                        maxLines: 2,
+                                      ),
+                                      Text(
+                                        state.employeesList[index].jobRole!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                      ),
                                     ],
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                height: 10,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 4.5,
+                              child: Column(
+                                children: [
+                                  Text(state.employeesList[index].email!),
+                                  Text(state.employeesList[index].phoneNumber!),
+                                ],
                               ),
-                              SizedBox(
-                                width: 250,
-                                height: 50,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: redButton,
-                                  ),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) =>
-                                          const EmployeeViewHoursDialog(),
-                                    );
-                                  },
-                                  child: Text(
-                                    'VIEW HOURS',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1!
-                                        .merge(
-                                          TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: darkBlueText,
-                                          ),
-                                        ),
-                                  ),
-                                ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                right: 20,
+                                left: 20,
                               ),
-                            ],
-                          ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Column(
+                                        children: const [
+                                          Text('Break Time'),
+                                          Text('00H 00M'),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        children: const [
+                                          Text('Time Worked'),
+                                          Text('00H 00M'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 250,
+                                    height: 50,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        primary: redButton,
+                                      ),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              const EmployeeViewHoursDialog(),
+                                        );
+                                      },
+                                      child: Text(
+                                        'VIEW HOURS',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1!
+                                            .merge(
+                                              TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: darkBlueText,
+                                              ),
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                  );
+                },
               ),
             ),
           ),

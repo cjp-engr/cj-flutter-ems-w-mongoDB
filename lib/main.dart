@@ -1,6 +1,9 @@
 import 'package:ems_app/blocs/blocs.dart';
+import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
+import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:ems_app/services/country_code_api_services.dart';
+import 'package:ems_app/services/employee_api_services.dart';
 import 'package:ems_app/widgets/side_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +22,13 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
+          create: (context) => EmployeeRepository(
+            employeeApiServices: EmployeeApiServices(
+              httpClient: http.Client(),
+            ),
+          ),
+        ),
+        RepositoryProvider(
           create: (context) => CountryCodeRepository(
             countryCodeApiServices: CountryCodeApiServices(
               httpClient: http.Client(),
@@ -28,6 +38,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<EmployeesBloc>(
+            create: (context) => EmployeesBloc(
+              employeeRepository: context.read<EmployeeRepository>(),
+            )..add(FetchAllEmployeesEvent()),
+          ),
           BlocProvider<CountryCodesBloc>(
             create: (context) => CountryCodesBloc(
               countryCodeRepository: context.read<CountryCodeRepository>(),

@@ -1,5 +1,5 @@
-import 'package:ems_app/exceptions/country_code_exception.dart';
-import 'package:ems_app/models/country_code_custom_error.dart';
+import 'package:ems_app/exceptions/custom_exception.dart';
+import 'package:ems_app/models/model_custom_error.dart';
 import 'package:ems_app/models/country_codes.dart';
 import 'package:ems_app/services/country_code_api_services.dart';
 
@@ -14,7 +14,7 @@ class CountryCodeRepository {
       List<CountryCodes>? countryCodes =
           await countryCodeApiServices.getCountryCode();
       return countryCodes;
-    } on CountryCodeException catch (e) {
+    } on CustomException catch (e) {
       throw CustomError(message: e.message);
     } catch (e) {
       throw CustomError(message: e.toString());
