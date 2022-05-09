@@ -1,15 +1,16 @@
-import 'dart:developer';
-
+import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/models/country_codes.dart';
-import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CountryCodesDialog extends StatelessWidget {
   const CountryCodesDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final countryCodesList =
+        context.watch<CountryCodesBloc>().state.countryCodesList;
+
     return Dialog(
       child: SingleChildScrollView(
         child: Padding(
@@ -32,47 +33,34 @@ class CountryCodesDialog extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  FutureBuilder(
-                    future: readJsonData(),
-                    builder: (context, data) {
-                      if (data.hasError) {
-                        return Center(child: Text("${data.error}"));
-                      } else if (data.hasData) {
-                        var items = data.data as List<CountryCodes>;
-
-                        return SizedBox(
-                          height: MediaQuery.of(context).size.height / 3,
-                          child: ListView.builder(
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  log(items[index].name!);
-                                },
-                                child: Card(
-                                  elevation: 0,
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 70,
-                                        child: Text(items[index].code!),
-                                      ),
-                                      const SizedBox(
-                                        width: 50,
-                                      ),
-                                      Text(items[index].name!),
-                                    ],
-                                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 3,
+                    child: ListView.builder(
+                      itemCount: countryCodesList.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            debugPrint(countryCodesList[index].name);
+                            Navigator.pop(context);
+                          },
+                          child: Card(
+                            elevation: 0,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 70,
+                                  child: Text(countryCodesList[index].code!),
                                 ),
-                              );
-                            },
+                                const SizedBox(
+                                  width: 50,
+                                ),
+                                Text(countryCodesList[index].name!),
+                              ],
+                            ),
                           ),
                         );
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -109,10 +97,8 @@ class _SearchCountryCodeState extends State<SearchCountryCode> {
       autocorrect: false,
       textAlignVertical: TextAlignVertical.bottom,
       cursorColor: focusedFieldColor,
-      onChanged: (String? countrySearch) {
-        if (countrySearch != null) {
-          log(countrySearch);
-        }
+      onChanged: (String? searchCountrycode) {
+        if (searchCountrycode != null) {}
       },
     );
   }

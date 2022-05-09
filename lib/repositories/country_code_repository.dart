@@ -1,19 +1,23 @@
-import 'dart:convert';
-
+import 'package:ems_app/exceptions/country_code_exception.dart';
+import 'package:ems_app/models/country_code_custom_error.dart';
 import 'package:ems_app/models/country_codes.dart';
-import 'package:flutter/services.dart' as root_bundle;
+import 'package:ems_app/services/country_code_api_services.dart';
 
-Future<List<CountryCodes>> readJsonData() async {
-  try {
-    final jsondata = await root_bundle.rootBundle
-        .loadString('assets/jsonfiles/country_code.json');
+class CountryCodeRepository {
+  final CountryCodeApiServices countryCodeApiServices;
+  CountryCodeRepository({
+    required this.countryCodeApiServices,
+  });
 
-    final codeList = json.decode(jsondata)['countries'];
-
-    List<CountryCodes> results =
-        (codeList as List).map((e) => CountryCodes.fromJson(e)).toList();
-    return results;
-  } catch (e) {
-    rethrow;
+  Future<List<CountryCodes>?> fetchCountryCodesList() async {
+    try {
+      List<CountryCodes>? countryCodes =
+          await countryCodeApiServices.getCountryCode();
+      return countryCodes;
+    } on CountryCodeException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
   }
 }

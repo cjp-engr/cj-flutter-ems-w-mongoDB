@@ -29,9 +29,12 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   day_night_time_picker: ^1.0.5
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.0.1
   flutter_holo_date_picker: ^1.0.3
+  http: ^0.13.4
   validators: ^3.0.0
 
 dev_dependencies:
@@ -54,7 +57,6 @@ flutter:
     - assets/images/asterisk_filled.png
     - assets/images/asterisk_unfilled.png
     - assets/images/camera_icon.png
-    - assets/jsonfiles/country_code.json
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -79,7 +81,6 @@ flutter:
           weight: 400
         - asset: assets/fonts/Poppins-SemiBold.ttf
           weight: 600
-        
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
