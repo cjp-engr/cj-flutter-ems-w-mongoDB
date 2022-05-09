@@ -15,3 +15,10 @@ class FilterCountriesEvent extends CountryCodesEvent {
     required this.enteredKeyword,
   });
 }
+
+class SelectCountryCodeEvent extends CountryCodesEvent {
+  final String selectedCountryCode;
+  const SelectCountryCodeEvent({
+    required this.selectedCountryCode,
+  });
+}

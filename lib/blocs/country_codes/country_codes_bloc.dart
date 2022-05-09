@@ -16,6 +16,7 @@ class CountryCodesBloc extends Bloc<CountryCodesEvent, CountryCodesState> {
   }) : super(CountryCodesState.initial()) {
     on<FetchAllCountryCodesEvent>(_fetchAllCountryCodes);
     on<FilterCountriesEvent>(_filterCountries);
+    on<SelectCountryCodeEvent>(_selectCountryCode);
   }
 
   FutureOr<void> _fetchAllCountryCodes(
@@ -45,10 +46,19 @@ class CountryCodesBloc extends Bloc<CountryCodesEvent, CountryCodesState> {
     emit(state.copyWith(countryCodeStatus: CountryCodeStatus.loading));
     try {
       List<CountryCodes> _filteredCCList = [];
-      _filteredCCList = state.countryCodesList
-          .where((CountryCodes countryCodes) =>
-              countryCodes.name!.toLowerCase().contains(event.enteredKeyword))
-          .toList();
+      if (event.enteredKeyword.contains(RegExp(r'[0-9]')) ||
+          event.enteredKeyword.contains(RegExp(r'[+]'))) {
+        _filteredCCList = state.countryCodesList
+            .where((CountryCodes countryCodes) =>
+                countryCodes.code!.toLowerCase().contains(event.enteredKeyword))
+            .toList();
+      } else {
+        _filteredCCList = state.countryCodesList
+            .where((CountryCodes countryCodes) =>
+                countryCodes.name!.toLowerCase().contains(event.enteredKeyword))
+            .toList();
+      }
+
       emit(state.copyWith(
         countryCodesList: _filteredCCList,
         countryCodeStatus: CountryCodeStatus.loaded,
@@ -59,5 +69,12 @@ class CountryCodesBloc extends Bloc<CountryCodesEvent, CountryCodesState> {
         customError: e,
       ));
     }
+  }
+
+  FutureOr<void> _selectCountryCode(
+    SelectCountryCodeEvent event,
+    Emitter<CountryCodesState> emit,
+  ) {
+    emit(state.copyWith(selectedCountryCode: event.selectedCountryCode));
   }
 }

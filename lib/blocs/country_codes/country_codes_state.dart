@@ -10,10 +10,12 @@ enum CountryCodeStatus {
 class CountryCodesState extends Equatable {
   final List<CountryCodes> countryCodesList;
   final CountryCodeStatus countryCodeStatus;
+  final String selectedCountryCode;
   final CustomError customError;
   const CountryCodesState({
     required this.countryCodesList,
     required this.countryCodeStatus,
+    required this.selectedCountryCode,
     required this.customError,
   });
 
@@ -21,6 +23,7 @@ class CountryCodesState extends Equatable {
     return const CountryCodesState(
       countryCodesList: [],
       countryCodeStatus: CountryCodeStatus.initial,
+      selectedCountryCode: '+63',
       customError: CustomError(),
     );
   }
@@ -28,21 +31,25 @@ class CountryCodesState extends Equatable {
   List<Object?> get props => [
         countryCodesList,
         countryCodeStatus,
+        selectedCountryCode,
         customError,
       ];
 
   @override
-  String toString() =>
-      'CountryCodesState(countryCodesList: $countryCodesList, countryCodeStatus: $countryCodeStatus, customError: $customError,)';
+  String toString() {
+    return 'CountryCodesState(countryCodesList: $countryCodesList, countryCodeStatus: $countryCodeStatus, selectedCountryCode: $selectedCountryCode, customError: $customError)';
+  }
 
   CountryCodesState copyWith({
     List<CountryCodes>? countryCodesList,
     CountryCodeStatus? countryCodeStatus,
+    String? selectedCountryCode,
     CustomError? customError,
   }) {
     return CountryCodesState(
       countryCodesList: countryCodesList ?? this.countryCodesList,
       countryCodeStatus: countryCodeStatus ?? this.countryCodeStatus,
+      selectedCountryCode: selectedCountryCode ?? this.selectedCountryCode,
       customError: customError ?? this.customError,
     );
   }

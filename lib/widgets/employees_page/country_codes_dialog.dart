@@ -41,6 +41,10 @@ class CountryCodesDialog extends StatelessWidget {
                         return GestureDetector(
                           onTap: () {
                             debugPrint(countryCodesList[index].name);
+                            context.read<CountryCodesBloc>().add(
+                                SelectCountryCodeEvent(
+                                    selectedCountryCode:
+                                        countryCodesList[index].code!));
                             Navigator.pop(context);
                           },
                           child: Card(

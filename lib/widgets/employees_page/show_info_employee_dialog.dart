@@ -1,8 +1,10 @@
+import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/country_codes_dialog.dart';
 import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
 import 'package:ems_app/widgets/employees_page/employee_upload_photo_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShowInfoEmployeeDialog extends StatefulWidget {
   const ShowInfoEmployeeDialog({Key? key}) : super(key: key);
@@ -340,7 +342,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Container(
-                        width: 90,
+                        width: 100,
                         decoration: const BoxDecoration(
                           border: Border(
                             right: BorderSide(
@@ -361,9 +363,15 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                                 padding: const EdgeInsets.only(
                                   left: 15,
                                 ),
-                                child: Text(
-                                  '+63',
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                child: BlocBuilder<CountryCodesBloc,
+                                    CountryCodesState>(
+                                  builder: (context, state) {
+                                    return Text(
+                                      state.selectedCountryCode,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                    );
+                                  },
                                 ),
                               ),
                               const Icon(
