@@ -8,3 +8,10 @@ abstract class CountryCodesEvent extends Equatable {
 }
 
 class FetchAllCountryCodesEvent extends CountryCodesEvent {}
+
+class FilterCountriesEvent extends CountryCodesEvent {
+  final String enteredKeyword;
+  const FilterCountriesEvent({
+    required this.enteredKeyword,
+  });
+}

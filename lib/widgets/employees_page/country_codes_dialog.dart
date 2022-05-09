@@ -98,7 +98,13 @@ class _SearchCountryCodeState extends State<SearchCountryCode> {
       textAlignVertical: TextAlignVertical.bottom,
       cursorColor: focusedFieldColor,
       onChanged: (String? searchCountrycode) {
-        if (searchCountrycode != null) {}
+        if (searchCountrycode != '') {
+          context
+              .read<CountryCodesBloc>()
+              .add(FilterCountriesEvent(enteredKeyword: searchCountrycode!));
+        } else {
+          context.read<CountryCodesBloc>().add(FetchAllCountryCodesEvent());
+        }
       },
     );
   }

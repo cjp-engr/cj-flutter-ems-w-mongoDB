@@ -15,6 +15,7 @@ class CountryCodesBloc extends Bloc<CountryCodesEvent, CountryCodesState> {
     required this.countryCodeRepository,
   }) : super(CountryCodesState.initial()) {
     on<FetchAllCountryCodesEvent>(_fetchAllCountryCodes);
+    on<FilterCountriesEvent>(_filterCountries);
   }
 
   FutureOr<void> _fetchAllCountryCodes(
@@ -27,6 +28,29 @@ class CountryCodesBloc extends Bloc<CountryCodesEvent, CountryCodesState> {
           await countryCodeRepository.fetchCountryCodesList();
       emit(state.copyWith(
         countryCodesList: ccList,
+        countryCodeStatus: CountryCodeStatus.loaded,
+      ));
+    } on CustomError catch (e) {
+      emit(state.copyWith(
+        countryCodeStatus: CountryCodeStatus.error,
+        customError: e,
+      ));
+    }
+  }
+
+  FutureOr<void> _filterCountries(
+    FilterCountriesEvent event,
+    Emitter<CountryCodesState> emit,
+  ) async {
+    emit(state.copyWith(countryCodeStatus: CountryCodeStatus.loading));
+    try {
+      List<CountryCodes> _filteredCCList = [];
+      _filteredCCList = state.countryCodesList
+          .where((CountryCodes countryCodes) =>
+              countryCodes.name!.toLowerCase().contains(event.enteredKeyword))
+          .toList();
+      emit(state.copyWith(
+        countryCodesList: _filteredCCList,
         countryCodeStatus: CountryCodeStatus.loaded,
       ));
     } on CustomError catch (e) {
