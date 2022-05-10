@@ -141,10 +141,10 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                 width: MediaQuery.of(context).size.width / 3.8,
                 child: ElevatedButton(
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => const ShowInfoEmployeeDialog(),
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (context) => const ShowInfoEmployeeDialog(),
+                    // );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: yellowButton,

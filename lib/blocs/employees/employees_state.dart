@@ -1,6 +1,13 @@
 part of 'employees_bloc.dart';
 
-enum EmployeesStatus {
+enum EmployeesListStatus {
+  initial,
+  loading,
+  loaded,
+  error,
+}
+
+enum EmployeeStatus {
   initial,
   loading,
   loaded,
@@ -9,41 +16,54 @@ enum EmployeesStatus {
 
 class EmployeesState extends Equatable {
   final List<Employee> employeesList;
-  final EmployeesStatus employeesStatus;
+  final Employee employeeDetails;
+  final EmployeesListStatus employeesListStatus;
+  final EmployeeStatus employeeStatus;
   final CustomError customError;
   const EmployeesState({
     required this.employeesList,
-    required this.employeesStatus,
+    required this.employeeDetails,
+    required this.employeesListStatus,
+    required this.employeeStatus,
     required this.customError,
   });
 
   @override
   List<Object?> get props => [
         employeesList,
-        employeesStatus,
+        employeeDetails,
+        employeesListStatus,
+        employeeStatus,
         customError,
       ];
 
   factory EmployeesState.initial() {
-    return const EmployeesState(
-      employeesList: [],
-      employeesStatus: EmployeesStatus.initial,
-      customError: CustomError(),
+    return EmployeesState(
+      employeesList: const [],
+      employeeDetails: Employee.initial(),
+      employeesListStatus: EmployeesListStatus.initial,
+      employeeStatus: EmployeeStatus.initial,
+      customError: const CustomError(),
     );
   }
 
   @override
-  String toString() =>
-      'EmployeesState(employeesList: $employeesList, employeesStatus: $employeesStatus, customError: $customError)';
+  String toString() {
+    return 'EmployeesState(employeesList: $employeesList, employeeDetails: $employeeDetails, employeesListStatus: $employeesListStatus, employeeStatus: $employeeStatus, customError: $customError)';
+  }
 
   EmployeesState copyWith({
     List<Employee>? employeesList,
-    EmployeesStatus? employeesStatus,
+    Employee? employeeDetails,
+    EmployeesListStatus? employeesListStatus,
+    EmployeeStatus? employeeStatus,
     CustomError? customError,
   }) {
     return EmployeesState(
       employeesList: employeesList ?? this.employeesList,
-      employeesStatus: employeesStatus ?? this.employeesStatus,
+      employeeDetails: employeeDetails ?? this.employeeDetails,
+      employeesListStatus: employeesListStatus ?? this.employeesListStatus,
+      employeeStatus: employeeStatus ?? this.employeeStatus,
       customError: customError ?? this.customError,
     );
   }

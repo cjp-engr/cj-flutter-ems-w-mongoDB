@@ -1,13 +1,19 @@
-import 'package:ems_app/blocs/blocs.dart';
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/widgets/employees_page/country_codes_dialog.dart';
-import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
-import 'package:ems_app/widgets/employees_page/employee_upload_photo_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:ems_app/blocs/blocs.dart';
+import 'package:ems_app/constants/constants.dart';
+import 'package:ems_app/models/employee.dart';
+import 'package:ems_app/widgets/employees_page/country_codes_dialog.dart';
+import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
+import 'package:ems_app/widgets/employees_page/employee_upload_photo_dialog.dart';
+
 class ShowInfoEmployeeDialog extends StatefulWidget {
-  const ShowInfoEmployeeDialog({Key? key}) : super(key: key);
+  final Employee employeeDetails;
+  const ShowInfoEmployeeDialog({
+    Key? key,
+    required this.employeeDetails,
+  }) : super(key: key);
 
   @override
   State<ShowInfoEmployeeDialog> createState() => _ShowInfoEmployeeDialogState();
@@ -65,10 +71,12 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                           _firstNameField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.firstName!,
                           ),
                           _lastNameField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.lastName!,
                           ),
                         ],
                       ),
@@ -81,10 +89,12 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                           _emailField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.email!,
                           ),
                           _phoneNumberField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.phoneNumber!,
                           ),
                         ],
                       ),
@@ -97,10 +107,12 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                           _employeeIdField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.employeeId!,
                           ),
                           _jobRoleField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.jobRole!,
                           ),
                         ],
                       ),
@@ -113,10 +125,12 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                           _payTypeField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.payType!,
                           ),
                           _hourlyRateField(
                             _fieldWidth,
                             _fieldHeight,
+                            widget.employeeDetails.hourlyRate!,
                           ),
                         ],
                       ),
@@ -147,6 +161,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                               _weeklyHoursField(
                                 _fieldWidth,
                                 _fieldHeight,
+                                widget.employeeDetails.weeklyHours!,
                               ),
                               const SizedBox(
                                 height: 5,
@@ -174,7 +189,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _firstNameField(final _fieldWidth, _fieldHeight) {
+  Widget _firstNameField(
+    final fieldWidth,
+    fieldHeight,
+    String firstName,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -191,9 +210,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ),
           ),
           SizedBox(
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: TextFormField(
+              initialValue: firstName,
               style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
@@ -217,7 +237,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _lastNameField(final _fieldWidth, _fieldHeight) {
+  Widget _lastNameField(
+    final fieldWidth,
+    fieldHeight,
+    String lastName,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
@@ -234,9 +258,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ),
           ),
           SizedBox(
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: TextFormField(
+              initialValue: lastName,
               style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
@@ -260,7 +285,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _emailField(final _fieldWidth, _fieldHeight) {
+  Widget _emailField(
+    final fieldWidth,
+    fieldHeight,
+    String email,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -277,9 +306,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ),
           ),
           SizedBox(
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: TextFormField(
+              initialValue: email,
               style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.emailAddress,
@@ -303,7 +333,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _phoneNumberField(final _fieldWidth, _fieldHeight) {
+  Widget _phoneNumberField(
+    final fieldWidth,
+    fieldHeight,
+    String phoneNumber,
+  ) {
     return Row(
       children: [
         Padding(
@@ -322,9 +356,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                     ),
               ),
               SizedBox(
-                height: _fieldHeight,
-                width: _fieldWidth,
+                height: fieldHeight,
+                width: fieldWidth,
                 child: TextFormField(
+                  initialValue: phoneNumber,
                   style: Theme.of(context).textTheme.bodyText1,
                   textAlignVertical: TextAlignVertical.top,
                   keyboardType: TextInputType.phone,
@@ -393,7 +428,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _employeeIdField(final _fieldWidth, _fieldHeight) {
+  Widget _employeeIdField(
+    final fieldWidth,
+    fieldHeight,
+    String employeeId,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -410,9 +449,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ),
           ),
           SizedBox(
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: TextFormField(
+              initialValue: employeeId,
               style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.name,
@@ -436,7 +476,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _jobRoleField(final _fieldWidth, _fieldHeight) {
+  Widget _jobRoleField(
+    final fieldWidth,
+    fieldHeight,
+    String jobRole,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
@@ -460,10 +504,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 width: 1,
               ),
             ),
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: DropdownButtonHideUnderline(
               child: DropdownButtonFormField<String>(
+                value: jobRole,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                 ),
@@ -497,7 +542,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _payTypeField(final _fieldWidth, _fieldHeight) {
+  Widget _payTypeField(
+    final fieldWidth,
+    fieldHeight,
+    String payType,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -521,10 +570,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 width: 1,
               ),
             ),
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: DropdownButtonHideUnderline(
               child: DropdownButtonFormField<String>(
+                value: payType,
                 decoration: const InputDecoration(border: InputBorder.none),
                 items: <String>[
                   'Hourly',
@@ -554,7 +604,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _hourlyRateField(final _fieldWidth, _fieldHeight) {
+  Widget _hourlyRateField(
+    final fieldWidth,
+    fieldHeight,
+    int hourlyRate,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
@@ -571,9 +625,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ),
           ),
           SizedBox(
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: TextFormField(
+              initialValue: hourlyRate.toString(),
               style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
@@ -598,7 +653,11 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _weeklyHoursField(final _fieldWidth, _fieldHeight) {
+  Widget _weeklyHoursField(
+    final fieldWidth,
+    fieldHeight,
+    int weeklyHours,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 20,
@@ -615,9 +674,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 ),
           ),
           SizedBox(
-            height: _fieldHeight,
-            width: _fieldWidth,
+            height: fieldHeight,
+            width: fieldWidth,
             child: TextFormField(
+              initialValue: weeklyHours.toString(),
               style: Theme.of(context).textTheme.bodyText1,
               textAlignVertical: TextAlignVertical.top,
               keyboardType: TextInputType.number,
@@ -642,14 +702,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _editPINbutton(final _fieldWidth, _fieldHeight) {
+  Widget _editPINbutton(final fieldWidth, fieldHeight) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
       ),
       child: SizedBox(
-        height: _fieldHeight,
-        width: _fieldWidth,
+        height: fieldHeight,
+        width: fieldWidth,
         child: ElevatedButton(
           onPressed: () {
             showDialog(
@@ -674,14 +734,14 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _imageField(final _fieldWidth, _fieldHeight) {
+  Widget _imageField(final fieldWidth, fieldHeight) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
       ),
       child: SizedBox(
-        height: _fieldHeight,
-        width: _fieldWidth,
+        height: fieldHeight,
+        width: fieldWidth,
         child: ElevatedButton(
           onPressed: () {
             showDialog(

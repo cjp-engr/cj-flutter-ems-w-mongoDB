@@ -25,11 +25,34 @@ class EmployeeApiServices {
         throw Exception('response.statusCode != 200');
       }
 
-      final empJson = json.decode(utf8.decode(response.bodyBytes))['data'];
+      final empJson = json.decode(utf8.decode(response.bodyBytes))['employees'];
       List<Employee> results =
           (empJson as List).map((e) => Employee.fromJson(e)).toList();
 
       return results;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Employee> getEmployee(String id) async {
+    final Uri uri = Uri(
+      scheme: 'https',
+      host: kEmployeesHost,
+      path: '/employee/$id',
+    );
+
+    try {
+      final http.Response response =
+          await http.get(uri, headers: {'Content-Type': 'application/json'});
+
+      if (response.statusCode != 200) {
+        throw Exception('response.statusCode != 200');
+      }
+
+      final empJson = json.decode(utf8.decode(response.bodyBytes))['employees'];
+      final Employee employee = Employee.fromJson(empJson);
+      return employee;
     } catch (e) {
       rethrow;
     }

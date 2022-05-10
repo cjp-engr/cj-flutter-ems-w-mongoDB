@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/employee_view_hours_dialog.dart';
@@ -57,6 +59,13 @@ class EmployeesList extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 1.6,
               child: BlocBuilder<EmployeesBloc, EmployeesState>(
                 builder: (context, state) {
+                  if (state.employeesListStatus ==
+                      EmployeesListStatus.loading) {
+                    return const Text('Loading...');
+                  }
+                  if (state.employeesListStatus == EmployeesListStatus.error) {
+                    return const Text('There is an error...');
+                  }
                   return ListView.separated(
                     separatorBuilder: (context, index) => const Divider(
                       color: Colors.black,
@@ -64,10 +73,15 @@ class EmployeesList extends StatelessWidget {
                     itemCount: state.employeesList.length,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
+                        context.read<EmployeesBloc>().add(
+                            FetchIdEvent(id: state.employeesList[index].id!));
                         showDialog(
                           context: context,
-                          builder: (context) => const ShowInfoEmployeeDialog(),
+                          builder: (context) => ShowInfoEmployeeDialog(
+                            employeeDetails: state.employeesList[index],
+                          ),
                         );
+                        log(state.employeesList[index].id!);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),

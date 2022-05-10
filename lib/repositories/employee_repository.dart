@@ -19,4 +19,15 @@ class EmployeeRepository {
       throw CustomError(message: e.toString());
     }
   }
+
+  Future<Employee> fetchEmployeeById(String id) async {
+    try {
+      Employee employee = await employeeApiServices.getEmployee(id);
+      return employee;
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
 }
