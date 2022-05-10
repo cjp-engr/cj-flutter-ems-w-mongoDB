@@ -95,6 +95,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                             _fieldWidth,
                             _fieldHeight,
                             widget.employeeDetails.phoneNumber!,
+                            widget.employeeDetails.countryCode!,
                           ),
                         ],
                       ),
@@ -337,6 +338,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     final fieldWidth,
     fieldHeight,
     String phoneNumber,
+    String countryCode,
   ) {
     return Row(
       children: [
@@ -402,7 +404,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                                     CountryCodesState>(
                                   builder: (context, state) {
                                     return Text(
-                                      state.selectedCountryCode,
+                                      countryCode,
                                       style:
                                           Theme.of(context).textTheme.bodyText1,
                                     );
@@ -517,7 +519,8 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                   'Assistant Manager',
                   'Cashier',
                   'Janitor',
-                  'Bartender'
+                  'Bartender',
+                  'N/A',
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -579,7 +582,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 items: <String>[
                   'Hourly',
                   'Salary',
-                  'My Test',
+                  'N/A',
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,

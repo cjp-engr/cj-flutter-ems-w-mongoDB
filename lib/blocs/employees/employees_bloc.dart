@@ -15,7 +15,6 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     required this.employeeRepository,
   }) : super(EmployeesState.initial()) {
     on<FetchAllEmployeesEvent>(_fetchAllEmployees);
-    on<FetchIdEvent>(_fetchId);
   }
 
   FutureOr<void> _fetchAllEmployees(
@@ -35,24 +34,6 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
         employeesListStatus: EmployeesListStatus.error,
         customError: e,
       ));
-    }
-  }
-
-  FutureOr<void> _fetchId(
-    FetchIdEvent event,
-    Emitter<EmployeesState> emit,
-  ) async {
-    emit(state.copyWith(employeeStatus: EmployeeStatus.loading));
-
-    try {
-      final Employee employee =
-          await employeeRepository.fetchEmployeeById(event.id);
-
-      emit(state.copyWith(
-          employeeDetails: employee, employeeStatus: EmployeeStatus.loaded));
-    } on CustomError catch (e) {
-      emit(
-          state.copyWith(employeeStatus: EmployeeStatus.error, customError: e));
     }
   }
 }

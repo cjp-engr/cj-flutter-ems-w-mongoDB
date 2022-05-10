@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ems_app/blocs/employee_details/employee_details_bloc.dart';
 import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/employee_view_hours_dialog.dart';
@@ -73,7 +74,7 @@ class EmployeesList extends StatelessWidget {
                     itemCount: state.employeesList.length,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
-                        context.read<EmployeesBloc>().add(
+                        context.read<EmployeeDetailsBloc>().add(
                             FetchIdEvent(id: state.employeesList[index].id!));
                         showDialog(
                           context: context,

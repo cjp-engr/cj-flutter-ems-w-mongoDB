@@ -8,10 +8,3 @@ abstract class EmployeesEvent extends Equatable {
 }
 
 class FetchAllEmployeesEvent extends EmployeesEvent {}
-
-class FetchIdEvent extends EmployeesEvent {
-  final String id;
-  const FetchIdEvent({
-    required this.id,
-  });
-}

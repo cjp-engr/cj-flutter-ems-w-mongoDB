@@ -1,5 +1,4 @@
 import 'package:ems_app/blocs/blocs.dart';
-import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:ems_app/services/country_code_api_services.dart';
@@ -42,6 +41,11 @@ class MyApp extends StatelessWidget {
             create: (context) => EmployeesBloc(
               employeeRepository: context.read<EmployeeRepository>(),
             )..add(FetchAllEmployeesEvent()),
+          ),
+          BlocProvider<EmployeeDetailsBloc>(
+            create: (context) => EmployeeDetailsBloc(
+              employeeRepository: context.read<EmployeeRepository>(),
+            ),
           ),
           BlocProvider<CountryCodesBloc>(
             create: (context) => CountryCodesBloc(

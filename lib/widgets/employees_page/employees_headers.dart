@@ -1,4 +1,5 @@
 import 'package:ems_app/constants/constants.dart';
+import 'package:ems_app/models/employee.dart';
 import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
@@ -38,40 +39,6 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Container(
-            //   padding: const EdgeInsets.only(left: 5),
-            //   height: 50.0,
-            //   width: MediaQuery.of(context).size.width / 6.5,
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(5.0),
-            //     border: Border.all(
-            //       color: Colors.black,
-            //       style: BorderStyle.solid,
-            //       width: 1,
-            //     ),
-            //   ),
-            //   child: DropdownButtonHideUnderline(
-            //     child: DropdownButtonFormField<String>(
-            //       items: <String>[
-            //         'All',
-            //         'Active',
-            //         'Inactive',
-            //         'Unverified',
-            //       ].map((String value) {
-            //         return DropdownMenuItem<String>(
-            //           value: value,
-            //           child: Text(
-            //             value,
-            //             overflow: TextOverflow.ellipsis,
-            //           ),
-            //         );
-            //       }).toList(),
-            //       onChanged: (_) {},
-            //       style: Theme.of(context).textTheme.bodyText1,
-            //       isExpanded: true,
-            //     ),
-            //   ),
-            // ),
             Container(
               width: MediaQuery.of(context).size.width / 2.5,
               height: 50.0,
@@ -141,10 +108,12 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                 width: MediaQuery.of(context).size.width / 3.8,
                 child: ElevatedButton(
                   onPressed: () {
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (context) => const ShowInfoEmployeeDialog(),
-                    // );
+                    showDialog(
+                      context: context,
+                      builder: (context) => ShowInfoEmployeeDialog(
+                        employeeDetails: Employee.initial(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: yellowButton,
