@@ -107,6 +107,8 @@ class EmployeesList extends StatelessWidget {
                                     width: 10,
                                   ),
                                   Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         state.employeesList[index].firstName! +

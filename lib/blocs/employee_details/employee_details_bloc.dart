@@ -23,17 +23,23 @@ class EmployeeDetailsBloc
     FetchIdEvent event,
     Emitter<EmployeeDetailsState> emit,
   ) async {
-    emit(state.copyWith(employeeStatus: EmployeeStatus.loading));
+    emit(state.copyWith(
+      employeeStatus: EmployeeStatus.reading,
+    ));
 
     try {
       final Employee employee =
           await employeeRepository.fetchEmployeeById(event.id);
 
       emit(state.copyWith(
-          employeeDetails: employee, employeeStatus: EmployeeStatus.loaded));
+        employeeDetails: employee,
+        employeeStatus: EmployeeStatus.read,
+      ));
     } on CustomError catch (e) {
-      emit(
-          state.copyWith(employeeStatus: EmployeeStatus.error, customError: e));
+      emit(state.copyWith(
+        employeeStatus: EmployeeStatus.error,
+        customError: e,
+      ));
     }
   }
 
@@ -41,11 +47,19 @@ class EmployeeDetailsBloc
     SubmitEmployeeDetailsEvent event,
     Emitter<EmployeeDetailsState> emit,
   ) async {
+    state.copyWith(
+      employeeStatus: EmployeeStatus.adding,
+    );
     try {
       await employeeRepository.addNewEmployee(event.emp);
+      state.copyWith(
+        employeeStatus: EmployeeStatus.added,
+      );
     } on CustomError catch (e) {
-      emit(
-          state.copyWith(employeeStatus: EmployeeStatus.error, customError: e));
+      emit(state.copyWith(
+        employeeStatus: EmployeeStatus.error,
+        customError: e,
+      ));
     }
   }
 }

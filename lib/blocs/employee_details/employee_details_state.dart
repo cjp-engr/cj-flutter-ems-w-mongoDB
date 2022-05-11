@@ -2,8 +2,14 @@ part of 'employee_details_bloc.dart';
 
 enum EmployeeStatus {
   initial,
-  loading,
-  loaded,
+  adding,
+  added,
+  reading,
+  read,
+  updating,
+  updated,
+  deleting,
+  deleted,
   error,
 }
 

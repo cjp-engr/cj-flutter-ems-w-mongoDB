@@ -65,6 +65,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         .add(SubmitEmployeeDetailsEvent(emp: emp));
 
     //print('name: $_name, email: $_email, password: $_password');
+    Navigator.pop(context);
   }
 
   @override

@@ -90,7 +90,6 @@ class EmployeeApiServices {
     );
 
     if (response.statusCode == 201) {
-      loggg.log(response.body);
       return Employee.fromJson(jsonDecode(response.body));
     } else {
       loggg.log('Failed to add employee.');

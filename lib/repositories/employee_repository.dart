@@ -31,9 +31,9 @@ class EmployeeRepository {
     }
   }
 
-  Future<void> addNewEmployee(Employee e) async {
+  Future<Employee> addNewEmployee(Employee e) async {
     try {
-      await employeeApiServices.addEmployee(e);
+      return await employeeApiServices.addEmployee(e);
     } on CustomException catch (e) {
       throw CustomError(message: e.message);
     } catch (e) {

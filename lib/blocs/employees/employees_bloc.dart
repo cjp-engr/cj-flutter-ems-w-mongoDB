@@ -11,6 +11,7 @@ part 'employees_state.dart';
 
 class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   final EmployeeRepository employeeRepository;
+
   EmployeesBloc({
     required this.employeeRepository,
   }) : super(EmployeesState.initial()) {
