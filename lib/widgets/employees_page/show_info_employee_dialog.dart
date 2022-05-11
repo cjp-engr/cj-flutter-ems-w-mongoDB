@@ -21,7 +21,51 @@ class ShowInfoEmployeeDialog extends StatefulWidget {
 
 class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+
+  String? _firstName,
+      _lastName,
+      _email,
+      _countryCode,
+      _phoneNumber,
+      _employeeId,
+      _jobRole,
+      _payType;
+
+  int? _hourlyRate, _weeklyHrs;
+
+  void _submit() {
+    setState(() {
+      _autovalidateMode = AutovalidateMode.always;
+    });
+
+    final form = _formKey.currentState;
+
+    if (form == null || !form.validate()) return;
+
+    form.save();
+
+    final emp = Employee(
+      firstName: _firstName,
+      lastName: _lastName,
+      email: _email,
+      countryCode: _countryCode,
+      phoneNumber: _phoneNumber,
+      employeeId: _employeeId,
+      jobRole: _jobRole,
+      payType: _payType,
+      hourlyRate: _hourlyRate,
+      weeklyHours: _weeklyHrs,
+      //TODO: PIN
+      pin: 1234,
+    );
+
+    context
+        .read<EmployeeDetailsBloc>()
+        .add(SubmitEmployeeDetailsEvent(emp: emp));
+
+    //print('name: $_name, email: $_email, password: $_password');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -231,6 +275,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 filled: true,
               ),
               cursorColor: focusedFieldColor,
+              onSaved: (String? fn) {
+                _firstName = fn;
+              },
             ),
           ),
         ],
@@ -279,6 +326,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 filled: true,
               ),
               cursorColor: focusedFieldColor,
+              onSaved: (String? ln) {
+                _lastName = ln;
+              },
             ),
           ),
         ],
@@ -327,6 +377,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 filled: true,
               ),
               cursorColor: focusedFieldColor,
+              onSaved: (String? e) {
+                _email = e;
+              },
             ),
           ),
         ],
@@ -421,6 +474,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                     ),
                   ),
                   cursorColor: focusedFieldColor,
+                  onSaved: (String? pn) {
+                    _phoneNumber = pn;
+                  },
                 ),
               ),
             ],
@@ -471,6 +527,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 filled: true,
               ),
               cursorColor: focusedFieldColor,
+              onSaved: (String? eId) {
+                _employeeId = eId;
+              },
             ),
           ),
         ],
@@ -515,12 +574,12 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                   border: InputBorder.none,
                 ),
                 items: <String>[
+                  'N/A',
                   'Manager',
                   'Assistant Manager',
                   'Cashier',
                   'Janitor',
                   'Bartender',
-                  'N/A',
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -534,6 +593,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                   );
                 }).toList(),
                 onChanged: (_) {},
+                onSaved: (String? jr) {
+                  _jobRole = jr;
+                },
                 style: Theme.of(context).textTheme.bodyText1,
                 isExpanded: true,
                 menuMaxHeight: 200,
@@ -580,9 +642,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 value: payType,
                 decoration: const InputDecoration(border: InputBorder.none),
                 items: <String>[
+                  'N/A',
                   'Hourly',
                   'Salary',
-                  'N/A',
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -596,6 +658,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                   );
                 }).toList(),
                 onChanged: (_) {},
+                onSaved: (String? pt) {
+                  _payType = pt;
+                },
                 style: Theme.of(context).textTheme.bodyText1,
                 isExpanded: true,
                 menuMaxHeight: 200,
@@ -649,6 +714,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 labelText: '\$0.00',
               ),
               cursorColor: focusedFieldColor,
+              onSaved: (String? hr) {
+                _hourlyRate = int.tryParse(hr!);
+              },
             ),
           ),
         ],
@@ -698,6 +766,9 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                 labelText: '0',
               ),
               cursorColor: focusedFieldColor,
+              onSaved: (String? wh) {
+                _weeklyHrs = int.tryParse(wh!);
+              },
             ),
           ),
         ],
@@ -779,7 +850,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         height: 50,
         width: 100,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: _submit,
           style: ElevatedButton.styleFrom(
             primary: yellowButton,
           ),

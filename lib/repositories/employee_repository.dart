@@ -30,4 +30,14 @@ class EmployeeRepository {
       throw CustomError(message: e.toString());
     }
   }
+
+  Future<void> addNewEmployee(Employee e) async {
+    try {
+      await employeeApiServices.addEmployee(e);
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
 }

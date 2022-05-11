@@ -16,6 +16,7 @@ class EmployeeDetailsBloc
     required this.employeeRepository,
   }) : super(EmployeeDetailsState.initial()) {
     on<FetchIdEvent>(_fetchId);
+    on<SubmitEmployeeDetailsEvent>(_addEmployee);
   }
 
   FutureOr<void> _fetchId(
@@ -30,6 +31,18 @@ class EmployeeDetailsBloc
 
       emit(state.copyWith(
           employeeDetails: employee, employeeStatus: EmployeeStatus.loaded));
+    } on CustomError catch (e) {
+      emit(
+          state.copyWith(employeeStatus: EmployeeStatus.error, customError: e));
+    }
+  }
+
+  FutureOr<void> _addEmployee(
+    SubmitEmployeeDetailsEvent event,
+    Emitter<EmployeeDetailsState> emit,
+  ) async {
+    try {
+      await employeeRepository.addNewEmployee(event.emp);
     } on CustomError catch (e) {
       emit(
           state.copyWith(employeeStatus: EmployeeStatus.error, customError: e));

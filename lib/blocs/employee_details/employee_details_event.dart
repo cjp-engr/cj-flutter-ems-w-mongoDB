@@ -13,3 +13,10 @@ class FetchIdEvent extends EmployeeDetailsEvent {
     required this.id,
   });
 }
+
+class SubmitEmployeeDetailsEvent extends EmployeeDetailsEvent {
+  final Employee emp;
+  const SubmitEmployeeDetailsEvent({
+    required this.emp,
+  });
+}

@@ -15,7 +15,7 @@ class Employee extends Equatable {
   final int? pin;
 
   const Employee({
-    required this.id,
+    this.id,
     required this.firstName,
     required this.lastName,
     required this.email,

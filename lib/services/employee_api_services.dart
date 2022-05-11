@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer' as loggg;
+import 'dart:math';
 
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/employee.dart';
@@ -55,6 +57,44 @@ class EmployeeApiServices {
       return employee;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<Employee> addEmployee(Employee e) async {
+    Random random = Random();
+    final Uri uri = Uri(
+      scheme: 'https',
+      host: kEmployeesHost,
+      path: '/employee',
+    );
+
+    final response = await http.post(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'firstName': e.firstName,
+        'lastName': e.lastName,
+        'email': e.email,
+        'countryCode': e.countryCode,
+        'phoneNumber': e.phoneNumber,
+        'employeeId': e.employeeId,
+        'jobRole': e.jobRole,
+        'payType': e.payType,
+        'hourlyRate': e.hourlyRate,
+        'weeklyHours': e.weeklyHours,
+        //TODO: PIN
+        'pin': random.nextInt(1000)
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      loggg.log(response.body);
+      return Employee.fromJson(jsonDecode(response.body));
+    } else {
+      loggg.log('Failed to add employee.');
+      throw Exception('Failed to add employee.');
     }
   }
 }
