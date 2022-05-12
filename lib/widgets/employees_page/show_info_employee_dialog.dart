@@ -26,7 +26,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
   String? _firstName,
       _lastName,
       _email,
-      _countryCode,
       _phoneNumber,
       _employeeId,
       _jobRole,
@@ -49,7 +48,8 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
       firstName: _firstName,
       lastName: _lastName,
       email: _email,
-      countryCode: _countryCode,
+      countryCode:
+          BlocProvider.of<CountryCodesBloc>(context).state.selectedCountryCode,
       phoneNumber: _phoneNumber,
       employeeId: _employeeId,
       jobRole: _jobRole,
@@ -777,7 +777,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _editPINbutton(final fieldWidth, fieldHeight) {
+  Widget _editPINbutton(
+    final fieldWidth,
+    fieldHeight,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -809,7 +812,10 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     );
   }
 
-  Widget _imageField(final fieldWidth, fieldHeight) {
+  Widget _imageField(
+    final fieldWidth,
+    fieldHeight,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,

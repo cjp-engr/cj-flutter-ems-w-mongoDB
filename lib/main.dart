@@ -21,15 +21,15 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (context) => EmployeeRepository(
-            employeeApiServices: EmployeeApiServices(
+          create: (context) => CountryCodeRepository(
+            countryCodeApiServices: CountryCodeApiServices(
               httpClient: http.Client(),
             ),
           ),
         ),
         RepositoryProvider(
-          create: (context) => CountryCodeRepository(
-            countryCodeApiServices: CountryCodeApiServices(
+          create: (context) => EmployeeRepository(
+            employeeApiServices: EmployeeApiServices(
               httpClient: http.Client(),
             ),
           ),
@@ -37,6 +37,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<CountryCodesBloc>(
+            create: (context) => CountryCodesBloc(
+              countryCodeRepository: context.read<CountryCodeRepository>(),
+            )..add(FetchAllCountryCodesEvent()),
+          ),
           BlocProvider<EmployeeDetailsBloc>(
             create: (context) => EmployeeDetailsBloc(
               employeeRepository: context.read<EmployeeRepository>(),
@@ -47,11 +52,6 @@ class MyApp extends StatelessWidget {
               employeeRepository: context.read<EmployeeRepository>(),
               empDetailsBloc: BlocProvider.of<EmployeeDetailsBloc>(context),
             ),
-          ),
-          BlocProvider<CountryCodesBloc>(
-            create: (context) => CountryCodesBloc(
-              countryCodeRepository: context.read<CountryCodeRepository>(),
-            )..add(FetchAllCountryCodesEvent()),
           ),
         ],
         child: MaterialApp(
