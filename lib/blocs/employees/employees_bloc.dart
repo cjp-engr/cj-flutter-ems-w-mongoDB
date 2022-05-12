@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:ems_app/blocs/blocs.dart';
+
 import 'package:ems_app/models/employee.dart';
 import 'package:ems_app/models/model_custom_error.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
@@ -10,11 +13,20 @@ part 'employees_event.dart';
 part 'employees_state.dart';
 
 class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
+  late final StreamSubscription empDetailsSubscription;
   final EmployeeRepository employeeRepository;
+  final EmployeeDetailsBloc empDetailsBloc;
 
   EmployeesBloc({
     required this.employeeRepository,
+    required this.empDetailsBloc,
   }) : super(EmployeesState.initial()) {
+    empDetailsSubscription =
+        empDetailsBloc.stream.listen((EmployeeDetailsState empDetailsState) {
+      if (empDetailsState.employeeStatus == EmployeeStatus.added) {
+        add(FetchAllEmployeesEvent());
+      }
+    });
     on<FetchAllEmployeesEvent>(_fetchAllEmployees);
   }
 
@@ -36,5 +48,11 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
         customError: e,
       ));
     }
+  }
+
+  @override
+  Future<void> close() {
+    empDetailsSubscription.cancel();
+    return super.close();
   }
 }

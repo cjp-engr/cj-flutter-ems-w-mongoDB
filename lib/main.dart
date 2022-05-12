@@ -45,12 +45,13 @@ class MyApp extends StatelessWidget {
           BlocProvider<EmployeesBloc>(
             create: (context) => EmployeesBloc(
               employeeRepository: context.read<EmployeeRepository>(),
-            )..add(FetchAllEmployeesEvent()),
+              empDetailsBloc: BlocProvider.of<EmployeeDetailsBloc>(context),
+            ),
           ),
           BlocProvider<CountryCodesBloc>(
             create: (context) => CountryCodesBloc(
               countryCodeRepository: context.read<CountryCodeRepository>(),
-            )..add(FetchAllCountryCodesEvent()),
+            ),
           ),
         ],
         child: MaterialApp(

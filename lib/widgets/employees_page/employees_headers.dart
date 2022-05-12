@@ -1,7 +1,9 @@
+import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/employee.dart';
 import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 
 class EmployeesHeaders extends StatefulWidget {
@@ -14,6 +16,23 @@ class EmployeesHeaders extends StatefulWidget {
 class _EmployeesHeadersState extends State<EmployeesHeaders> {
   TextEditingController nameController = TextEditingController();
   DateTime _dateTime = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+    _initLoadEmployee();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    super.dispose();
+  }
+
+  void _initLoadEmployee() {
+    context.read<EmployeesBloc>().add(FetchAllEmployeesEvent());
+  }
 
   @override
   Widget build(BuildContext context) {

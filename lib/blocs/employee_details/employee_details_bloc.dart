@@ -47,14 +47,10 @@ class EmployeeDetailsBloc
     SubmitEmployeeDetailsEvent event,
     Emitter<EmployeeDetailsState> emit,
   ) async {
-    state.copyWith(
-      employeeStatus: EmployeeStatus.adding,
-    );
+    emit(state.copyWith(employeeStatus: EmployeeStatus.adding));
     try {
       await employeeRepository.addNewEmployee(event.emp);
-      state.copyWith(
-        employeeStatus: EmployeeStatus.added,
-      );
+      emit(state.copyWith(employeeStatus: EmployeeStatus.added));
     } on CustomError catch (e) {
       emit(state.copyWith(
         employeeStatus: EmployeeStatus.error,

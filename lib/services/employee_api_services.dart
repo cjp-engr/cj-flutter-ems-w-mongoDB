@@ -60,7 +60,7 @@ class EmployeeApiServices {
     }
   }
 
-  Future<Employee> addEmployee(Employee e) async {
+  Future<void> addEmployee(Employee e) async {
     Random random = Random();
     final Uri uri = Uri(
       scheme: 'https',
@@ -90,7 +90,7 @@ class EmployeeApiServices {
     );
 
     if (response.statusCode == 201) {
-      return Employee.fromJson(jsonDecode(response.body));
+      Employee.fromJson(jsonDecode(response.body));
     } else {
       loggg.log('Failed to add employee.');
       throw Exception('Failed to add employee.');

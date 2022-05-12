@@ -61,158 +61,170 @@ class EmployeesList extends StatelessWidget {
               child: BlocBuilder<EmployeesBloc, EmployeesState>(
                 builder: (context, state) {
                   if (state.employeesListStatus ==
-                      EmployeesListStatus.loading) {
+                          EmployeesListStatus.loading &&
+                      state.employeesList.isEmpty) {
                     return const Text('Loading...');
+                  } else if (state.employeesListStatus ==
+                          EmployeesListStatus.loading &&
+                      state.employeesList.isNotEmpty) {
+                    return const EmployeesData();
                   }
+
                   if (state.employeesListStatus == EmployeesListStatus.error) {
                     return const Text('There is an error...');
                   }
-                  return ListView.separated(
-                    separatorBuilder: (context, index) => const Divider(
-                      color: Colors.black,
-                    ),
-                    itemCount: state.employeesList.length,
-                    itemBuilder: (context, index) => InkWell(
-                      onTap: () {
-                        context.read<EmployeeDetailsBloc>().add(
-                            FetchIdEvent(id: state.employeesList[index].id!));
-                        showDialog(
-                          context: context,
-                          builder: (context) => ShowInfoEmployeeDialog(
-                            employeeDetails: state.employeesList[index],
-                          ),
-                        );
-                        log(state.employeesList[index].id!);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 4.5,
-                              child: Row(
-                                children: [
-                                  ClipOval(
-                                    child: SizedBox.fromSize(
-                                      size: const Size.fromRadius(
-                                          27), // Image radius
-                                      child: Image.asset(
-                                        'assets/images/flutter_logo.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        state.employeesList[index].firstName! +
-                                            " " +
-                                            state
-                                                .employeesList[index].lastName!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                        maxLines: 2,
-                                      ),
-                                      Text(
-                                        state.employeesList[index].jobRole!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 4.5,
-                              child: Column(
-                                children: [
-                                  Text(state.employeesList[index].email!),
-                                  Text(state.employeesList[index].phoneNumber!),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                right: 20,
-                                left: 20,
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Column(
-                                        children: const [
-                                          Text('Break Time'),
-                                          Text('00H 00M'),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Column(
-                                        children: const [
-                                          Text('Time Worked'),
-                                          Text('00H 00M'),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  SizedBox(
-                                    width: 250,
-                                    height: 50,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        primary: redButton,
-                                      ),
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) =>
-                                              const EmployeeViewHoursDialog(),
-                                        );
-                                      },
-                                      child: Text(
-                                        'VIEW HOURS',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1!
-                                            .merge(
-                                              TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: darkBlueText,
-                                              ),
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                  );
+
+                  return const EmployeesData();
                 },
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class EmployeesData extends StatelessWidget {
+  const EmployeesData({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<EmployeesBloc, EmployeesState>(
+      builder: (context, state) {
+        return ListView.separated(
+          separatorBuilder: (context, index) => const Divider(
+            color: Colors.black,
+          ),
+          itemCount: state.employeesList.length,
+          itemBuilder: (context, index) => InkWell(
+            onTap: () {
+              context
+                  .read<EmployeeDetailsBloc>()
+                  .add(FetchIdEvent(id: state.employeesList[index].id!));
+              showDialog(
+                context: context,
+                builder: (context) => ShowInfoEmployeeDialog(
+                  employeeDetails: state.employeesList[index],
+                ),
+              );
+              log(state.employeesList[index].id!);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 4.5,
+                    child: Row(
+                      children: [
+                        ClipOval(
+                          child: SizedBox.fromSize(
+                            size: const Size.fromRadius(27), // Image radius
+                            child: Image.asset(
+                              'assets/images/flutter_logo.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.employeesList[index].firstName! +
+                                  " " +
+                                  state.employeesList[index].lastName!,
+                              style: Theme.of(context).textTheme.bodyText2,
+                              maxLines: 2,
+                            ),
+                            Text(
+                              state.employeesList[index].jobRole!,
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 4.5,
+                    child: Column(
+                      children: [
+                        Text(state.employeesList[index].email!),
+                        Text(state.employeesList[index].phoneNumber!),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 20,
+                      left: 20,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Column(
+                              children: const [
+                                Text('Break Time'),
+                                Text('00H 00M'),
+                              ],
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              children: const [
+                                Text('Time Worked'),
+                                Text('00H 00M'),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          width: 250,
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: redButton,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    const EmployeeViewHoursDialog(),
+                              );
+                            },
+                            child: Text(
+                              'VIEW HOURS',
+                              style:
+                                  Theme.of(context).textTheme.bodyText1!.merge(
+                                        TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: darkBlueText,
+                                        ),
+                                      ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+        );
+      },
     );
   }
 }
