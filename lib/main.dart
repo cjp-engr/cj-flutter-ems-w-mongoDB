@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<CountryCodesBloc>(
             create: (context) => CountryCodesBloc(
               countryCodeRepository: context.read<CountryCodeRepository>(),
-            ),
+            )..add(FetchAllCountryCodesEvent()),
           ),
         ],
         child: MaterialApp(
