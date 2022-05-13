@@ -37,15 +37,17 @@ class MyApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<CountryCodesBloc>(
-            create: (context) => CountryCodesBloc(
-              countryCodeRepository: context.read<CountryCodeRepository>(),
-            )..add(FetchAllCountryCodesEvent()),
-          ),
           BlocProvider<EmployeeDetailsBloc>(
             create: (context) => EmployeeDetailsBloc(
               employeeRepository: context.read<EmployeeRepository>(),
             ),
+          ),
+          BlocProvider<CountryCodesBloc>(
+            create: (context) => CountryCodesBloc(
+              countryCodeRepository: context.read<CountryCodeRepository>(),
+              employeeDetailsBloc:
+                  BlocProvider.of<EmployeeDetailsBloc>(context),
+            )..add(FetchAllCountryCodesEvent()),
           ),
           BlocProvider<EmployeesBloc>(
             create: (context) => EmployeesBloc(

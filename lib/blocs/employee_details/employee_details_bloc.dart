@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/employee.dart';
@@ -23,14 +24,19 @@ class EmployeeDetailsBloc
     FetchIdEvent event,
     Emitter<EmployeeDetailsState> emit,
   ) async {
-    emit(state.copyWith(
-      employeeStatus: EmployeeStatus.reading,
-    ));
-
+    if (event.id == "addingNewEmployee") {
+      emit(state.copyWith(
+        employeeStatus: EmployeeStatus.adding,
+      ));
+      log(event.id);
+      return;
+    }
     try {
+      emit(state.copyWith(
+        employeeStatus: EmployeeStatus.reading,
+      ));
       final Employee employee =
           await employeeRepository.fetchEmployeeById(event.id);
-
       emit(state.copyWith(
         employeeDetails: employee,
         employeeStatus: EmployeeStatus.read,
@@ -47,7 +53,6 @@ class EmployeeDetailsBloc
     SubmitEmployeeDetailsEvent event,
     Emitter<EmployeeDetailsState> emit,
   ) async {
-    emit(state.copyWith(employeeStatus: EmployeeStatus.adding));
     try {
       await employeeRepository.addNewEmployee(event.emp);
       emit(state.copyWith(employeeStatus: EmployeeStatus.added));

@@ -73,165 +73,167 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
     final _fieldWidth = MediaQuery.of(context).size.width / 1.4 / 2.2;
     const _fieldHeight = 50.0;
 
-    return Dialog(
-      child: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width / 1.4,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 25,
-                      bottom: 10,
-                    ),
-                    child: Text(
-                      'CONTACT INFORMATION',
-                      style: Theme.of(context).textTheme.headline5!.merge(
-                            const TextStyle(
-                              fontWeight: FontWeight.bold,
+    return SimpleDialog(
+      children: [
+        SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width / 1.4,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 25,
+                        bottom: 10,
+                      ),
+                      child: Text(
+                        'CONTACT INFORMATION',
+                        style: Theme.of(context).textTheme.headline5!.merge(
+                              const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 1.3,
-                child: Form(
-                  key: _formKey,
-                  autovalidateMode: _autovalidateMode,
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _firstNameField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.firstName!,
-                          ),
-                          _lastNameField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.lastName!,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _emailField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.email!,
-                          ),
-                          _phoneNumberField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.phoneNumber!,
-                            widget.employeeDetails.countryCode!,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _employeeIdField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.employeeId!,
-                          ),
-                          _jobRoleField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.jobRole!,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _payTypeField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.payType!,
-                          ),
-                          _hourlyRateField(
-                            _fieldWidth,
-                            _fieldHeight,
-                            widget.employeeDetails.hourlyRate!,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              _editPINbutton(
-                                _fieldWidth,
-                                _fieldHeight,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              _imageField(
-                                _fieldWidth,
-                                _fieldHeight,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              _weeklyHoursField(
-                                _fieldWidth,
-                                _fieldHeight,
-                                widget.employeeDetails.weeklyHours!,
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  _doneButton(),
-                                  _cancelButton(),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 1.3,
+                  child: Form(
+                    key: _formKey,
+                    autovalidateMode: _autovalidateMode,
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _firstNameField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.firstName!,
+                            ),
+                            _lastNameField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.lastName!,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _emailField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.email!,
+                            ),
+                            _phoneNumberField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.phoneNumber!,
+                              widget.employeeDetails.countryCode!,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _employeeIdField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.employeeId!,
+                            ),
+                            _jobRoleField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.jobRole!,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _payTypeField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.payType!,
+                            ),
+                            _hourlyRateField(
+                              _fieldWidth,
+                              _fieldHeight,
+                              widget.employeeDetails.hourlyRate!,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _editPINbutton(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                _imageField(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                _weeklyHoursField(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                  widget.employeeDetails.weeklyHours!,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    _doneButton(),
+                                    _cancelButton(),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
@@ -458,7 +460,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                                     CountryCodesState>(
                                   builder: (context, state) {
                                     return Text(
-                                      countryCode,
+                                      state.selectedCountryCode,
                                       style:
                                           Theme.of(context).textTheme.bodyText1,
                                     );

@@ -127,6 +127,11 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                 width: MediaQuery.of(context).size.width / 3.8,
                 child: ElevatedButton(
                   onPressed: () {
+                    context.read<EmployeeDetailsBloc>().add(
+                          const FetchIdEvent(
+                            id: "addingNewEmployee",
+                          ),
+                        );
                     showDialog(
                       context: context,
                       builder: (context) => ShowInfoEmployeeDialog(

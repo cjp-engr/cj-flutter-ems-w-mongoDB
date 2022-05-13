@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -13,67 +11,69 @@ class CountryCodesDialog extends StatelessWidget {
     final countryCodesList =
         context.watch<CountryCodesBloc>().state.countryCodesList;
 
-    return Dialog(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-            width: MediaQuery.of(context).size.width / 2.7,
-            height: MediaQuery.of(context).size.height / 2,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height / 2.5,
-              child: Column(
-                children: [
-                  Text(
-                    'Select your phone code',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SearchCountryCode(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 3,
-                    child: ListView.builder(
-                      itemCount: countryCodesList.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            debugPrint(countryCodesList[index].name);
-                            context.read<CountryCodesBloc>().add(
-                                SelectCountryCodeEvent(
-                                    selectedCountryCode:
-                                        countryCodesList[index].code!));
-                            Navigator.pop(context);
-                          },
-                          child: Card(
-                            elevation: 0,
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 70,
-                                  child: Text(countryCodesList[index].code!),
-                                ),
-                                const SizedBox(
-                                  width: 50,
-                                ),
-                                Text(countryCodesList[index].name!),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
+    return SimpleDialog(
+      children: [
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2.7,
+              height: MediaQuery.of(context).size.height / 2,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height / 2.5,
+                child: Column(
+                  children: [
+                    Text(
+                      'Select your phone code',
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
-                  ),
-                ],
+                    const SearchCountryCode(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 3,
+                      child: ListView.builder(
+                        itemCount: countryCodesList.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              debugPrint(countryCodesList[index].name);
+                              context.read<CountryCodesBloc>().add(
+                                  SelectCountryCodeEvent(
+                                      selectedCountryCode:
+                                          countryCodesList[index].code!));
+                              Navigator.pop(context);
+                            },
+                            child: Card(
+                              elevation: 0,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 70,
+                                    child: Text(countryCodesList[index].code!),
+                                  ),
+                                  const SizedBox(
+                                    width: 50,
+                                  ),
+                                  Text(countryCodesList[index].name!),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

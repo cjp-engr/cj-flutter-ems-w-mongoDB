@@ -99,9 +99,9 @@ class EmployeesData extends StatelessWidget {
           itemCount: state.employeesList.length,
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              context
-                  .read<EmployeeDetailsBloc>()
-                  .add(FetchIdEvent(id: state.employeesList[index].id!));
+              context.read<EmployeeDetailsBloc>().add(FetchIdEvent(
+                    id: state.employeesList[index].id!,
+                  ));
               showDialog(
                 context: context,
                 builder: (context) => ShowInfoEmployeeDialog(
