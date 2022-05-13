@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -108,124 +110,135 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
                   child: Form(
                     key: _formKey,
                     autovalidateMode: _autovalidateMode,
-                    child: ListView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child:
+                        BlocBuilder<EmployeeDetailsBloc, EmployeeDetailsState>(
+                      builder: (context, state) {
+                        if (state.employeeStatus == EmployeeStatus.reading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return ListView(
+                          physics: const NeverScrollableScrollPhysics(),
                           children: [
-                            _firstNameField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.firstName!,
-                            ),
-                            _lastNameField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.lastName!,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _emailField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.email!,
-                            ),
-                            _phoneNumberField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.phoneNumber!,
-                              widget.employeeDetails.countryCode!,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _employeeIdField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.employeeId!,
-                            ),
-                            _jobRoleField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.jobRole!,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _payTypeField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.payType!,
-                            ),
-                            _hourlyRateField(
-                              _fieldWidth,
-                              _fieldHeight,
-                              widget.employeeDetails.hourlyRate!,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _editPINbutton(
+                                _firstNameField(
                                   _fieldWidth,
                                   _fieldHeight,
+                                  widget.employeeDetails.firstName!,
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                _imageField(
+                                _lastNameField(
                                   _fieldWidth,
                                   _fieldHeight,
+                                  widget.employeeDetails.lastName!,
                                 ),
                               ],
                             ),
-                            Column(
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _weeklyHoursField(
+                                _emailField(
                                   _fieldWidth,
                                   _fieldHeight,
-                                  widget.employeeDetails.weeklyHours!,
+                                  widget.employeeDetails.email!,
                                 ),
-                                const SizedBox(
-                                  height: 5,
+                                _phoneNumberField(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                  widget.employeeDetails.phoneNumber!,
+                                  widget.employeeDetails.countryCode!,
                                 ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _employeeIdField(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                  widget.employeeDetails.employeeId!,
+                                ),
+                                _jobRoleField(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                  widget.employeeDetails.jobRole!,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _payTypeField(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                  widget.employeeDetails.payType!,
+                                ),
+                                _hourlyRateField(
+                                  _fieldWidth,
+                                  _fieldHeight,
+                                  widget.employeeDetails.hourlyRate!,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    _doneButton(),
-                                    _cancelButton(),
+                                    _editPINbutton(
+                                      _fieldWidth,
+                                      _fieldHeight,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    _imageField(
+                                      _fieldWidth,
+                                      _fieldHeight,
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    _weeklyHoursField(
+                                      _fieldWidth,
+                                      _fieldHeight,
+                                      widget.employeeDetails.weeklyHours!,
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        _doneButton(),
+                                        _cancelButton(),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
                           ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ),
