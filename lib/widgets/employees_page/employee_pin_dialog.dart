@@ -1,7 +1,8 @@
-import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
-import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
+import 'package:ems_app/constants/constants.dart';
 
 class EmployeePinDialog extends StatelessWidget {
   const EmployeePinDialog({Key? key}) : super(key: key);
@@ -17,17 +18,9 @@ class EmployeePinDialog extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  state.pinLength == 0
-                      ? const NoPinEntered()
-                      : state.pinLength == 1
-                          ? const OnePinEntered()
-                          : state.pinLength == 2
-                              ? const TwoPinEntered()
-                              : state.pinLength == 3
-                                  ? const ThreePinEntered()
-                                  : state.pinLength == 4
-                                      ? const FourPinEntered()
-                                      : const FourPinEntered(),
+                  PinEntered(
+                    pinLen: state.pinLength,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -96,38 +89,94 @@ class EmployeePinDialog extends StatelessWidget {
   }
 }
 
-class NoPinEntered extends StatelessWidget {
-  const NoPinEntered({Key? key}) : super(key: key);
+class PinEntered extends StatelessWidget {
+  final int pinLen;
+  const PinEntered({
+    Key? key,
+    required this.pinLen,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int index = 0; index < 4; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
+    return pinLen == 0 || pinLen == 4
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (int index = 0; index < 4; index++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 5,
+                  ),
+                  child: Container(
+                    height: 70,
+                    width: 70,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black, width: 5.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8.0,
+                      ),
+                      child: pinLen == 0
+                          ? Image.asset('assets/images/asterisk_unfilled.png')
+                          : Image.asset('assets/images/asterisk_filled.png'),
+                    ),
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
+            ],
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (int index = 0; index < pinLen; index++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 5,
+                  ),
+                  child: Container(
+                    height: 70,
+                    width: 70,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black, width: 5.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8.0,
+                      ),
+                      child: Image.asset('assets/images/asterisk_filled.png'),
+                    ),
+                  ),
                 ),
-                child: Image.asset('assets/images/asterisk_unfilled.png'),
-              ),
-            ),
-          ),
-      ],
-    );
+              for (int index = pinLen; index < 4; index++)
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 5,
+                  ),
+                  child: Container(
+                    height: 70,
+                    width: 70,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.black, width: 5.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8.0,
+                      ),
+                      child: Image.asset('assets/images/asterisk_unfilled.png'),
+                    ),
+                  ),
+                ),
+            ],
+          );
   }
 }
 
@@ -171,212 +220,6 @@ class PinKey extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class OnePinEntered extends StatelessWidget {
-  const OnePinEntered({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int index = 0; index < 1; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: Image.asset('assets/images/asterisk_filled.png'),
-              ),
-            ),
-          ),
-        for (int index = 1; index < 4; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: Image.asset('assets/images/asterisk_unfilled.png'),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-class TwoPinEntered extends StatelessWidget {
-  const TwoPinEntered({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int index = 0; index < 2; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: Image.asset('assets/images/asterisk_filled.png'),
-              ),
-            ),
-          ),
-        for (int index = 2; index < 4; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: Image.asset('assets/images/asterisk_unfilled.png'),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-class ThreePinEntered extends StatelessWidget {
-  const ThreePinEntered({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int index = 0; index < 3; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: Image.asset('assets/images/asterisk_filled.png'),
-              ),
-            ),
-          ),
-        for (int index = 3; index < 4; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: Image.asset('assets/images/asterisk_unfilled.png'),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-class FourPinEntered extends StatelessWidget {
-  const FourPinEntered({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        for (int index = 0; index < 4; index++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 5,
-            ),
-            child: Container(
-              height: 70,
-              width: 70,
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.black, width: 5.0),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: Image.asset('assets/images/asterisk_filled.png'),
-              ),
-            ),
-          ),
-      ],
     );
   }
 }
