@@ -6,3 +6,12 @@ abstract class EmployeePinEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class EnterEmployeePinEvent extends EmployeePinEvent {
+  final String enteredPIN;
+  const EnterEmployeePinEvent({
+    required this.enteredPIN,
+  });
+}
+
+class EnterClickedEvent extends EmployeePinEvent {}

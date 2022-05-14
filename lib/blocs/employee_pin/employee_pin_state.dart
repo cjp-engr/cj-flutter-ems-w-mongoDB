@@ -1,27 +1,50 @@
 part of 'employee_pin_bloc.dart';
 
 class EmployeePinState extends Equatable {
-  final String enteredPIN;
-  final String reEnteredPIN;
-  final bool isClearClicked;
+  final List<String> pin;
+  final int pinLength;
+  final int enteredPIN;
+  final int reEnteredPIN;
   const EmployeePinState({
+    required this.pin,
+    required this.pinLength,
     required this.enteredPIN,
     required this.reEnteredPIN,
-    required this.isClearClicked,
   });
 
   factory EmployeePinState.initial() {
     return const EmployeePinState(
-      enteredPIN: '',
-      reEnteredPIN: '',
-      isClearClicked: false,
+      pin: [],
+      pinLength: 0,
+      enteredPIN: 0,
+      reEnteredPIN: 0,
     );
   }
 
   @override
   List<Object?> get props => [
+        pin,
+        pinLength,
         enteredPIN,
         reEnteredPIN,
-        isClearClicked,
       ];
+
+  @override
+  String toString() {
+    return 'EmployeePinState(pin: $pin, pinLength: $pinLength, enteredPIN: $enteredPIN, reEnteredPIN: $reEnteredPIN)';
+  }
+
+  EmployeePinState copyWith({
+    List<String>? pin,
+    int? pinLength,
+    int? enteredPIN,
+    int? reEnteredPIN,
+  }) {
+    return EmployeePinState(
+      pin: pin ?? this.pin,
+      pinLength: pinLength ?? this.pinLength,
+      enteredPIN: enteredPIN ?? this.enteredPIN,
+      reEnteredPIN: reEnteredPIN ?? this.reEnteredPIN,
+    );
+  }
 }

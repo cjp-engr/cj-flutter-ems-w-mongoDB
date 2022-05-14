@@ -1,7 +1,7 @@
-import 'dart:developer';
-
+import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmployeePinDialog extends StatelessWidget {
   const EmployeePinDialog({Key? key}) : super(key: key);
@@ -75,20 +75,30 @@ class EmployeePinDialog extends StatelessWidget {
               SizedBox(
                 width: 400,
                 height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: yellowButton,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    'ENTER',
-                    style: Theme.of(context).textTheme.bodyText1!.merge(
-                          TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: darkBlueText,
-                          ),
-                        ),
-                  ),
+                child: BlocBuilder<EmployeePinBloc, EmployeePinState>(
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: yellowButton,
+                      ),
+                      onPressed: state.pinLength < 4
+                          ? null
+                          : () {
+                              context
+                                  .read<EmployeePinBloc>()
+                                  .add(EnterClickedEvent());
+                            },
+                      child: Text(
+                        'ENTER',
+                        style: Theme.of(context).textTheme.bodyText1!.merge(
+                              TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: darkBlueText,
+                              ),
+                            ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -120,7 +130,9 @@ class PinKey extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            log(character);
+            context
+                .read<EmployeePinBloc>()
+                .add(EnterEmployeePinEvent(enteredPIN: character));
           },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

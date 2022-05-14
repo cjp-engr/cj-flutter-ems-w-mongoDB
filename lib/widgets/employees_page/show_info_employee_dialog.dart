@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +64,6 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         .read<EmployeeDetailsBloc>()
         .add(SubmitEmployeeDetailsEvent(emp: emp));
 
-    //print('name: $_name, email: $_email, password: $_password');
     Navigator.pop(context);
   }
 

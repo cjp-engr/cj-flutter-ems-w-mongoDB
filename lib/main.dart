@@ -1,4 +1,5 @@
 import 'package:ems_app/blocs/blocs.dart';
+import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:ems_app/services/country_code_api_services.dart';
@@ -48,6 +49,11 @@ class MyApp extends StatelessWidget {
               employeeDetailsBloc:
                   BlocProvider.of<EmployeeDetailsBloc>(context),
             )..add(FetchAllCountryCodesEvent()),
+          ),
+          BlocProvider<EmployeePinBloc>(
+            create: (context) => EmployeePinBloc(
+              employeeRepository: context.read<EmployeeRepository>(),
+            ),
           ),
           BlocProvider<EmployeesBloc>(
             create: (context) => EmployeesBloc(
