@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
+import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,12 +11,28 @@ part 'employee_pin_state.dart';
 
 class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
   final EmployeeRepository employeeRepository;
+
   EmployeePinBloc({
     required this.employeeRepository,
   }) : super(EmployeePinState.initial()) {
     on<EnterEmployeePinEvent>(_enterEmployeePin);
     on<EnterClickedEvent>(_enterClicked);
+    on<SetInitialPinEvent>(_setInitialPin);
   }
+
+  void _setInitialPin(
+    SetInitialPinEvent event,
+    Emitter<EmployeePinState> emit,
+  ) {
+    emit(state.copyWith(
+      pin: [],
+      pinLength: 0,
+      enteredPIN: 0,
+      reEnteredPIN: 0,
+    ));
+    log(state.pin.toString());
+  }
+
   void _enterEmployeePin(
     EnterEmployeePinEvent event,
     Emitter<EmployeePinState> emit,
@@ -59,6 +79,12 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
     EnterClickedEvent event,
     Emitter<EmployeePinState> emit,
   ) {
-    if (true) {}
+    String strPin = state.pin.join('');
+    int? inPin = int.tryParse(strPin);
+    if (inPin == 1234) {
+      log('The pin is already used');
+    } else {
+      log('created new');
+    }
   }
 }

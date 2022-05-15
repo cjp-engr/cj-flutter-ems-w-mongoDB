@@ -28,7 +28,7 @@ class EmployeeDetailsBloc
       emit(state.copyWith(
         employeeStatus: EmployeeStatus.adding,
       ));
-      log(event.id);
+      log(EmployeeStatus.adding.name);
       return;
     }
     try {

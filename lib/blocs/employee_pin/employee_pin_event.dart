@@ -15,3 +15,5 @@ class EnterEmployeePinEvent extends EmployeePinEvent {
 }
 
 class EnterClickedEvent extends EmployeePinEvent {}
+
+class SetInitialPinEvent extends EmployeePinEvent {}

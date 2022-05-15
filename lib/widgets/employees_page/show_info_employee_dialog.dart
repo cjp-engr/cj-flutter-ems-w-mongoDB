@@ -1,3 +1,4 @@
+import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -802,6 +803,7 @@ class _ShowInfoEmployeeDialogState extends State<ShowInfoEmployeeDialog> {
         width: fieldWidth,
         child: ElevatedButton(
           onPressed: () {
+            context.read<EmployeePinBloc>().add(SetInitialPinEvent());
             showDialog(
               context: context,
               builder: (context) => const EmployeePinDialog(),
