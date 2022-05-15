@@ -83,8 +83,7 @@ class EmployeeApiServices {
         'payType': e.payType,
         'hourlyRate': e.hourlyRate,
         'weeklyHours': e.weeklyHours,
-        //TODO: PIN
-        'pin': '5555'
+        'pin': e.pin
       }),
     );
 

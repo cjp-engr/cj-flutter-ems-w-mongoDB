@@ -41,7 +41,6 @@ class EmployeeDetailsBloc
         employeeDetails: employee,
         employeeStatus: EmployeeStatus.read,
       ));
-      log(state.employeeDetails.toString());
     } on CustomError catch (e) {
       emit(state.copyWith(
         employeeStatus: EmployeeStatus.error,

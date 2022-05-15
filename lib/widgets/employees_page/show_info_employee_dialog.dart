@@ -105,8 +105,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
       payType: _payType,
       hourlyRate: _hourlyRate,
       weeklyHours: _weeklyHrs,
-      //TODO: PIN
-      pin: 1234,
+      pin: BlocProvider.of<EmployeePinBloc>(context).state.enteredPIN,
     );
 
     context

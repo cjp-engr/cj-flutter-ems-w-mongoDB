@@ -9,14 +9,17 @@ class EmployeePinDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width / 2,
-          height: MediaQuery.of(context).size.height / 1.3,
-          child: BlocBuilder<EmployeePinBloc, EmployeePinState>(
-            builder: (context, state) {
-              return Column(
+    return BlocBuilder<EmployeePinBloc, EmployeePinState>(
+      builder: (context, state) {
+        if (state.empPinStatus == EmployeePinStatus.enteredAndReEnteredMatch) {
+          Navigator.of(context).pop();
+        }
+        return SimpleDialog(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              height: MediaQuery.of(context).size.height / 1.3,
+              child: Column(
                 children: [
                   PinEntered(
                     pinLen: state.pinLength,
@@ -25,7 +28,24 @@ class EmployeePinDialog extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    'Please enter your 4-digit PIN code',
+                    state.empPinStatus == EmployeePinStatus.initial
+                        ? 'Please enter your 4-digit PIN code'
+                        : state.empPinStatus == EmployeePinStatus.isExisting
+                            ? 'PIN already exists. Please try again.'
+                            : state.empPinStatus ==
+                                    EmployeePinStatus.isNotExisting
+                                ? 'Please confirm your 4-digit PIN code'
+                                : state.empPinStatus ==
+                                            EmployeePinStatus
+                                                .enteredAndReEnteredNotMatch &&
+                                        state.empPinStatus ==
+                                            EmployeePinStatus.isExisting
+                                    ? 'PIN entered and reentered do not match.'
+                                    : state.empPinStatus ==
+                                            EmployeePinStatus
+                                                .enteredAndReEnteredNotMatch
+                                        ? 'PIN entered and reentered do not match.'
+                                        : 'Please enter your 4-digit PIN code',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   const SizedBox(
@@ -51,40 +71,35 @@ class EmployeePinDialog extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 400,
-                    height: 50,
-                    child: BlocBuilder<EmployeePinBloc, EmployeePinState>(
-                      builder: (context, state) {
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: yellowButton,
-                          ),
-                          onPressed: state.pinLength < 4
-                              ? null
-                              : () {
-                                  context
-                                      .read<EmployeePinBloc>()
-                                      .add(EnterClickedEvent());
-                                },
-                          child: Text(
-                            'ENTER',
-                            style: Theme.of(context).textTheme.bodyText1!.merge(
-                                  TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: darkBlueText,
-                                  ),
+                      width: 400,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: yellowButton,
+                        ),
+                        onPressed: state.pinLength < 4
+                            ? null
+                            : () {
+                                context
+                                    .read<EmployeePinBloc>()
+                                    .add(EnterClickedEvent());
+                              },
+                        child: Text(
+                          'ENTER',
+                          style: Theme.of(context).textTheme.bodyText1!.merge(
+                                TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: darkBlueText,
                                 ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                              ),
+                        ),
+                      )),
                 ],
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

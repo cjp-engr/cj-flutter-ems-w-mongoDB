@@ -26,6 +26,7 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
   ) {
     emit(state.copyWith(
       pin: [],
+      empPinStatus: EmployeePinStatus.initial,
       pinLength: 0,
       enteredPIN: 0,
       reEnteredPIN: 0,
@@ -83,9 +84,44 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
     Employee? emp = await employeeRepository.fetchEmployeePin(strPin);
     //log(employee.firstName!);
     if (inPin == emp?.pin) {
-      log('The pin is already used');
+      emit(state.copyWith(
+        pin: [],
+        empPinStatus: EmployeePinStatus.isExisting,
+        pinLength: 0,
+      ));
     } else {
-      log('created new');
+      if (state.enteredPIN == 0) {
+        emit(state.copyWith(
+          enteredPIN: inPin,
+          pin: [],
+          empPinStatus: EmployeePinStatus.isNotExisting,
+          pinLength: 0,
+        ));
+      } else {
+        if (state.enteredPIN == inPin) {
+          emit(state.copyWith(
+            reEnteredPIN: inPin,
+            pin: [],
+            empPinStatus: EmployeePinStatus.enteredAndReEnteredMatch,
+            pinLength: 0,
+          ));
+          log('Match');
+          log(state.empPinStatus.name);
+          log('entered: ' + state.enteredPIN.toString());
+          log('reentered: ' + state.reEnteredPIN.toString());
+        } else {
+          emit(state.copyWith(
+            pin: [],
+            empPinStatus: EmployeePinStatus.enteredAndReEnteredNotMatch,
+            pinLength: 0,
+            enteredPIN: 0,
+            reEnteredPIN: 0,
+          ));
+          log('NotMatch');
+          log('entered: ' + state.enteredPIN.toString());
+          log('reentered: ' + state.reEnteredPIN.toString());
+        }
+      }
     }
   }
 }
