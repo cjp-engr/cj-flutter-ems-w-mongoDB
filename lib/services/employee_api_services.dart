@@ -66,32 +66,32 @@ class EmployeeApiServices {
       host: kEmployeesHost,
       path: '/employee',
     );
+    try {
+      final response = await http.post(
+        uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'firstName': e.firstName,
+          'lastName': e.lastName,
+          'email': e.email,
+          'countryCode': e.countryCode,
+          'phoneNumber': e.phoneNumber,
+          'employeeId': e.employeeId,
+          'jobRole': e.jobRole,
+          'payType': e.payType,
+          'hourlyRate': e.hourlyRate,
+          'weeklyHours': e.weeklyHours,
+          'pin': e.pin
+        }),
+      );
 
-    final response = await http.post(
-      uri,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'firstName': e.firstName,
-        'lastName': e.lastName,
-        'email': e.email,
-        'countryCode': e.countryCode,
-        'phoneNumber': e.phoneNumber,
-        'employeeId': e.employeeId,
-        'jobRole': e.jobRole,
-        'payType': e.payType,
-        'hourlyRate': e.hourlyRate,
-        'weeklyHours': e.weeklyHours,
-        'pin': e.pin
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      Employee.fromJson(jsonDecode(response.body));
-    } else {
-      loggg.log('Failed to add employee.');
-      throw Exception('Failed to add employee.');
+      if (response.statusCode == 201) {
+        Employee.fromJson(jsonDecode(response.body));
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
