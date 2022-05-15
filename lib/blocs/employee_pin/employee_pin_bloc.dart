@@ -105,10 +105,6 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
             empPinStatus: EmployeePinStatus.enteredAndReEnteredMatch,
             pinLength: 0,
           ));
-          log('Match');
-          log(state.empPinStatus.name);
-          log('entered: ' + state.enteredPIN.toString());
-          log('reentered: ' + state.reEnteredPIN.toString());
         } else {
           emit(state.copyWith(
             pin: [],
@@ -117,9 +113,6 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
             enteredPIN: 0,
             reEnteredPIN: 0,
           ));
-          log('NotMatch');
-          log('entered: ' + state.enteredPIN.toString());
-          log('reentered: ' + state.reEnteredPIN.toString());
         }
       }
     }
