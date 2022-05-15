@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/blocs/blocs.dart';
+import 'package:ems_app/models/employee.dart';
+
 import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:equatable/equatable.dart';
 
@@ -30,7 +30,6 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
       enteredPIN: 0,
       reEnteredPIN: 0,
     ));
-    log(state.pin.toString());
   }
 
   void _enterEmployeePin(
@@ -78,10 +77,12 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
   void _enterClicked(
     EnterClickedEvent event,
     Emitter<EmployeePinState> emit,
-  ) {
+  ) async {
     String strPin = state.pin.join('');
     int? inPin = int.tryParse(strPin);
-    if (inPin == 1234) {
+    Employee? emp = await employeeRepository.fetchEmployeePin(strPin);
+    //log(employee.firstName!);
+    if (inPin == emp?.pin) {
       log('The pin is already used');
     } else {
       log('created new');

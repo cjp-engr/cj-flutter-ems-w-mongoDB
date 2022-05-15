@@ -1,6 +1,5 @@
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/models/employee.dart';
 import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,9 +133,9 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                         );
                     showDialog(
                       context: context,
-                      builder: (context) => ShowInfoEmployeeDialog(
-                        employeeDetails: Employee.initial(),
-                      ),
+                      builder: (context) => const ShowInfoEmployeeDialog(
+                          //employeeDetails: Employee.initial(),
+                          ),
                     );
                   },
                   style: ElevatedButton.styleFrom(

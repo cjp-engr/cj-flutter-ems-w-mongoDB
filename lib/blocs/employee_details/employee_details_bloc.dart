@@ -26,9 +26,9 @@ class EmployeeDetailsBloc
   ) async {
     if (event.id == "addingNewEmployee") {
       emit(state.copyWith(
+        employeeDetails: Employee.initial(),
         employeeStatus: EmployeeStatus.adding,
       ));
-      log(EmployeeStatus.adding.name);
       return;
     }
     try {
@@ -41,6 +41,7 @@ class EmployeeDetailsBloc
         employeeDetails: employee,
         employeeStatus: EmployeeStatus.read,
       ));
+      log(state.employeeDetails.toString());
     } on CustomError catch (e) {
       emit(state.copyWith(
         employeeStatus: EmployeeStatus.error,

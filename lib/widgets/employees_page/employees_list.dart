@@ -104,11 +104,10 @@ class EmployeesData extends StatelessWidget {
                   ));
               showDialog(
                 context: context,
-                builder: (context) => ShowInfoEmployeeDialog(
-                  employeeDetails: state.employeesList[index],
-                ),
+                builder: (context) => const ShowInfoEmployeeDialog(
+                    //employeeDetails: state.employeesList[index],
+                    ),
               );
-              log(state.employeesList[index].id!);
             },
             child: Padding(
               padding: const EdgeInsets.all(2.0),

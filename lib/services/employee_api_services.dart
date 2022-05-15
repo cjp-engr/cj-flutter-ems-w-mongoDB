@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer' as loggg;
-import 'dart:math';
 
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/employee.dart';
@@ -61,7 +61,6 @@ class EmployeeApiServices {
   }
 
   Future<void> addEmployee(Employee e) async {
-    Random random = Random();
     final Uri uri = Uri(
       scheme: 'https',
       host: kEmployeesHost,
@@ -85,7 +84,7 @@ class EmployeeApiServices {
         'hourlyRate': e.hourlyRate,
         'weeklyHours': e.weeklyHours,
         //TODO: PIN
-        'pin': random.nextInt(1000)
+        'pin': '5555'
       }),
     );
 
@@ -95,5 +94,36 @@ class EmployeeApiServices {
       loggg.log('Failed to add employee.');
       throw Exception('Failed to add employee.');
     }
+  }
+
+  FutureOr<Employee?> getEmployeePin(String pin) async {
+    final Uri uri = Uri(
+      scheme: 'https',
+      host: kEmployeesHost,
+      path: '/employee',
+      queryParameters: {
+        'pin': pin,
+      },
+    );
+
+    try {
+      final http.Response response =
+          await http.get(uri, headers: {'Content-Type': 'application/json'});
+
+      if (response.statusCode != 200) {
+        throw Exception('response.statusCode != 200');
+      }
+
+      final empJson = json.decode(utf8.decode(response.bodyBytes))['employees'];
+      List<Employee?> results =
+          (empJson as List).map((e) => Employee.fromJson(e)).toList();
+      if (results.isNotEmpty) {
+        Employee? employee = results[0];
+        return employee;
+      }
+    } catch (e) {
+      rethrow;
+    }
+    return null;
   }
 }
