@@ -815,7 +815,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
         width: fieldWidth,
         child: ElevatedButton(
           onPressed: () {
-            context.read<EmployeePinBloc>().add(SetInitialPinEvent());
+            //context.read<EmployeePinBloc>().add(SetInitialPinEvent());
             showDialog(
               context: context,
               builder: (context) => const EmployeePinDialog(),

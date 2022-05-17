@@ -1,11 +1,30 @@
+import 'dart:io';
+
+import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EmployeeUploadPhotoDialog extends StatelessWidget {
   const EmployeeUploadPhotoDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    File? _image;
+    File? _choseImage = context.watch<EmployeeImageBloc>().state.image;
+
+    final _picker = ImagePicker();
+
+    Future<void> _openImagePicker() async {
+      final XFile? pickedImage =
+          await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        _image = File(pickedImage.path);
+        context.read<EmployeeImageBloc>().add(PickImageEvent(image: _image!));
+      }
+    }
+
     return SimpleDialog(
       children: [
         SizedBox(
@@ -47,7 +66,9 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
                       child: SizedBox(
                         height: 300,
                         width: 350,
-                        child: Image.asset('assets/images/camera_icon.png'),
+                        child: _choseImage != null
+                            ? Image.file(_choseImage, fit: BoxFit.cover)
+                            : Image.asset('assets/images/camera_icon.png'),
                       ),
                     ),
                     Positioned(
@@ -59,7 +80,7 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             primary: yellowButton,
                           ),
-                          onPressed: () {},
+                          onPressed: _openImagePicker,
                           child: Text(
                             'UPLOAD PHOTO',
                             style: Theme.of(context).textTheme.bodyText1!.merge(
@@ -88,7 +109,7 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: yellowButton,
                       ),
-                      onPressed: () {},
+                      onPressed: _openImagePicker,
                       child: Text(
                         'CHOOSE PHOTO',
                         style: Theme.of(context).textTheme.bodyText1!.merge(

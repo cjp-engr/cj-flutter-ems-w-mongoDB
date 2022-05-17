@@ -1,4 +1,5 @@
 import 'package:ems_app/blocs/blocs.dart';
+import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
@@ -60,6 +61,9 @@ class MyApp extends StatelessWidget {
               employeeRepository: context.read<EmployeeRepository>(),
               empDetailsBloc: BlocProvider.of<EmployeeDetailsBloc>(context),
             ),
+          ),
+          BlocProvider<EmployeeImageBloc>(
+            create: (context) => EmployeeImageBloc(),
           ),
         ],
         child: MaterialApp(
