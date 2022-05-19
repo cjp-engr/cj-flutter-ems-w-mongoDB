@@ -16,13 +16,19 @@ class EmployeeImageBloc extends Bloc<EmployeeImageEvent, EmployeeImageState> {
     SetInitialImageEvent event,
     Emitter<EmployeeImageState> emit,
   ) {
-    emit(state.copyWith(image: null));
+    emit(state.copyWith(
+      image: null,
+      imageLocalPath: '',
+    ));
   }
 
   void _pickImage(
     PickImageEvent event,
     Emitter<EmployeeImageState> emit,
   ) {
-    emit(state.copyWith(image: event.image));
+    emit(state.copyWith(
+      image: event.image,
+      imageLocalPath: event.imageLocalPath,
+    ));
   }
 }

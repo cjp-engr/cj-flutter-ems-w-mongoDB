@@ -83,7 +83,7 @@ class EmployeeApiServices {
           'hourlyRate': e.hourlyRate,
           'weeklyHours': e.weeklyHours,
           'pin': e.pin,
-          'imageUrl': 'sample',
+          'imageUrl': e.imageUrl,
         }),
       );
 

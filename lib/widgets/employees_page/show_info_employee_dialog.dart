@@ -1,3 +1,5 @@
+import 'package:cloudinary_sdk/cloudinary_sdk.dart';
+import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,7 +84,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
 
   int? _hourlyRate, _weeklyHrs;
 
-  void _submit() {
+  void _submit() async {
     setState(() {
       _autovalidateMode = AutovalidateMode.always;
     });
@@ -92,6 +94,18 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     if (form == null || !form.validate()) return;
 
     form.save();
+    final response = await cloudinary.uploadResource(CloudinaryUploadResource(
+      filePath:
+          BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath,
+      //fileBytes: file.readAsBytesSync(),
+      resourceType: CloudinaryResourceType.image,
+      folder: 'employees',
+      fileName: _firstName! + _lastName!,
+    ));
+
+    // if (response.isSuccessful) {
+    //   log(response.secureUrl!);
+    // }
 
     final emp = Employee(
       firstName: _firstName,
@@ -106,6 +120,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
       hourlyRate: _hourlyRate,
       weeklyHours: _weeklyHrs,
       pin: BlocProvider.of<EmployeePinBloc>(context).state.enteredPIN,
+      imageUrl: response.secureUrl,
     );
 
     context

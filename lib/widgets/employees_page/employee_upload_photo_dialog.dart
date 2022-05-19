@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,10 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
           await _picker.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         _image = File(pickedImage.path);
-        context.read<EmployeeImageBloc>().add(PickImageEvent(image: _image!));
+        context.read<EmployeeImageBloc>().add(PickImageEvent(
+              image: _image!,
+              imageLocalPath: pickedImage.path,
+            ));
       }
     }
 

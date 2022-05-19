@@ -9,8 +9,10 @@ abstract class EmployeeImageEvent extends Equatable {
 
 class PickImageEvent extends EmployeeImageEvent {
   final File image;
+  final String imageLocalPath;
   const PickImageEvent({
     required this.image,
+    required this.imageLocalPath,
   });
 }
 
