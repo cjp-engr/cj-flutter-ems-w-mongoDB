@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ems_app/exceptions/custom_exception.dart';
 import 'package:ems_app/models/model_custom_error.dart';
 import 'package:ems_app/models/employee.dart';
@@ -22,9 +20,9 @@ class EmployeeRepository {
     }
   }
 
-  Future<Employee> fetchEmployeeById(String id) async {
+  Future<Employee?> fetchEmployeeById(String id) async {
     try {
-      Employee employee = await employeeApiServices.getEmployee(id);
+      Employee? employee = await employeeApiServices.getEmployee(id);
       return employee;
     } on CustomException catch (e) {
       throw CustomError(message: e.message);

@@ -13,6 +13,7 @@ class Employee extends Equatable {
   final int? hourlyRate;
   final int? weeklyHours;
   final int? pin;
+  final String? imageUrl;
 
   const Employee({
     this.id,
@@ -27,6 +28,7 @@ class Employee extends Equatable {
     required this.hourlyRate,
     required this.weeklyHours,
     required this.pin,
+    this.imageUrl,
   });
 
   Employee.fromJson(Map<String, dynamic> json)
@@ -41,7 +43,8 @@ class Employee extends Equatable {
         payType = json['payType'],
         hourlyRate = json['hourlyRate'],
         weeklyHours = json['weeklyHours'],
-        pin = json['pin'];
+        pin = json['pin'],
+        imageUrl = json['imageUrl'];
 
   factory Employee.initial() => const Employee(
         id: '',
@@ -56,6 +59,7 @@ class Employee extends Equatable {
         hourlyRate: 0,
         weeklyHours: 0,
         pin: 0,
+        imageUrl: '',
       );
 
   @override
@@ -73,11 +77,12 @@ class Employee extends Equatable {
       hourlyRate,
       weeklyHours,
       pin,
+      imageUrl,
     ];
   }
 
   @override
   String toString() {
-    return 'Employee(id: $id, firstName: $firstName, lastName: $lastName, email: $email, countryCode: $countryCode, phoneNumber: $phoneNumber, employeeId: $employeeId, jobRole: $jobRole, payType: $payType, hourlyRate: $hourlyRate, weeklyHours: $weeklyHours, pin: $pin)';
+    return 'Employee(id: $id, firstName: $firstName, lastName: $lastName, email: $email, countryCode: $countryCode, phoneNumber: $phoneNumber, employeeId: $employeeId, jobRole: $jobRole, payType: $payType, hourlyRate: $hourlyRate, weeklyHours: $weeklyHours, imageUrl: $imageUrl)';
   }
 }

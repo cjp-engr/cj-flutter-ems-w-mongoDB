@@ -13,3 +13,5 @@ class PickImageEvent extends EmployeeImageEvent {
     required this.image,
   });
 }
+
+class SetInitialImageEvent extends EmployeeImageEvent {}

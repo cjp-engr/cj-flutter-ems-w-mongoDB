@@ -670,6 +670,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
                 items: <String>[
                   'N/A',
                   'Hourly',
+                  'Weekly',
                   'Salary',
                 ].map((String value) {
                   return DropdownMenuItem<String>(
@@ -815,7 +816,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
         width: fieldWidth,
         child: ElevatedButton(
           onPressed: () {
-            //context.read<EmployeePinBloc>().add(SetInitialPinEvent());
+            context.read<EmployeePinBloc>().add(SetInitialPinEvent());
             showDialog(
               context: context,
               builder: (context) => const EmployeePinDialog(),
@@ -914,7 +915,12 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
         width: 110,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pop(context);
+            // context.read<EmployeeDetailsBloc>().add(
+            //       const FetchIdEvent(
+            //         id: "",
+            //       ),
+            //     );
+            Navigator.of(context).pop();
           },
           style: ElevatedButton.styleFrom(
             primary: redButton,

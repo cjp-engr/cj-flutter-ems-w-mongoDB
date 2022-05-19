@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ems_app/blocs/employee_details/employee_details_bloc.dart';
 import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
@@ -196,6 +194,7 @@ class EmployeesData extends StatelessWidget {
                             ),
                             onPressed: () {
                               showDialog(
+                                barrierDismissible: false,
                                 context: context,
                                 builder: (context) =>
                                     const EmployeeViewHoursDialog(),

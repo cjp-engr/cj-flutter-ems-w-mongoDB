@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer' as loggg;
 
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/employee.dart';
@@ -37,7 +36,7 @@ class EmployeeApiServices {
     }
   }
 
-  Future<Employee> getEmployee(String id) async {
+  FutureOr<Employee?> getEmployee(String id) async {
     final Uri uri = Uri(
       scheme: 'https',
       host: kEmployeesHost,
@@ -52,7 +51,7 @@ class EmployeeApiServices {
         throw Exception('response.statusCode != 200');
       }
 
-      final empJson = json.decode(utf8.decode(response.bodyBytes))['employees'];
+      var empJson = json.decode(utf8.decode(response.bodyBytes))['employees'];
       final Employee employee = Employee.fromJson(empJson);
       return employee;
     } catch (e) {
@@ -83,7 +82,8 @@ class EmployeeApiServices {
           'payType': e.payType,
           'hourlyRate': e.hourlyRate,
           'weeklyHours': e.weeklyHours,
-          'pin': e.pin
+          'pin': e.pin,
+          'imageUrl': 'sample',
         }),
       );
 

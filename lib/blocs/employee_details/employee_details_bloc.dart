@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/employee.dart';
@@ -31,11 +30,18 @@ class EmployeeDetailsBloc
       ));
       return;
     }
+    // if (event.id == "") {
+    //   emit(state.copyWith(
+    //     employeeDetails: Employee.initial(),
+    //     employeeStatus: EmployeeStatus.clear,
+    //   ));
+    //   return;
+    // }
     try {
       emit(state.copyWith(
         employeeStatus: EmployeeStatus.reading,
       ));
-      final Employee employee =
+      final Employee? employee =
           await employeeRepository.fetchEmployeeById(event.id);
       emit(state.copyWith(
         employeeDetails: employee,

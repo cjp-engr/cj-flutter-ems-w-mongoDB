@@ -4,6 +4,7 @@ enum EmployeeStatus {
   initial,
   adding,
   added,
+  clear,
   reading,
   read,
   updating,

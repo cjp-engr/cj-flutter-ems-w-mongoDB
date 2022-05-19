@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/employee.dart';
 
@@ -11,7 +9,6 @@ part 'employee_pin_state.dart';
 
 class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
   final EmployeeRepository employeeRepository;
-
   EmployeePinBloc({
     required this.employeeRepository,
   }) : super(EmployeePinState.initial()) {

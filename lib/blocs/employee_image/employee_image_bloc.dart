@@ -9,6 +9,14 @@ part 'employee_image_state.dart';
 class EmployeeImageBloc extends Bloc<EmployeeImageEvent, EmployeeImageState> {
   EmployeeImageBloc() : super(EmployeeImageState.initial()) {
     on<PickImageEvent>(_pickImage);
+    on<SetInitialImageEvent>(_setInitialImage);
+  }
+
+  void _setInitialImage(
+    SetInitialImageEvent event,
+    Emitter<EmployeeImageState> emit,
+  ) {
+    emit(state.copyWith(image: null));
   }
 
   void _pickImage(

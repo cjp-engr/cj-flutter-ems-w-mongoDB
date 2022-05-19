@@ -132,10 +132,9 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                           ),
                         );
                     showDialog(
+                      barrierDismissible: false,
                       context: context,
-                      builder: (context) => const ShowInfoEmployeeDialog(
-                          //employeeDetails: Employee.initial(),
-                          ),
+                      builder: (context) => const ShowInfoEmployeeDialog(),
                     );
                   },
                   style: ElevatedButton.styleFrom(
