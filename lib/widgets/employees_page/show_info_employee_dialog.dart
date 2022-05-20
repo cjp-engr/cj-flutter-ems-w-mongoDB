@@ -60,10 +60,8 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
 }
 
 class ShowEmployeeForm extends StatefulWidget {
-  //final Employee employeeDetails;
   const ShowEmployeeForm({
     Key? key,
-    //required this.employeeDetails,
   }) : super(key: key);
 
   @override

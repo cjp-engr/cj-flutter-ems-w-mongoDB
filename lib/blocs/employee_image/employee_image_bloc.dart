@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:equatable/equatable.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'employee_image_event.dart';
 part 'employee_image_state.dart';
