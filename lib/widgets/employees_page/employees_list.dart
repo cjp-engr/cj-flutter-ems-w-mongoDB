@@ -119,10 +119,15 @@ class EmployeesData extends StatelessWidget {
                         ClipOval(
                           child: SizedBox.fromSize(
                             size: const Size.fromRadius(27), // Image radius
-                            child: Image.asset(
-                              'assets/images/flutter_logo.png',
-                              fit: BoxFit.cover,
-                            ),
+                            child: state.employeesList[index].imageUrl == ''
+                                ? Image.asset(
+                                    'assets/images/flutter_logo.png',
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    state.employeesList[index].imageUrl!,
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
                         const SizedBox(
