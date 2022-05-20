@@ -94,18 +94,18 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     if (form == null || !form.validate()) return;
 
     form.save();
-    final response = await cloudinary.uploadResource(CloudinaryUploadResource(
-      filePath:
-          BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath,
-      //fileBytes: file.readAsBytesSync(),
-      resourceType: CloudinaryResourceType.image,
-      folder: 'employees',
-      fileName: _firstName! + _lastName!,
-    ));
+    final imagePath =
+        BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath;
+    late CloudinaryResponse response;
 
-    // if (response.isSuccessful) {
-    //   log(response.secureUrl!);
-    // }
+    if (imagePath!.isNotEmpty) {
+      response = await cloudinary.uploadResource(CloudinaryUploadResource(
+        filePath: imagePath,
+        resourceType: CloudinaryResourceType.image,
+        folder: 'employees',
+        fileName: _firstName! + _lastName!,
+      ));
+    }
 
     final emp = Employee(
       firstName: _firstName,
@@ -120,7 +120,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
       hourlyRate: _hourlyRate,
       weeklyHours: _weeklyHrs,
       pin: BlocProvider.of<EmployeePinBloc>(context).state.enteredPIN,
-      imageUrl: response.secureUrl,
+      imageUrl: imagePath.isNotEmpty ? response.secureUrl! : '',
     );
 
     context
