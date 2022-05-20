@@ -1,7 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +12,9 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     File? _image;
-    File? _choseImage = context.watch<EmployeeImageBloc>().state.image;
 
+    //final File? _choseImage = context.watch<EmployeeImageBloc>().state.image;
+    // log(_choseImage.toString());
     final _picker = ImagePicker();
 
     Future<void> _openImagePicker() async {
@@ -68,12 +67,16 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
                       padding: const EdgeInsets.only(
                         bottom: 20,
                       ),
-                      child: SizedBox(
-                        height: 300,
-                        width: 350,
-                        child: _choseImage != null
-                            ? Image.file(_choseImage, fit: BoxFit.cover)
-                            : Image.asset('assets/images/camera_icon.png'),
+                      child: BlocBuilder<EmployeeImageBloc, EmployeeImageState>(
+                        builder: (context, state) {
+                          return SizedBox(
+                            height: 300,
+                            width: 350,
+                            child: state.imageLocalPath != ''
+                                ? Image.file(state.image!, fit: BoxFit.cover)
+                                : Image.asset('assets/images/camera_icon.png'),
+                          );
+                        },
                       ),
                     ),
                     Positioned(

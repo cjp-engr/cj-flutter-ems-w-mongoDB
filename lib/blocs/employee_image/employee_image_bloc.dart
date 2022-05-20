@@ -1,13 +1,27 @@
+import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:ems_app/blocs/blocs.dart';
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'employee_image_event.dart';
 part 'employee_image_state.dart';
 
 class EmployeeImageBloc extends Bloc<EmployeeImageEvent, EmployeeImageState> {
-  EmployeeImageBloc() : super(EmployeeImageState.initial()) {
+  late StreamSubscription empDetailsSubscription;
+  final EmployeeDetailsBloc empDetailsBloc;
+  EmployeeImageBloc({
+    required this.empDetailsBloc,
+  }) : super(EmployeeImageState.initial()) {
+    empDetailsSubscription =
+        empDetailsBloc.stream.listen((EmployeeDetailsState state) {
+      if (state.employeeStatus == EmployeeStatus.clear) {
+        add(SetInitialImageEvent());
+      }
+    });
     on<PickImageEvent>(_pickImage);
     on<SetInitialImageEvent>(_setInitialImage);
   }
@@ -20,6 +34,8 @@ class EmployeeImageBloc extends Bloc<EmployeeImageEvent, EmployeeImageState> {
       image: null,
       imageLocalPath: '',
     ));
+    log('a:' + state.image.toString());
+    log('b:' + state.imageLocalPath.toString());
   }
 
   void _pickImage(
@@ -30,5 +46,11 @@ class EmployeeImageBloc extends Bloc<EmployeeImageEvent, EmployeeImageState> {
       image: event.image,
       imageLocalPath: event.imageLocalPath,
     ));
+  }
+
+  @override
+  Future<void> close() {
+    empDetailsSubscription.cancel();
+    return super.close();
   }
 }

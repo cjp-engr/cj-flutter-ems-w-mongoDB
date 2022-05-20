@@ -63,7 +63,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
           BlocProvider<EmployeeImageBloc>(
-            create: (context) => EmployeeImageBloc(),
+            create: (context) => EmployeeImageBloc(
+              empDetailsBloc: BlocProvider.of<EmployeeDetailsBloc>(context),
+            ),
           ),
         ],
         child: MaterialApp(

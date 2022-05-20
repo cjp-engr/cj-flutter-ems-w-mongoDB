@@ -930,11 +930,11 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
         width: 110,
         child: ElevatedButton(
           onPressed: () {
-            // context.read<EmployeeDetailsBloc>().add(
-            //       const FetchIdEvent(
-            //         id: "",
-            //       ),
-            //     );
+            context.read<EmployeeDetailsBloc>().add(
+                  const FetchIdEvent(
+                    id: "",
+                  ),
+                );
             Navigator.of(context).pop();
           },
           style: ElevatedButton.styleFrom(

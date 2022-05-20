@@ -30,13 +30,13 @@ class EmployeeDetailsBloc
       ));
       return;
     }
-    // if (event.id == "") {
-    //   emit(state.copyWith(
-    //     employeeDetails: Employee.initial(),
-    //     employeeStatus: EmployeeStatus.clear,
-    //   ));
-    //   return;
-    // }
+    if (event.id == "") {
+      emit(state.copyWith(
+        employeeDetails: Employee.initial(),
+        employeeStatus: EmployeeStatus.clear,
+      ));
+      return;
+    }
     try {
       emit(state.copyWith(
         employeeStatus: EmployeeStatus.reading,
