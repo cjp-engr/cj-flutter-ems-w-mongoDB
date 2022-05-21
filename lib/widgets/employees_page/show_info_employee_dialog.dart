@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
@@ -82,6 +84,31 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
 
   int? _hourlyRate, _weeklyHrs;
 
+  _countryCode() {
+    final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
+    final addCountryCode =
+        BlocProvider.of<CountryCodesBloc>(context).state.selectedCountryCode;
+
+    if (employeeDetails.employeeStatus == EmployeeStatus.adding) {
+      return addCountryCode;
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read) {
+      return employeeDetails.employeeDetails.countryCode;
+    }
+  }
+
+  _pin() {
+    final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
+    final addPin = BlocProvider.of<EmployeePinBloc>(context).state.enteredPIN;
+    if (employeeDetails.employeeStatus == EmployeeStatus.adding) {
+      return addPin;
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read) {
+      return employeeDetails.employeeDetails.pin;
+    }
+  }
+
+  get countryCode => _countryCode();
+  get pin => _pin();
+
   void _submit() async {
     setState(() {
       _autovalidateMode = AutovalidateMode.always;
@@ -92,10 +119,11 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     if (form == null || !form.validate()) return;
 
     form.save();
+
+    final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
     final imagePath =
         BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath;
     late CloudinaryResponse response;
-
     if (imagePath!.isNotEmpty) {
       response = await cloudinary.uploadResource(CloudinaryUploadResource(
         filePath: imagePath,
@@ -109,16 +137,19 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
       firstName: _firstName,
       lastName: _lastName,
       email: _email,
-      countryCode:
-          BlocProvider.of<CountryCodesBloc>(context).state.selectedCountryCode,
+      countryCode: countryCode,
       phoneNumber: _phoneNumber,
       employeeId: _employeeId,
       jobRole: _jobRole,
       payType: _payType,
       hourlyRate: _hourlyRate,
       weeklyHours: _weeklyHrs,
-      pin: BlocProvider.of<EmployeePinBloc>(context).state.enteredPIN,
-      imageUrl: imagePath.isNotEmpty ? response.secureUrl! : '',
+      pin: pin,
+      imageUrl: employeeDetails.employeeStatus == EmployeeStatus.adding
+          ? imagePath.isNotEmpty
+              ? response.secureUrl!
+              : ''
+          : employeeDetails.employeeDetails.imageUrl,
     );
 
     context
@@ -254,7 +285,9 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            _doneButton(),
+                            state.employeeStatus == EmployeeStatus.adding
+                                ? _doneButton('ADD')
+                                : _doneButton('UPDATE'),
                             _cancelButton(),
                           ],
                         ),
@@ -894,7 +927,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     );
   }
 
-  Widget _doneButton() {
+  Widget _doneButton(String buttonLabel) {
     return Padding(
       padding: const EdgeInsets.only(
         top: 10,
@@ -902,14 +935,14 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
       ),
       child: SizedBox(
         height: 50,
-        width: 100,
+        width: 110,
         child: ElevatedButton(
           onPressed: _submit,
           style: ElevatedButton.styleFrom(
             primary: yellowButton,
           ),
           child: Text(
-            'DONE',
+            buttonLabel,
             style: Theme.of(context).textTheme.bodyText1!.merge(
                   TextStyle(
                     fontWeight: FontWeight.bold,

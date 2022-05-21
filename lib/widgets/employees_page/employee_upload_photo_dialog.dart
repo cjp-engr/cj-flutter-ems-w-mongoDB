@@ -13,8 +13,6 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     File? _image;
 
-    //final File? _choseImage = context.watch<EmployeeImageBloc>().state.image;
-    // log(_choseImage.toString());
     final _picker = ImagePicker();
 
     Future<void> _openImagePicker() async {

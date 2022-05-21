@@ -17,7 +17,7 @@ class EmployeeDetailsBloc
     required this.employeeRepository,
   }) : super(EmployeeDetailsState.initial()) {
     on<FetchIdEvent>(_fetchId);
-    on<SubmitEmployeeDetailsEvent>(_addEmployee);
+    on<SubmitEmployeeDetailsEvent>(_addOrUpdateEmployee);
   }
 
   FutureOr<void> _fetchId(
@@ -45,6 +45,7 @@ class EmployeeDetailsBloc
       ));
       final Employee? employee =
           await employeeRepository.fetchEmployeeById(event.id);
+
       emit(state.copyWith(
         employeeDetails: employee,
         employeeStatus: EmployeeStatus.read,
@@ -57,13 +58,21 @@ class EmployeeDetailsBloc
     }
   }
 
-  FutureOr<void> _addEmployee(
+  FutureOr<void> _addOrUpdateEmployee(
     SubmitEmployeeDetailsEvent event,
     Emitter<EmployeeDetailsState> emit,
   ) async {
     try {
-      await employeeRepository.addNewEmployee(event.emp);
-      emit(state.copyWith(employeeStatus: EmployeeStatus.added));
+      if (state.employeeStatus == EmployeeStatus.adding) {
+        await employeeRepository.addNewEmployee(event.emp);
+        emit(state.copyWith(employeeStatus: EmployeeStatus.added));
+      } else if (state.employeeStatus == EmployeeStatus.read) {
+        await employeeRepository.updateEmployee(
+          event.emp,
+          state.employeeDetails.id!,
+        );
+        emit(state.copyWith(employeeStatus: EmployeeStatus.updated));
+      }
     } on CustomError catch (e) {
       emit(state.copyWith(
         employeeStatus: EmployeeStatus.error,
@@ -71,4 +80,19 @@ class EmployeeDetailsBloc
       ));
     }
   }
+
+  // FutureOr<void> _updateEmployee(
+  //   SubmitEmployeeDetailsEvent event,
+  //   Emitter<EmployeeDetailsState> emit,
+  // ) async {
+  //   try {
+  //     await employeeRepository.updateEmployee(event.emp, event.emp.id!);
+  //     emit(state.copyWith(employeeStatus: EmployeeStatus.updated));
+  //   } on CustomError catch (e) {
+  //     emit(state.copyWith(
+  //       employeeStatus: EmployeeStatus.error,
+  //       customError: e,
+  //     ));
+  //   }
+  // }
 }
