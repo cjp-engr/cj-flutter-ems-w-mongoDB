@@ -54,6 +54,18 @@ class EmployeeRepository {
     }
   }
 
+  Future<void> deleteEmployee(
+    String id,
+  ) async {
+    try {
+      await employeeApiServices.deleteEmployee(id);
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
+
   Future<Employee?> fetchEmployeePin(String pin) async {
     try {
       return await employeeApiServices.getEmployeePin(pin);

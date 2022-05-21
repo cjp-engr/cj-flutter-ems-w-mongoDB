@@ -23,7 +23,8 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     empDetailsSubscription =
         empDetailsBloc.stream.listen((EmployeeDetailsState empDetailsState) {
       if (empDetailsState.employeeStatus == EmployeeStatus.added ||
-          empDetailsState.employeeStatus == EmployeeStatus.updated) {
+          empDetailsState.employeeStatus == EmployeeStatus.updated ||
+          empDetailsState.employeeStatus == EmployeeStatus.deleted) {
         add(FetchAllEmployeesEvent());
       }
     });

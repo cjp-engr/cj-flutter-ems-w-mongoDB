@@ -18,6 +18,7 @@ class EmployeeDetailsBloc
   }) : super(EmployeeDetailsState.initial()) {
     on<FetchIdEvent>(_fetchId);
     on<SubmitEmployeeDetailsEvent>(_addOrUpdateEmployee);
+    on<DeleteEmployeeEvent>(_deleteEmployee);
   }
 
   FutureOr<void> _fetchId(
@@ -81,18 +82,20 @@ class EmployeeDetailsBloc
     }
   }
 
-  // FutureOr<void> _updateEmployee(
-  //   SubmitEmployeeDetailsEvent event,
-  //   Emitter<EmployeeDetailsState> emit,
-  // ) async {
-  //   try {
-  //     await employeeRepository.updateEmployee(event.emp, event.emp.id!);
-  //     emit(state.copyWith(employeeStatus: EmployeeStatus.updated));
-  //   } on CustomError catch (e) {
-  //     emit(state.copyWith(
-  //       employeeStatus: EmployeeStatus.error,
-  //       customError: e,
-  //     ));
-  //   }
-  // }
+  FutureOr<void> _deleteEmployee(
+    DeleteEmployeeEvent event,
+    Emitter<EmployeeDetailsState> emit,
+  ) async {
+    try {
+      if (event.empStatus == EmployeeStatus.deleting) {
+        await employeeRepository.deleteEmployee(event.id);
+        emit(state.copyWith(employeeStatus: EmployeeStatus.deleted));
+      }
+    } on CustomError catch (e) {
+      emit(state.copyWith(
+        employeeStatus: EmployeeStatus.error,
+        customError: e,
+      ));
+    }
+  }
 }

@@ -320,7 +320,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
                 state.employeeStatus == EmployeeStatus.read
                     ? Column(
                         children: [
-                          _deleteButton(),
+                          _deleteButton(state.employeeDetails.id!),
                         ],
                       )
                     : Column(),
@@ -1014,7 +1014,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     );
   }
 
-  Widget _deleteButton() {
+  Widget _deleteButton(String id) {
     return Padding(
       padding: const EdgeInsets.only(
         right: 10,
@@ -1026,7 +1026,13 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
         height: 50,
         width: 150,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.read<EmployeeDetailsBloc>().add(DeleteEmployeeEvent(
+                  id: id,
+                  empStatus: EmployeeStatus.deleting,
+                ));
+            Navigator.of(context).pop();
+          },
           style: ElevatedButton.styleFrom(
             primary: redButton,
           ),

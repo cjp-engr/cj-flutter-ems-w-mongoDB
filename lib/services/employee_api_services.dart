@@ -132,6 +132,29 @@ class EmployeeApiServices {
     }
   }
 
+  Future<Employee?> deleteEmployee(String id) async {
+    final Uri uri = Uri(
+      scheme: 'https',
+      host: kEmployeesHost,
+      path: '/employee/$id',
+    );
+
+    final http.Response response = await http.delete(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Employee.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a "200 OK response",
+      // then throw an exception.
+      throw Exception('Failed to delete album.');
+    }
+  }
+
   FutureOr<Employee?> getEmployeePin(String pin) async {
     final Uri uri = Uri(
       scheme: 'https',

@@ -20,3 +20,12 @@ class SubmitEmployeeDetailsEvent extends EmployeeDetailsEvent {
     required this.emp,
   });
 }
+
+class DeleteEmployeeEvent extends EmployeeDetailsEvent {
+  final EmployeeStatus empStatus;
+  final String id;
+  const DeleteEmployeeEvent({
+    required this.id,
+    required this.empStatus,
+  });
+}
