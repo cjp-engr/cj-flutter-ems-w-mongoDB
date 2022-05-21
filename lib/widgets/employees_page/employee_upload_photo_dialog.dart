@@ -117,7 +117,9 @@ class EmployeeUploadPhotoDialog extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         primary: yellowButton,
                       ),
-                      onPressed: _openImagePicker,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                       child: Text(
                         'CHOOSE PHOTO',
                         style: Theme.of(context).textTheme.bodyText1!.merge(

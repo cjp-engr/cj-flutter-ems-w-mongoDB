@@ -32,7 +32,7 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 25,
+                        top: 20,
                         bottom: 10,
                       ),
                       child: Text(
@@ -47,7 +47,7 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.3,
+                  height: MediaQuery.of(context).size.height / 1.2,
                   child: const ShowEmployeeForm(),
                 ),
               ],
@@ -262,6 +262,13 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
                     ),
                   ],
                 ),
+                state.employeeStatus == EmployeeStatus.read
+                    ? Column(
+                        children: [
+                          _deleteButton(),
+                        ],
+                      )
+                    : Column(),
               ],
             );
           }
@@ -940,6 +947,36 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
           ),
           child: Text(
             'CANCEL',
+            style: Theme.of(context).textTheme.bodyText1!.merge(
+                  TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: darkBlueText,
+                  ),
+                ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _deleteButton() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 10,
+        left: 20,
+        top: 10,
+        bottom: 10,
+      ),
+      child: SizedBox(
+        height: 50,
+        width: 150,
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            primary: redButton,
+          ),
+          child: Text(
+            'DELETE',
             style: Theme.of(context).textTheme.bodyText1!.merge(
                   TextStyle(
                     fontWeight: FontWeight.bold,
