@@ -19,6 +19,8 @@ class EmployeeImageBloc extends Bloc<EmployeeImageEvent, EmployeeImageState> {
         empDetailsBloc.stream.listen((EmployeeDetailsState state) {
       if (state.employeeStatus == EmployeeStatus.clear) {
         add(SetInitialImageEvent());
+      } else if (empDetailsBloc.state.employeeStatus == EmployeeStatus.read) {
+        log('imageUrl');
       }
     });
     on<PickImageEvent>(_pickImage);
@@ -33,8 +35,6 @@ class EmployeeImageBloc extends Bloc<EmployeeImageEvent, EmployeeImageState> {
       image: null,
       imageLocalPath: '',
     ));
-    log('a:' + state.image.toString());
-    log('b:' + state.imageLocalPath.toString());
   }
 
   void _pickImage(

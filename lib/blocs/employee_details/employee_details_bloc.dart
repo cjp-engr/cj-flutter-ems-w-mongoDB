@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/employee.dart';
@@ -28,6 +29,7 @@ class EmployeeDetailsBloc
         employeeDetails: Employee.initial(),
         employeeStatus: EmployeeStatus.adding,
       ));
+      log("addingNewEmployee");
       return;
     }
     if (event.id == "") {
