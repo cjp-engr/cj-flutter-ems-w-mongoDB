@@ -150,8 +150,11 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
         imageUrl = '';
       }
     } else if (employeeDetails.employeeStatus == EmployeeStatus.read &&
-        response.secureUrl! != employeeDetails.employeeDetails.imageUrl) {
-      imageUrl = response.secureUrl!;
+        imagePath.isEmpty) {
+      imageUrl = employeeDetails.employeeDetails.imageUrl!;
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read &&
+        response.secureUrl != employeeDetails.employeeDetails.imageUrl) {
+      imageUrl = response.secureUrl;
     } else if (employeeDetails.employeeStatus == EmployeeStatus.read) {
       imageUrl = employeeDetails.employeeDetails.imageUrl!;
     }
