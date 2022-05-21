@@ -84,12 +84,18 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
 
   int? _hourlyRate, _weeklyHrs;
 
+  _employeeDetails() {
+    return BlocProvider.of<EmployeeDetailsBloc>(context).state;
+  }
+
   _countryCode() {
-    final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
     final addCountryCode =
         BlocProvider.of<CountryCodesBloc>(context).state.selectedCountryCode;
 
     if (employeeDetails.employeeStatus == EmployeeStatus.adding) {
+      return addCountryCode;
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read &&
+        addCountryCode != employeeDetails.employeeDetails.countryCode) {
       return addCountryCode;
     } else if (employeeDetails.employeeStatus == EmployeeStatus.read) {
       return employeeDetails.employeeDetails.countryCode;
@@ -97,9 +103,11 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
   }
 
   _pin() {
-    final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
     final addPin = BlocProvider.of<EmployeePinBloc>(context).state.enteredPIN;
     if (employeeDetails.employeeStatus == EmployeeStatus.adding) {
+      return addPin;
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read &&
+        addPin != employeeDetails.employeeDetails.pin) {
       return addPin;
     } else if (employeeDetails.employeeStatus == EmployeeStatus.read) {
       return employeeDetails.employeeDetails.pin;
@@ -108,6 +116,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
 
   get countryCode => _countryCode();
   get pin => _pin();
+  get employeeDetails => _employeeDetails();
 
   void _submit() async {
     setState(() {
@@ -123,6 +132,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
     final imagePath =
         BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath;
+    late String? imageUrl;
     late CloudinaryResponse response;
     if (imagePath!.isNotEmpty) {
       response = await cloudinary.uploadResource(CloudinaryUploadResource(
@@ -131,6 +141,19 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
         folder: 'employees',
         fileName: _firstName! + _lastName!,
       ));
+    }
+
+    if (employeeDetails.employeeStatus == EmployeeStatus.adding) {
+      if (imagePath.isNotEmpty) {
+        imageUrl = response.secureUrl!;
+      } else {
+        imageUrl = '';
+      }
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read &&
+        response.secureUrl! != employeeDetails.employeeDetails.imageUrl) {
+      imageUrl = response.secureUrl!;
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read) {
+      imageUrl = employeeDetails.employeeDetails.imageUrl!;
     }
 
     final emp = Employee(
@@ -145,11 +168,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
       hourlyRate: _hourlyRate,
       weeklyHours: _weeklyHrs,
       pin: pin,
-      imageUrl: employeeDetails.employeeStatus == EmployeeStatus.adding
-          ? imagePath.isNotEmpty
-              ? response.secureUrl!
-              : ''
-          : employeeDetails.employeeDetails.imageUrl,
+      imageUrl: imageUrl,
     );
 
     context
