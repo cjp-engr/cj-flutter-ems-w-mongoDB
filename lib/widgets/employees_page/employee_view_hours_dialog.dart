@@ -1,4 +1,5 @@
-import 'package:ems_app/widgets/employees_page/employee_set_hours.dart';
+import 'package:ems_app/constants/constants.dart';
+import 'package:ems_app/widgets/employees_page/employee_view_hours_entry_dialog.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeViewHoursDialog extends StatelessWidget {
@@ -6,122 +7,193 @@ class EmployeeViewHoursDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SimpleDialog(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width / 1.4,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Column(
-            children: [
-              Text(
-                'TOTAL WORK TIME',
-                style: Theme.of(context).textTheme.headline5!.merge(
-                      const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-              ),
-              Text(
-                '00:00',
-                style: Theme.of(context).textTheme.headline5!.merge(
-                      const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 50,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'START TIME',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 6.5,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => const EmployeeSetHours(),
-                              );
-                            },
-                            child: const Text('Start'),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'END TIME',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 6.5,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => const EmployeeSetHours(),
-                              );
-                            },
-                            child: const Text('End'),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'JOB TYPE',
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width / 5.5,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(),
-                          ),
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.delete_outline,
-                        size: 45,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+    Future<void> _showStartTime() async {
+      final TimeOfDay? result = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+      if (result != null) {
+        //log(result.format(context));
+      }
+    }
+
+    Future<void> _showEndTime() async {
+      final TimeOfDay? result = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+      if (result != null) {
+        //log(result.format(context));
+      }
+    }
+
+    return AlertDialog(
+      content: Container(
+        width: MediaQuery.of(context).size.width / 1.7,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          color: Colors.white,
         ),
-      ],
+        child: Column(
+          children: [
+            Text(
+              'TOTAL WORK TIME',
+              style: Theme.of(context).textTheme.headline5!.merge(
+                    const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+            ),
+            Text(
+              '00:00',
+              style: Theme.of(context).textTheme.headline5!.merge(
+                    const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width / 1.75,
+              height: MediaQuery.of(context).size.height / 1.9,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: ListView(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 70,
+                        width: 200,
+                        child: ElevatedButton(
+                          onPressed: _showStartTime,
+                          style: ElevatedButton.styleFrom(
+                            side: BorderSide(color: darkBlueText, width: 2.5),
+                            primary: Colors.white,
+                          ),
+                          child: Text(
+                            'start',
+                            style: Theme.of(context).textTheme.bodyText1!.merge(
+                                  TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: darkBlueText,
+                                    fontSize: 40,
+                                  ),
+                                ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      SizedBox(
+                        height: 70,
+                        width: 200,
+                        child: ElevatedButton(
+                          onPressed: _showEndTime,
+                          style: ElevatedButton.styleFrom(
+                            side: BorderSide(color: darkBlueText, width: 2.5),
+                            primary: Colors.white,
+                          ),
+                          child: Text(
+                            'end',
+                            style: Theme.of(context).textTheme.bodyText1!.merge(
+                                  TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: darkBlueText,
+                                    fontSize: 40,
+                                  ),
+                                ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 80,
+                      ),
+                      SizedBox(
+                        height: 70,
+                        width: 80,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            primary: redButton,
+                          ),
+                          child: Icon(
+                            Icons.delete_outline_outlined,
+                            size: 50,
+                            color: darkBlueText,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  height: 70,
+                  width: 160,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) =>
+                            const EmployeeViewHoursEntryDialog(),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: redButton,
+                    ),
+                    child: Text(
+                      'ADD',
+                      style: Theme.of(context).textTheme.bodyText1!.merge(
+                            TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: darkBlueText,
+                              fontSize: 30,
+                            ),
+                          ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 70,
+                  width: 160,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: yellowButton,
+                    ),
+                    child: Text(
+                      'DONE',
+                      style: Theme.of(context).textTheme.bodyText1!.merge(
+                            TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: darkBlueText,
+                              fontSize: 30,
+                            ),
+                          ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

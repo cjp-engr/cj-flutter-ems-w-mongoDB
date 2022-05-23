@@ -198,7 +198,6 @@ class EmployeesData extends StatelessWidget {
                             ),
                             onPressed: () {
                               showDialog(
-                                barrierDismissible: false,
                                 context: context,
                                 builder: (context) =>
                                     const EmployeeViewHoursDialog(),

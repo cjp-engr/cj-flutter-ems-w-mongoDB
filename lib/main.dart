@@ -1,6 +1,8 @@
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
+import 'package:ems_app/blocs/employee_view_hours/employee_view_hours_bloc.dart';
+import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:ems_app/services/country_code_api_services.dart';
@@ -67,10 +69,16 @@ class MyApp extends StatelessWidget {
               empDetailsBloc: BlocProvider.of<EmployeeDetailsBloc>(context),
             ),
           ),
+          BlocProvider<EmployeeViewHoursBloc>(
+            create: (context) => EmployeeViewHoursBloc(),
+          ),
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
+            timePickerTheme: TimePickerThemeData(
+              hourMinuteTextColor: redButton,
+            ),
             textTheme: const TextTheme(
               button: TextStyle(
                 fontSize: 15.0,
