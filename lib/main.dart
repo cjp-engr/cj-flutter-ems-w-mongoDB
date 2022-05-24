@@ -8,6 +8,7 @@ import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:ems_app/services/country_code_api_services.dart';
 import 'package:ems_app/services/employee_api_services.dart';
 import 'package:ems_app/widgets/side_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -76,6 +77,14 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
+            cupertinoOverrideTheme: const CupertinoThemeData(
+              textTheme: CupertinoTextThemeData(
+                dateTimePickerTextStyle: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
             timePickerTheme: TimePickerThemeData(
               hourMinuteTextColor: redButton,
             ),

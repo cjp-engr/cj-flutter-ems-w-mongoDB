@@ -1,9 +1,9 @@
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 
 class EmployeesHeaders extends StatefulWidget {
   const EmployeesHeaders({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class EmployeesHeaders extends StatefulWidget {
 
 class _EmployeesHeadersState extends State<EmployeesHeaders> {
   TextEditingController nameController = TextEditingController();
-  DateTime _dateTime = DateTime.now();
 
   @override
   void initState() {
@@ -35,6 +34,81 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
 
   @override
   Widget build(BuildContext context) {
+    //DateTime selectedDate = DateTime.now();
+    void showDatePicker() {
+      showCupertinoModalPopup(
+          context: context,
+          builder: (BuildContext builder) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 220),
+              child: Stack(
+                children: [
+                  Container(
+                    height:
+                        MediaQuery.of(context).copyWith().size.height * 0.42,
+                    width: MediaQuery.of(context).copyWith().size.height * 0.38,
+                    color: Colors.white,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10,
+                      left: 20,
+                    ),
+                    child: Text(
+                      'Select Date',
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        right: 5,
+                        bottom: 5,
+                      ),
+                      child: Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text('Current Date'),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: SizedBox(
+                      height:
+                          MediaQuery.of(context).copyWith().size.height * 0.30,
+                      width:
+                          MediaQuery.of(context).copyWith().size.height * 0.38,
+                      child: CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        onDateTimeChanged: (value) {
+                          // if (value != null && value != selectedDate)
+                          //   setState(() {
+                          //     selectedDate = value;
+                          //   });
+                        },
+                        //initialDate: DateTime.now(),
+                        minimumYear: 1970,
+                        maximumYear: 2023,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          });
+    }
+
     return Column(
       children: [
         Align(
@@ -92,26 +166,29 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                     Icon(Icons.calendar_month_outlined),
                   ],
                 ),
-                onPressed: () async {
-                  _dateTime = (await DatePicker.showSimpleDatePicker(
-                        context,
-                        initialDate: DateTime(DateTime.now().year),
-                        firstDate: DateTime(1970),
-                        lastDate: DateTime(DateTime.now().year + 2),
-                        dateFormat: "MMM-dd-yyyy",
-                        locale: DateTimePickerLocale.en_us,
-                        looping: false,
-                      ) ??
-                      DateTime.now());
+                // onPressed: () async {
+                //   _dateTime = (await DatePicker.showSimpleDatePicker(
+                //         context,
+                //         initialDate: DateTime(DateTime.now().year),
+                //         firstDate: DateTime(1970),
+                //         lastDate: DateTime(DateTime.now().year + 2),
+                //         dateFormat: "MMM-dd-yyyy",
+                //         locale: DateTimePickerLocale.en_us,
+                //         looping: false,
+                //       ) ??
+                //       DateTime.now());
 
-                  final snackBar =
-                      SnackBar(content: Text("Date Picked $_dateTime"));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                //   final snackBar =
+                //       SnackBar(content: Text("Date Picked $_dateTime"));
+                //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                // },
+                onPressed: () {
+                  showDatePicker();
                 },
                 style: ElevatedButton.styleFrom(
-                  side: const BorderSide(
-                    width: 1.0,
-                    color: Colors.black,
+                  side: BorderSide(
+                    width: 2.5,
+                    color: darkBlueText,
                   ),
                   primary: Colors.white,
                   onPrimary: Colors.black,
