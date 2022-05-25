@@ -36,7 +36,7 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
                     bottom: 10,
                   ),
                   child: Text(
-                    'CONTACT INFORMATION',
+                    'EMPLOYEE INFORMATION',
                     style: Theme.of(context).textTheme.headline5!.merge(
                           const TextStyle(
                             fontWeight: FontWeight.bold,

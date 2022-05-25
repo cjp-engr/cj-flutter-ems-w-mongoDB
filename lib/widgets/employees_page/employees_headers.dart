@@ -35,7 +35,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
   @override
   Widget build(BuildContext context) {
     //DateTime selectedDate = DateTime.now();
-    void showDatePicker() {
+    void _showDatePicker() {
       showCupertinoModalPopup(
           context: context,
           builder: (BuildContext builder) {
@@ -166,25 +166,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                     Icon(Icons.calendar_month_outlined),
                   ],
                 ),
-                // onPressed: () async {
-                //   _dateTime = (await DatePicker.showSimpleDatePicker(
-                //         context,
-                //         initialDate: DateTime(DateTime.now().year),
-                //         firstDate: DateTime(1970),
-                //         lastDate: DateTime(DateTime.now().year + 2),
-                //         dateFormat: "MMM-dd-yyyy",
-                //         locale: DateTimePickerLocale.en_us,
-                //         looping: false,
-                //       ) ??
-                //       DateTime.now());
-
-                //   final snackBar =
-                //       SnackBar(content: Text("Date Picked $_dateTime"));
-                //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                // },
-                onPressed: () {
-                  showDatePicker();
-                },
+                onPressed: _showDatePicker,
                 style: ElevatedButton.styleFrom(
                   side: BorderSide(
                     width: 2.5,

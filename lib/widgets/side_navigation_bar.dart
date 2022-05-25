@@ -1,12 +1,18 @@
+import 'package:ems_app/blocs/side_navigation/side_navigation_bloc.dart';
 import 'package:ems_app/pages/dashboard_page.dart';
+import 'package:ems_app/pages/employee_page.dart';
 import 'package:ems_app/pages/employees_page.dart';
+import 'package:ems_app/pages/switch_user_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SideNavigationBar extends StatelessWidget {
   const SideNavigationBar({Key? key}) : super(key: key);
   static const List<Widget> _widgetOptions = <Widget>[
     DashboardPage(),
+    EmployeePage(),
     EmployeesPage(),
+    SwitchUserPage(),
   ];
 
   @override
@@ -23,33 +29,49 @@ class SideNavigationBar extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
+                  child: TextButton(
+                    onPressed: () {
+                      context
+                          .read<SideNavigationBloc>()
+                          .add(const SwitchActivePageEvent(activePage: 0));
+                    },
+                    child: const Icon(
                       Icons.notes,
                       size: 100,
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
+                TextButton(
+                  onPressed: () {
+                    context
+                        .read<SideNavigationBloc>()
+                        .add(const SwitchActivePageEvent(activePage: 1));
+                  },
+                  child: const Icon(
                     Icons.person,
                     size: 100,
                   ),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
+                TextButton(
+                  onPressed: () {
+                    context
+                        .read<SideNavigationBloc>()
+                        .add(const SwitchActivePageEvent(activePage: 2));
+                  },
+                  child: const Icon(
                     Icons.note_sharp,
                     size: 100,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 150),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
+                  child: TextButton(
+                    onPressed: () {
+                      context
+                          .read<SideNavigationBloc>()
+                          .add(const SwitchActivePageEvent(activePage: 3));
+                    },
+                    child: const Icon(
                       Icons.switch_account_outlined,
                       size: 100,
                     ),
@@ -62,7 +84,8 @@ class SideNavigationBar extends StatelessWidget {
             flex: 15,
             child: Column(
               children: [
-                _widgetOptions[1],
+                _widgetOptions[
+                    context.watch<SideNavigationBloc>().state.activePage],
               ],
             ),
           ),
