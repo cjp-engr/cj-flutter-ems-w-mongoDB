@@ -3,6 +3,7 @@ import 'package:ems_app/pages/dashboard_page.dart';
 import 'package:ems_app/pages/employee_page.dart';
 import 'package:ems_app/pages/employees_page.dart';
 import 'package:ems_app/pages/switch_user_page.dart';
+import 'package:ems_app/widgets/switch_user_page/switch_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -67,9 +68,14 @@ class SideNavigationBar extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 150),
                   child: TextButton(
                     onPressed: () {
-                      context
-                          .read<SideNavigationBloc>()
-                          .add(const SwitchActivePageEvent(activePage: 3));
+                      // context
+                      //     .read<SideNavigationBloc>()
+                      //     .add(const SwitchActivePageEvent(activePage: 3));
+                      showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (context) => const SwitchPin(),
+                      );
                     },
                     child: const Icon(
                       Icons.switch_account_outlined,
