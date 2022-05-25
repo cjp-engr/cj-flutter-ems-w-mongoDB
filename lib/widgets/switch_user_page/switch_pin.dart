@@ -1,4 +1,6 @@
 import 'package:ems_app/constants/constants.dart';
+import 'package:ems_app/widgets/switch_user_page/clockin_confirmation_dialog.dart';
+import 'package:ems_app/widgets/switch_user_page/clockout_confirmation_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,30 +18,42 @@ class SwitchPin extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2.4,
               height: MediaQuery.of(context).size.height / 1.3,
               color: Colors.white,
-              child: StreamBuilder(
-                  stream: Stream.periodic(const Duration(seconds: 1)),
-                  builder: (context, snapshot) {
-                    return Column(
-                      children: [
-                        Text(
-                          DateFormat('h:mm a').format(DateTime.now()),
-                          style: TextStyle(
-                            fontSize: 80,
-                            fontWeight: FontWeight.bold,
-                            color: darkBlueText,
-                          ),
-                        ),
-                        Text(
-                          DateFormat('E, MMM d, yyyy').format(DateTime.now()),
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: darkBlueText,
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 2,
+                      color: Colors.red,
+                    ),
+                  ),
+                  StreamBuilder(
+                      stream: Stream.periodic(const Duration(seconds: 1)),
+                      builder: (context, snapshot) {
+                        return Column(
+                          children: [
+                            Text(
+                              DateFormat('h:mm a').format(DateTime.now()),
+                              style: TextStyle(
+                                fontSize: 80,
+                                fontWeight: FontWeight.bold,
+                                color: darkBlueText,
+                              ),
+                            ),
+                            Text(
+                              DateFormat('E, MMM d, yyyy')
+                                  .format(DateTime.now()),
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: darkBlueText,
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
+                ],
+              ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2.4,
@@ -83,7 +97,13 @@ class SwitchPin extends StatelessWidget {
                           height: 80,
                           width: 130,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    const ClockinConfirmationDialog(),
+                              );
+                            },
                             style: ElevatedButton.styleFrom(
                               primary: yellowButton,
                             ),
@@ -101,35 +121,43 @@ class SwitchPin extends StatelessWidget {
                           height: 80,
                           width: 130,
                           child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                primary: redButton,
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              primary: redButton,
+                            ),
+                            child: Text(
+                              'ENTER',
+                              style: TextStyle(
+                                color: darkBlueText,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
                               ),
-                              child: Text(
-                                'ENTER',
-                                style: TextStyle(
-                                  color: darkBlueText,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: 80,
                           width: 130,
                           child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                primary: yellowButton,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    const ClockoutConfirmationDialog(),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: yellowButton,
+                            ),
+                            child: Text(
+                              'OUT',
+                              style: TextStyle(
+                                color: darkBlueText,
+                                fontSize: 45,
+                                fontWeight: FontWeight.bold,
                               ),
-                              child: Text(
-                                'OUT',
-                                style: TextStyle(
-                                  color: darkBlueText,
-                                  fontSize: 45,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
+                            ),
+                          ),
                         ),
                       ],
                     ),
