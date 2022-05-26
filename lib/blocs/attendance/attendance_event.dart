@@ -21,3 +21,20 @@ class GetEmployeeDetailsEvent extends AttendanceEvent {
 }
 
 class ClearDetailsEvent extends AttendanceEvent {}
+
+class GetAddTimeEvent extends AttendanceEvent {
+  final DateTime clockin;
+  final DateTime clockout;
+  const GetAddTimeEvent({
+    required this.clockin,
+    required this.clockout,
+  });
+}
+
+class GetSelectedDateEvent extends AttendanceEvent {
+  final DateTime selectedDate;
+
+  const GetSelectedDateEvent({
+    required this.selectedDate,
+  });
+}

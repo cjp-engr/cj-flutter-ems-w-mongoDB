@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
@@ -34,7 +37,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
 
   @override
   Widget build(BuildContext context) {
-    //DateTime selectedDate = DateTime.now();
+    DateTime selectedDate = context.watch<AttendanceBloc>().state.workDate;
     void _showDatePicker() {
       showCupertinoModalPopup(
           context: context,
@@ -71,11 +74,21 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                       child: Row(
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              context.read<AttendanceBloc>().add(
+                                  GetSelectedDateEvent(
+                                      selectedDate: DateTime.now()));
+                            },
                             child: const Text('Current Date'),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              context.read<AttendanceBloc>().add(
+                                  GetSelectedDateEvent(
+                                      selectedDate: selectedDate));
+                            },
                             child: const Text('OK'),
                           ),
                         ],
@@ -92,14 +105,14 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                       child: CupertinoDatePicker(
                         mode: CupertinoDatePickerMode.date,
                         onDateTimeChanged: (value) {
-                          // if (value != null && value != selectedDate)
-                          //   setState(() {
-                          //     selectedDate = value;
-                          //   });
+                          setState(() {
+                            selectedDate = value;
+                          });
                         },
-                        //initialDate: DateTime.now(),
                         minimumYear: 1970,
-                        maximumYear: 2023,
+                        maximumDate: DateTime.now(),
+                        maximumYear: DateTime.now().year,
+                        initialDateTime: selectedDate,
                       ),
                     ),
                   ),
@@ -157,13 +170,19 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
               width: MediaQuery.of(context).size.width / 6,
               child: ElevatedButton(
                 child: Row(
-                  children: const [
+                  children: [
                     Padding(
-                      padding: EdgeInsets.only(right: 50),
-                      child: Text('Date'),
+                      padding: const EdgeInsets.only(right: 1),
+                      child: Text(
+                        selectedDate.month.toString() +
+                            "/" +
+                            selectedDate.day.toString() +
+                            "/" +
+                            selectedDate.year.toString(),
+                      ),
                     ),
-                    Icon(Icons.arrow_drop_down),
-                    Icon(Icons.calendar_month_outlined),
+                    const Icon(Icons.arrow_drop_down),
+                    const Icon(Icons.calendar_month_outlined),
                   ],
                 ),
                 onPressed: _showDatePicker,

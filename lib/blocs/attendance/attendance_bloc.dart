@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -10,6 +8,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   AttendanceBloc() : super(AttendanceState.initial()) {
     on<GetEmployeeDetailsEvent>(_getEmployeeDetails);
     on<ClearDetailsEvent>(_clearDetails);
+    on<GetSelectedDateEvent>(_getSelectedDate);
   }
 
   void _getEmployeeDetails(
@@ -24,6 +23,13 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     ));
   }
 
+  void _getSelectedDate(
+    GetSelectedDateEvent event,
+    Emitter<AttendanceState> emit,
+  ) {
+    emit(state.copyWith(workDate: event.selectedDate));
+  }
+
   void _clearDetails(
     ClearDetailsEvent event,
     Emitter<AttendanceState> emit,
@@ -35,7 +41,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       employeeId: '',
       clockin: 0,
       clockout: 0,
-      workDate: 0,
+      workDate: DateTime.now(),
       status: 0,
     ));
   }

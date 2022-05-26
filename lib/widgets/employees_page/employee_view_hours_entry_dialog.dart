@@ -1,7 +1,7 @@
-import 'package:ems_app/blocs/employee_view_hours/employee_view_hours_bloc.dart';
+import 'dart:developer';
+
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmployeeViewHoursEntryDialog extends StatelessWidget {
   const EmployeeViewHoursEntryDialog({Key? key}) : super(key: key);
@@ -14,9 +14,8 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
         initialTime: TimeOfDay.now(),
       );
       if (result != null) {
-        context
-            .read<EmployeeViewHoursBloc>()
-            .add(EnterStartTimeEvent(startTimeEntered: result.format(context)));
+        var newDate = DateTime(2022, 5, 20, result.hour, result.minute);
+        log(newDate.millisecondsSinceEpoch.toString());
         //log(result.format(context));
       }
     }
@@ -25,9 +24,6 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
       final TimeOfDay? result =
           await showTimePicker(context: context, initialTime: TimeOfDay.now());
       if (result != null) {
-        context
-            .read<EmployeeViewHoursBloc>()
-            .add(EnterEndTimeEvent(endTimeEntered: result.format(context)));
         //log(result.format(context));
       }
     }
@@ -67,21 +63,15 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                           side: BorderSide(color: darkBlueText, width: 2.5),
                           primary: Colors.white,
                         ),
-                        child: BlocBuilder<EmployeeViewHoursBloc,
-                            EmployeeViewHoursState>(
-                          builder: (context, state) {
-                            return Text(
-                              state.enteredStartTime,
-                              style:
-                                  Theme.of(context).textTheme.bodyText1!.merge(
-                                        TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: darkBlueText,
-                                          fontSize: 40,
-                                        ),
-                                      ),
-                            );
-                          },
+                        child: Text(
+                          'StarT',
+                          style: Theme.of(context).textTheme.bodyText1!.merge(
+                                TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: darkBlueText,
+                                  fontSize: 40,
+                                ),
+                              ),
                         ),
                       ),
                     ),
@@ -100,21 +90,15 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                           side: BorderSide(color: darkBlueText, width: 2.5),
                           primary: Colors.white,
                         ),
-                        child: BlocBuilder<EmployeeViewHoursBloc,
-                            EmployeeViewHoursState>(
-                          builder: (context, state) {
-                            return Text(
-                              state.enteredEndTime,
-                              style:
-                                  Theme.of(context).textTheme.bodyText1!.merge(
-                                        TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: darkBlueText,
-                                          fontSize: 40,
-                                        ),
-                                      ),
-                            );
-                          },
+                        child: Text(
+                          'EnD',
+                          style: Theme.of(context).textTheme.bodyText1!.merge(
+                                TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: darkBlueText,
+                                  fontSize: 40,
+                                ),
+                              ),
                         ),
                       ),
                     ),
