@@ -28,30 +28,30 @@ class SwitchPin extends StatelessWidget {
                     ),
                   ),
                   StreamBuilder(
-                      stream: Stream.periodic(const Duration(seconds: 1)),
-                      builder: (context, snapshot) {
-                        return Column(
-                          children: [
-                            Text(
-                              DateFormat('h:mm a').format(DateTime.now()),
-                              style: TextStyle(
-                                fontSize: 80,
-                                fontWeight: FontWeight.bold,
-                                color: darkBlueText,
-                              ),
+                    stream: Stream.periodic(const Duration(seconds: 1)),
+                    builder: (context, snapshot) {
+                      return Column(
+                        children: [
+                          Text(
+                            DateFormat('h:mm a').format(DateTime.now()),
+                            style: TextStyle(
+                              fontSize: 80,
+                              fontWeight: FontWeight.bold,
+                              color: darkBlueText,
                             ),
-                            Text(
-                              DateFormat('E, MMM d, yyyy')
-                                  .format(DateTime.now()),
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: darkBlueText,
-                              ),
+                          ),
+                          Text(
+                            DateFormat('E, MMM d, yyyy').format(DateTime.now()),
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: darkBlueText,
                             ),
-                          ],
-                        );
-                      }),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

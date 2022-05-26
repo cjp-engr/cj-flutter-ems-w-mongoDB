@@ -4,8 +4,10 @@ import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
 import 'package:ems_app/blocs/employee_view_hours/employee_view_hours_bloc.dart';
 import 'package:ems_app/blocs/side_navigation/side_navigation_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
+import 'package:ems_app/repositories/attendance_repository.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
+import 'package:ems_app/services/attendance_api_services.dart';
 import 'package:ems_app/services/country_code_api_services.dart';
 import 'package:ems_app/services/employee_api_services.dart';
 import 'package:ems_app/widgets/side_navigation_bar.dart';
@@ -36,6 +38,13 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => EmployeeRepository(
             employeeApiServices: EmployeeApiServices(
+              httpClient: http.Client(),
+            ),
+          ),
+        ),
+        RepositoryProvider(
+          create: (context) => AttendanceRepository(
+            attendanceApiServices: AttendanceApiServices(
               httpClient: http.Client(),
             ),
           ),
