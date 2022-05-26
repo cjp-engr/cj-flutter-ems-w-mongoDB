@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/employee.dart';
@@ -126,8 +127,10 @@ class EmployeeApiServices {
     );
 
     if (response.statusCode == 200) {
+      log('updated');
       return Employee.fromJson(jsonDecode(response.body));
     } else {
+      log('not updated');
       throw Exception('Failed to update album.');
     }
   }

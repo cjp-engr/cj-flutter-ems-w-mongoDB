@@ -68,6 +68,7 @@ class EmployeeDetailsBloc
         await employeeRepository.addNewEmployee(event.emp);
         emit(state.copyWith(employeeStatus: EmployeeStatus.added));
       } else if (state.employeeStatus == EmployeeStatus.read) {
+        log(state.employeeDetails.id!);
         await employeeRepository.updateEmployee(
           event.emp,
           state.employeeDetails.id!,

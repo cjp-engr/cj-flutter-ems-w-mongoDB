@@ -1,3 +1,4 @@
+import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
 import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
@@ -85,6 +86,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider<SideNavigationBloc>(
             create: (context) => SideNavigationBloc(),
+          ),
+          BlocProvider<AttendanceBloc>(
+            create: (context) => AttendanceBloc(),
           ),
         ],
         child: MaterialApp(

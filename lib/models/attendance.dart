@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Attendance extends Equatable {
+  final String? id;
   final String? uniqueId;
   final String? firstName;
   final String? lastName;
@@ -10,6 +11,7 @@ class Attendance extends Equatable {
   final int? workDate;
   final int? status;
   const Attendance({
+    this.id,
     this.uniqueId,
     this.firstName,
     this.lastName,
@@ -21,7 +23,8 @@ class Attendance extends Equatable {
   });
 
   Attendance.fromJson(Map<String, dynamic> json)
-      : uniqueId = json['uniqueId'],
+      : id = json['_id'],
+        uniqueId = json['uniqueId'],
         firstName = json['firstName'],
         lastName = json['lastName'],
         employeeId = json['employeeId'],
@@ -30,11 +33,22 @@ class Attendance extends Equatable {
         workDate = json['workDate'],
         status = json['status'];
 
-  factory Attendance.initial() => const Attendance();
+  factory Attendance.initial() => const Attendance(
+        id: '',
+        uniqueId: '',
+        firstName: '',
+        lastName: '',
+        employeeId: '',
+        clockin: 0,
+        clockout: 0,
+        workDate: 0,
+        status: 0,
+      );
 
   @override
   List<Object?> get props {
     return [
+      id,
       uniqueId,
       firstName,
       lastName,
@@ -48,6 +62,6 @@ class Attendance extends Equatable {
 
   @override
   String toString() {
-    return 'Attendance(uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status)';
+    return 'Attendance(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status)';
   }
 }

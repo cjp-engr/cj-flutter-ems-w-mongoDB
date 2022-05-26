@@ -17,52 +17,54 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScrollController _controller = ScrollController();
-    return AlertDialog(
-      //SingleChildScrollView(
-      content: Container(
-        width: MediaQuery.of(context).size.width / 1.4,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    bottom: 10,
-                  ),
-                  child: Text(
-                    'EMPLOYEE INFORMATION',
-                    style: Theme.of(context).textTheme.headline5!.merge(
-                          const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 1.5,
-              child: ListView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                controller: _controller,
+    return SingleChildScrollView(
+      child: AlertDialog(
+        //SingleChildScrollView(
+        content: Container(
+          width: MediaQuery.of(context).size.width / 1.4,
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / 1.2,
-                    child: const ShowEmployeeForm(),
-                  ),
-                  const SizedBox(
-                    height: 5,
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      bottom: 10,
+                    ),
+                    child: Text(
+                      'EMPLOYEE INFORMATION',
+                      style: Theme.of(context).textTheme.headline5!.merge(
+                            const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 1.5,
+                child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  controller: _controller,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 1.2,
+                      child: const ShowEmployeeForm(),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

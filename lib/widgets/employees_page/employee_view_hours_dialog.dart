@@ -1,6 +1,8 @@
+import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/employee_view_hours_entry_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmployeeViewHoursDialog extends StatelessWidget {
   const EmployeeViewHoursDialog({Key? key}) : super(key: key);
@@ -173,6 +175,7 @@ class EmployeeViewHoursDialog extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
+                      context.read<AttendanceBloc>().add(ClearDetailsEvent());
                     },
                     style: ElevatedButton.styleFrom(
                       primary: yellowButton,

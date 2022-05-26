@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
 import 'package:ems_app/blocs/employee_details/employee_details_bloc.dart';
 import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
+import 'package:ems_app/models/attendance.dart';
 import 'package:ems_app/widgets/employees_page/employee_view_hours_dialog.dart';
 import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
@@ -198,10 +202,22 @@ class EmployeesData extends StatelessWidget {
                             ),
                             onPressed: () {
                               showDialog(
+                                barrierDismissible: false,
                                 context: context,
                                 builder: (context) =>
                                     const EmployeeViewHoursDialog(),
                               );
+                              context
+                                  .read<AttendanceBloc>()
+                                  .add(GetEmployeeDetailsEvent(
+                                    uniqueId: state.employeesList[index].id!,
+                                    firstName:
+                                        state.employeesList[index].firstName!,
+                                    lastName:
+                                        state.employeesList[index].lastName!,
+                                    employeeId:
+                                        state.employeesList[index].employeeId!,
+                                  ));
                             },
                             child: Text(
                               'VIEW HOURS',
