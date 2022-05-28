@@ -42,4 +42,36 @@ class AttendanceApiServices {
       rethrow;
     }
   }
+
+  Future<List<Attendance>?> getAttendance(
+    String uniqueId,
+    String workDate,
+  ) async {
+    final Uri uri = Uri(
+        scheme: 'https',
+        host: kEmployeesHost,
+        path: '/attendance',
+        queryParameters: {
+          'uniqueId': uniqueId,
+          'workDate': workDate,
+        });
+
+    try {
+      final http.Response response =
+          await http.get(uri, headers: {'Content-Type': 'application/json'});
+
+      if (response.statusCode != 200) {
+        throw Exception('response.statusCode != 200');
+      }
+
+      final attJson =
+          json.decode(utf8.decode(response.bodyBytes))['attendance'];
+      List<Attendance> results =
+          (attJson as List).map((e) => Attendance.fromJson(e)).toList();
+
+      return results;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -17,4 +17,21 @@ class AttendanceRepository {
       throw CustomError(message: e.toString());
     }
   }
+
+  Future<List<Attendance>?> fetchAttendanceList(
+    String uniqueId,
+    String workDate,
+  ) async {
+    try {
+      List<Attendance>? attendance = await attendanceApiServices.getAttendance(
+        uniqueId,
+        workDate,
+      );
+      return attendance;
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
 }

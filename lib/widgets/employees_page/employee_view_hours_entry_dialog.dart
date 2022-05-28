@@ -183,6 +183,9 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
+                        context
+                            .read<AttendanceBloc>()
+                            .add(ClearAddTimeFieldsEvent());
                       },
                       style: ElevatedButton.styleFrom(
                         primary: redButton,

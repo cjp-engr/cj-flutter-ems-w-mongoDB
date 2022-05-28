@@ -12,6 +12,7 @@ class GetEmployeeDetailsEvent extends AttendanceEvent {
   final String firstName;
   final String lastName;
   final String employeeId;
+
   const GetEmployeeDetailsEvent({
     required this.uniqueId,
     required this.firstName,
@@ -19,8 +20,6 @@ class GetEmployeeDetailsEvent extends AttendanceEvent {
     required this.employeeId,
   });
 }
-
-class ClearDetailsEvent extends AttendanceEvent {}
 
 class GetSelectedDateEvent extends AttendanceEvent {
   final DateTime selectedDate;
@@ -54,3 +53,7 @@ class SubmitWorkedTimeEvent extends AttendanceEvent {
     required this.attendance,
   });
 }
+
+class ClearDetailsEvent extends AttendanceEvent {}
+
+class ClearAddTimeFieldsEvent extends AttendanceEvent {}
