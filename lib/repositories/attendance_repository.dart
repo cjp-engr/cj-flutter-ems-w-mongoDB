@@ -34,4 +34,17 @@ class AttendanceRepository {
       throw CustomError(message: e.toString());
     }
   }
+
+  Future<void> updateAttendance(
+    Attendance a,
+    String id,
+  ) async {
+    try {
+      await attendanceApiServices.updateAttendance(a, id);
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
 }

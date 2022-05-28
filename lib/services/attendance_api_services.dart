@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/attendance.dart';
@@ -72,6 +73,35 @@ class AttendanceApiServices {
       return results;
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<Attendance?> updateAttendance(
+    Attendance a,
+    String id,
+  ) async {
+    final Uri uri = Uri(
+      scheme: 'https',
+      host: kEmployeesHost,
+      path: '/attendance/$id',
+    );
+    final response = await http.put(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'clockin': a.clockin,
+        'clockout': a.clockout,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      log('updated');
+      return Attendance.fromJson(jsonDecode(response.body));
+    } else {
+      log('not updated');
+      throw Exception('Failed to update album.');
     }
   }
 }

@@ -21,6 +21,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<SubmitWorkedTimeEvent>(_submitWorkedTime);
     on<ClearDetailsEvent>(_clearDetails);
     on<ClearAddTimeFieldsEvent>(_clearAddTimeFields);
+    on<UpdateWorkedStartTimeEvent>(_updateWorkedStartTime);
+    on<UpdateWorkedEndTimeEvent>(_updateWorkedEndTime);
   }
 
   void _getEmployeeDetails(
@@ -95,7 +97,13 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     Emitter<AttendanceState> emit,
   ) async {
     await attendanceRepository.addAttendance(event.attendance);
+    final List<Attendance>? attendance =
+        await attendanceRepository.fetchAttendanceList(
+      state.uniqueId,
+      state.workDate.millisecondsSinceEpoch.toString(),
+    );
     emit(state.copyWith(
+      attendanceList: attendance,
       attStatus: AttendanceStatus.added,
     ));
     add(ClearAddTimeFieldsEvent());
@@ -110,6 +118,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       firstName: '',
       lastName: '',
       employeeId: '',
+      status: 0,
       attendanceList: [],
     ));
   }
@@ -121,6 +130,54 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     emit(state.copyWith(
       clockin: DateTime(1970, 1, 1),
       clockout: DateTime(1970, 1, 1),
+    ));
+  }
+
+  void _updateWorkedStartTime(
+    UpdateWorkedStartTimeEvent event,
+    Emitter<AttendanceState> emit,
+  ) async {
+    emit(state.copyWith(attStatus: AttendanceStatus.updating));
+    var attendance = Attendance(
+      clockin: event.startTime.millisecondsSinceEpoch,
+      clockout: event.att.clockout,
+    );
+    await attendanceRepository.updateAttendance(
+      attendance,
+      event.att.id!,
+    );
+    final List<Attendance>? attendanceL =
+        await attendanceRepository.fetchAttendanceList(
+      state.uniqueId,
+      state.workDate.millisecondsSinceEpoch.toString(),
+    );
+    emit(state.copyWith(
+      attendanceList: attendanceL,
+      attStatus: AttendanceStatus.updated,
+    ));
+  }
+
+  void _updateWorkedEndTime(
+    UpdateWorkedEndTimeEvent event,
+    Emitter<AttendanceState> emit,
+  ) async {
+    emit(state.copyWith(attStatus: AttendanceStatus.updating));
+    var attendance = Attendance(
+      clockin: event.att.clockin,
+      clockout: event.endTime.millisecondsSinceEpoch,
+    );
+    await attendanceRepository.updateAttendance(
+      attendance,
+      event.att.id!,
+    );
+    final List<Attendance>? attendanceL =
+        await attendanceRepository.fetchAttendanceList(
+      state.uniqueId,
+      state.workDate.millisecondsSinceEpoch.toString(),
+    );
+    emit(state.copyWith(
+      attendanceList: attendanceL,
+      attStatus: AttendanceStatus.updated,
     ));
   }
 }

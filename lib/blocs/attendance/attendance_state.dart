@@ -15,6 +15,7 @@ enum AttendanceStatus {
 }
 
 class AttendanceState extends Equatable {
+  final String id;
   final String uniqueId;
   final String firstName;
   final String lastName;
@@ -27,6 +28,7 @@ class AttendanceState extends Equatable {
   final List<Attendance> attendanceList;
   final CustomError customError;
   const AttendanceState({
+    required this.id,
     required this.uniqueId,
     required this.firstName,
     required this.lastName,
@@ -42,6 +44,7 @@ class AttendanceState extends Equatable {
 
   factory AttendanceState.initial() {
     return AttendanceState(
+      id: '',
       uniqueId: '',
       firstName: '',
       lastName: '',
@@ -58,6 +61,7 @@ class AttendanceState extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         uniqueId,
         firstName,
         lastName,
@@ -72,6 +76,7 @@ class AttendanceState extends Equatable {
       ];
 
   AttendanceState copyWith({
+    String? id,
     String? uniqueId,
     String? firstName,
     String? lastName,
@@ -85,6 +90,7 @@ class AttendanceState extends Equatable {
     CustomError? customError,
   }) {
     return AttendanceState(
+      id: id ?? this.id,
       uniqueId: uniqueId ?? this.uniqueId,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -101,6 +107,6 @@ class AttendanceState extends Equatable {
 
   @override
   String toString() {
-    return 'AttendanceState(uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status, attStatus: $attStatus, attendanceList: $attendanceList, customError: $customError)';
+    return 'AttendanceState(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status, attStatus: $attStatus, attendanceList: $attendanceList, customError: $customError)';
   }
 }

@@ -54,6 +54,25 @@ class SubmitWorkedTimeEvent extends AttendanceEvent {
   });
 }
 
+class UpdateWorkedStartTimeEvent extends AttendanceEvent {
+  final Attendance att;
+  final DateTime startTime;
+
+  const UpdateWorkedStartTimeEvent({
+    required this.att,
+    required this.startTime,
+  });
+}
+
+class UpdateWorkedEndTimeEvent extends AttendanceEvent {
+  final Attendance att;
+  final DateTime endTime;
+  const UpdateWorkedEndTimeEvent({
+    required this.att,
+    required this.endTime,
+  });
+}
+
 class ClearDetailsEvent extends AttendanceEvent {}
 
 class ClearAddTimeFieldsEvent extends AttendanceEvent {}
