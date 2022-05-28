@@ -1,7 +1,8 @@
-import 'dart:developer';
-
+import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class EmployeeViewHoursEntryDialog extends StatelessWidget {
   const EmployeeViewHoursEntryDialog({Key? key}) : super(key: key);
@@ -13,18 +14,41 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
         context: context,
         initialTime: TimeOfDay.now(),
       );
+      final DateTime dateSelected =
+          BlocProvider.of<AttendanceBloc>(context).state.workDate;
       if (result != null) {
-        var newDate = DateTime(2022, 5, 20, result.hour, result.minute);
-        log(newDate.millisecondsSinceEpoch.toString());
-        //log(result.format(context));
+        var startTime = DateTime(
+          dateSelected.year,
+          dateSelected.month,
+          dateSelected.day,
+          result.hour,
+          result.minute,
+        );
+        //log(newDate.millisecondsSinceEpoch.toString());
+        context
+            .read<AttendanceBloc>()
+            .add(GetWorkedStartTimeEvent(startTime: startTime));
       }
     }
 
     Future<void> _showEndTime() async {
-      final TimeOfDay? result =
-          await showTimePicker(context: context, initialTime: TimeOfDay.now());
+      final TimeOfDay? result = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+      final DateTime dateSelected =
+          BlocProvider.of<AttendanceBloc>(context).state.workDate;
       if (result != null) {
-        //log(result.format(context));
+        var endTime = DateTime(
+          dateSelected.year,
+          dateSelected.month,
+          dateSelected.day,
+          result.hour,
+          result.minute,
+        );
+        context
+            .read<AttendanceBloc>()
+            .add(GetWorkedEndTimeEvent(endTime: endTime));
       }
     }
 
@@ -63,15 +87,22 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                           side: BorderSide(color: darkBlueText, width: 2.5),
                           primary: Colors.white,
                         ),
-                        child: Text(
-                          'StarT',
-                          style: Theme.of(context).textTheme.bodyText1!.merge(
-                                TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlueText,
-                                  fontSize: 40,
-                                ),
-                              ),
+                        child: BlocBuilder<AttendanceBloc, AttendanceState>(
+                          builder: (context, state) {
+                            return Text(
+                              state.clockin == DateTime(1970, 1, 1)
+                                  ? 'Start'
+                                  : DateFormat('h:mm a').format(state.clockin),
+                              style:
+                                  Theme.of(context).textTheme.bodyText1!.merge(
+                                        TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: darkBlueText,
+                                          fontSize: 40,
+                                        ),
+                                      ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -90,15 +121,22 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                           side: BorderSide(color: darkBlueText, width: 2.5),
                           primary: Colors.white,
                         ),
-                        child: Text(
-                          'EnD',
-                          style: Theme.of(context).textTheme.bodyText1!.merge(
-                                TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlueText,
-                                  fontSize: 40,
-                                ),
-                              ),
+                        child: BlocBuilder<AttendanceBloc, AttendanceState>(
+                          builder: (context, state) {
+                            return Text(
+                              state.clockout == DateTime(1970, 1, 1)
+                                  ? 'End'
+                                  : DateFormat('h:mm a').format(state.clockout),
+                              style:
+                                  Theme.of(context).textTheme.bodyText1!.merge(
+                                        TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: darkBlueText,
+                                          fontSize: 40,
+                                        ),
+                                      ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -115,7 +153,12 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                     height: 70,
                     width: 160,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context
+                            .read<AttendanceBloc>()
+                            .add(AddWorkedTimeEvent());
+                        Navigator.of(context).pop();
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: yellowButton,
                       ),

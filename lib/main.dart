@@ -84,7 +84,9 @@ class MyApp extends StatelessWidget {
             create: (context) => SideNavigationBloc(),
           ),
           BlocProvider<AttendanceBloc>(
-            create: (context) => AttendanceBloc(),
+            create: (context) => AttendanceBloc(
+              attendanceRepository: context.read<AttendanceRepository>(),
+            ),
           ),
         ],
         child: MaterialApp(

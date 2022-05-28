@@ -5,8 +5,8 @@ class AttendanceState extends Equatable {
   final String firstName;
   final String lastName;
   final String employeeId;
-  final int clockin;
-  final int clockout;
+  final DateTime clockin;
+  final DateTime clockout;
   final DateTime workDate;
   final int status;
   const AttendanceState({
@@ -26,8 +26,8 @@ class AttendanceState extends Equatable {
       firstName: '',
       lastName: '',
       employeeId: '',
-      clockin: 0,
-      clockout: 0,
+      clockin: DateTime(1970, 1, 1),
+      clockout: DateTime(1970, 1, 1),
       workDate: DateTime.now(),
       status: 0,
     );
@@ -50,8 +50,8 @@ class AttendanceState extends Equatable {
     String? firstName,
     String? lastName,
     String? employeeId,
-    int? clockin,
-    int? clockout,
+    DateTime? clockin,
+    DateTime? clockout,
     DateTime? workDate,
     int? status,
   }) {
