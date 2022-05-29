@@ -137,13 +137,25 @@ class TimeWorkedList extends StatelessWidget {
       }
     }
 
-    Future<void> _showEndTime(String id) async {
+    Future<void> _showEndTime(final a) async {
       final TimeOfDay? result = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
       );
+      final DateTime dateSelected =
+          BlocProvider.of<AttendanceBloc>(context).state.workDate;
       if (result != null) {
-        //log(result.format(context));
+        var endTime = DateTime(
+          dateSelected.year,
+          dateSelected.month,
+          dateSelected.day,
+          result.hour,
+          result.minute,
+        );
+        context.read<AttendanceBloc>().add(UpdateWorkedEndTimeEvent(
+              att: a,
+              endTime: endTime,
+            ));
       }
     }
 
@@ -197,7 +209,7 @@ class TimeWorkedList extends StatelessWidget {
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
-                          _showEndTime(state.attendanceList[index].id!);
+                          _showEndTime(state.attendanceList[index]);
                         },
                         style: ElevatedButton.styleFrom(
                           side: BorderSide(color: darkBlueText, width: 2.5),
