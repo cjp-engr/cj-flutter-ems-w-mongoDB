@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
+import 'blocs/attendance_time_worked/attendance_time_worked_bloc.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -86,6 +88,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<AttendanceBloc>(
             create: (context) => AttendanceBloc(
               attendanceRepository: context.read<AttendanceRepository>(),
+            ),
+          ),
+          BlocProvider<AttendanceTimeWorkedBloc>(
+            create: (context) => AttendanceTimeWorkedBloc(
+              attendanceBloc: BlocProvider.of<AttendanceBloc>(context),
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/blocs/blocs.dart';
@@ -21,13 +22,14 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     required this.empDetailsBloc,
   }) : super(EmployeesState.initial()) {
     empDetailsSubscription =
-        empDetailsBloc.stream.listen((EmployeeDetailsState empDetailsState) {
-      if (empDetailsState.employeeStatus == EmployeeStatus.added ||
-          empDetailsState.employeeStatus == EmployeeStatus.updated ||
-          empDetailsState.employeeStatus == EmployeeStatus.deleted) {
+        empDetailsBloc.stream.listen((EmployeeDetailsState state) {
+      if (state.employeeStatus == EmployeeStatus.added ||
+          state.employeeStatus == EmployeeStatus.updated ||
+          state.employeeStatus == EmployeeStatus.deleted) {
         add(FetchAllEmployeesEvent());
       }
     });
+    log('my test');
     on<FetchAllEmployeesEvent>(_fetchAllEmployees);
   }
 

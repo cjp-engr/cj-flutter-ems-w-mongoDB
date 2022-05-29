@@ -168,23 +168,10 @@ class EmployeesData extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Column(
-                              children: const [
-                                Text('Break Time'),
-                                Text('00H 00M'),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              children: const [
-                                Text('Time Worked'),
-                                Text('00H 00M'),
-                              ],
-                            ),
+                        Column(
+                          children: const [
+                            Text('Time Worked'),
+                            Text('00H 00M'),
                           ],
                         ),
                         const SizedBox(

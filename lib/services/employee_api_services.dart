@@ -121,13 +121,14 @@ class EmployeeApiServices {
         'payType': e.payType,
         'hourlyRate': e.hourlyRate,
         'weeklyHours': e.weeklyHours,
-        'pin': e.pin,
+        //'pin': e.pin,
         'imageUrl': e.imageUrl,
       }),
     );
 
     if (response.statusCode == 200) {
       log('updated');
+      log(response.body);
       return Employee.fromJson(jsonDecode(response.body));
     } else {
       log('not updated');

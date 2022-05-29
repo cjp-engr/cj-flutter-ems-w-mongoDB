@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/model_custom_error.dart';
 import 'package:equatable/equatable.dart';
@@ -43,10 +45,12 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
         state.uniqueId,
         state.workDate.millisecondsSinceEpoch.toString(),
       );
+
       emit(state.copyWith(
         attendanceList: attendance,
         attStatus: AttendanceStatus.read,
       ));
+      log(state.attStatus.toString());
     }
   }
 
@@ -74,7 +78,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   void _addWorkedTime(
     AddWorkedTimeEvent event,
     Emitter<AttendanceState> emit,
-  ) {
+  ) async {
     emit(state.copyWith(
       attStatus: AttendanceStatus.adding,
     ));
@@ -89,7 +93,6 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       workDate: state.workDate.millisecondsSinceEpoch,
       status: 3,
     );
-
     add(SubmitWorkedTimeEvent(attendance: attendance));
   }
 

@@ -30,7 +30,7 @@ class EmployeeViewHoursDialog extends StatelessWidget {
                   ),
             ),
             Text(
-              '00:00',
+              '00H 00M',
               style: Theme.of(context).textTheme.headline5!.merge(
                     const TextStyle(
                       fontWeight: FontWeight.bold,
