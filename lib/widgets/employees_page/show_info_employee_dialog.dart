@@ -16,57 +16,65 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController _controller = ScrollController();
-    return SingleChildScrollView(
-      child: AlertDialog(
-        //SingleChildScrollView(
-        content: Container(
-          width: MediaQuery.of(context).size.width / 1.4,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //ScrollController _controller = ScrollController();
+    return ListView(
+      reverse: true,
+      children: [
+        GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: AlertDialog(
+            //SingleChildScrollView(
+            content: Container(
+              width: MediaQuery.of(context).size.width / 1.4,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      bottom: 10,
+                  const SizedBox(
+                    height: 65,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          'EMPLOYEE INFORMATION',
+                          style: Theme.of(context).textTheme.headline5!.merge(
+                                const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.25,
+                    // child: ListView(
+                    //   physics: const AlwaysScrollableScrollPhysics(),
+                    //   controller: _controller,
+                    //   children: [
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: const ShowEmployeeForm(),
                     ),
-                    child: Text(
-                      'EMPLOYEE INFORMATION',
-                      style: Theme.of(context).textTheme.headline5!.merge(
-                            const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                    ),
+                    // const SizedBox(
+                    //   height: 5,
+                    // ),
+                    //   ].reversed.toList(),
+                    // ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 1.5,
-                child: ListView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  controller: _controller,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 1.2,
-                      child: const ShowEmployeeForm(),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -124,9 +132,14 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     }
   }
 
+  _imagePath() {
+    return BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath;
+  }
+
   get countryCode => _countryCode();
   get pin => _pin();
   get employeeDetails => _employeeDetails();
+  get imagePath => _imagePath();
 
   void _submit() async {
     setState(() {
@@ -139,9 +152,9 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
 
     form.save();
 
-    final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
-    final imagePath =
-        BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath;
+    // final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
+    // final imagePath =
+    //     BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath;
     late String? imageUrl;
     late CloudinaryResponse response;
     if (imagePath!.isNotEmpty) {

@@ -166,7 +166,7 @@ class TimeWorkedList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 70,
+                      height: 65,
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
@@ -185,7 +185,7 @@ class TimeWorkedList extends StatelessWidget {
                                 TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: darkBlueText,
-                                  fontSize: 40,
+                                  fontSize: 35,
                                 ),
                               ),
                         ),
@@ -195,7 +195,7 @@ class TimeWorkedList extends StatelessWidget {
                       width: 20,
                     ),
                     SizedBox(
-                      height: 70,
+                      height: 65,
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
@@ -214,7 +214,7 @@ class TimeWorkedList extends StatelessWidget {
                                 TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: darkBlueText,
-                                  fontSize: 40,
+                                  fontSize: 35,
                                 ),
                               ),
                         ),

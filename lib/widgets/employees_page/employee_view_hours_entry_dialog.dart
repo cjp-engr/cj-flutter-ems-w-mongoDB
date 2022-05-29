@@ -80,7 +80,7 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                     ),
                     child: SizedBox(
                       height: 70,
-                      width: 200,
+                      width: 230,
                       child: ElevatedButton(
                         onPressed: _showStartTime,
                         style: ElevatedButton.styleFrom(
@@ -114,7 +114,7 @@ class EmployeeViewHoursEntryDialog extends StatelessWidget {
                     ),
                     child: SizedBox(
                       height: 70,
-                      width: 200,
+                      width: 230,
                       child: ElevatedButton(
                         onPressed: _showEndTime,
                         style: ElevatedButton.styleFrom(

@@ -16,81 +16,84 @@ class SideNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: TextButton(
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: TextButton(
+                      onPressed: () {
+                        context
+                            .read<SideNavigationBloc>()
+                            .add(const SwitchActivePageEvent(activePage: 0));
+                      },
+                      child: const Icon(
+                        Icons.notes,
+                        size: 100,
+                      ),
+                    ),
+                  ),
+                  TextButton(
                     onPressed: () {
                       context
                           .read<SideNavigationBloc>()
-                          .add(const SwitchActivePageEvent(activePage: 0));
+                          .add(const SwitchActivePageEvent(activePage: 1));
                     },
                     child: const Icon(
-                      Icons.notes,
+                      Icons.person,
                       size: 100,
                     ),
                   ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context
-                        .read<SideNavigationBloc>()
-                        .add(const SwitchActivePageEvent(activePage: 1));
-                  },
-                  child: const Icon(
-                    Icons.person,
-                    size: 100,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context
-                        .read<SideNavigationBloc>()
-                        .add(const SwitchActivePageEvent(activePage: 2));
-                  },
-                  child: const Icon(
-                    Icons.note_sharp,
-                    size: 100,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 150),
-                  child: TextButton(
+                  TextButton(
                     onPressed: () {
-                      showDialog(
-                        barrierDismissible: true,
-                        context: context,
-                        builder: (context) => const SwitchPin(),
-                      );
+                      context
+                          .read<SideNavigationBloc>()
+                          .add(const SwitchActivePageEvent(activePage: 2));
                     },
                     child: const Icon(
-                      Icons.switch_account_outlined,
+                      Icons.note_sharp,
                       size: 100,
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 150),
+                    child: TextButton(
+                      onPressed: () {
+                        showDialog(
+                          barrierDismissible: true,
+                          context: context,
+                          builder: (context) => const SwitchPin(),
+                        );
+                      },
+                      child: const Icon(
+                        Icons.switch_account_outlined,
+                        size: 100,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            flex: 15,
-            child: Column(
-              children: [
-                _widgetOptions[
-                    context.watch<SideNavigationBloc>().state.activePage],
-              ],
+            Expanded(
+              flex: 15,
+              child: Column(
+                children: [
+                  _widgetOptions[
+                      context.watch<SideNavigationBloc>().state.activePage],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
