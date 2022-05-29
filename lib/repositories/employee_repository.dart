@@ -41,12 +41,25 @@ class EmployeeRepository {
     }
   }
 
-  Future<void> updateEmployee(
+  Future<void> updateEmployeeDiffPin(
     Employee e,
     String id,
   ) async {
     try {
-      await employeeApiServices.updateEmployee(e, id);
+      await employeeApiServices.updateEmployeeDiffPin(e, id);
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
+
+  Future<void> updateEmployeeSamePin(
+    Employee e,
+    String id,
+  ) async {
+    try {
+      await employeeApiServices.updateEmployeeSamePin(e, id);
     } on CustomException catch (e) {
       throw CustomError(message: e.message);
     } catch (e) {

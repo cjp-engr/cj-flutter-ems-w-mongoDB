@@ -68,11 +68,18 @@ class EmployeeDetailsBloc
         await employeeRepository.addNewEmployee(event.emp);
         emit(state.copyWith(employeeStatus: EmployeeStatus.added));
       } else if (state.employeeStatus == EmployeeStatus.read) {
-        log(state.employeeDetails.id!);
-        await employeeRepository.updateEmployee(
-          event.emp,
-          state.employeeDetails.id!,
-        );
+        if (event.emp.pin == state.employeeDetails.pin) {
+          await employeeRepository.updateEmployeeSamePin(
+            event.emp,
+            state.employeeDetails.id!,
+          );
+        } else if (state.employeeDetails.pin != event.emp.pin) {
+          await employeeRepository.updateEmployeeDiffPin(
+            event.emp,
+            state.employeeDetails.id!,
+          );
+        }
+
         emit(state.copyWith(employeeStatus: EmployeeStatus.updated));
       }
     } on CustomError catch (e) {

@@ -96,7 +96,7 @@ class EmployeeApiServices {
     }
   }
 
-  Future<Employee?> updateEmployee(
+  Future<Employee?> updateEmployeeDiffPin(
     Employee e,
     String id,
   ) async {
@@ -105,6 +105,7 @@ class EmployeeApiServices {
       host: kEmployeesHost,
       path: '/employee/$id',
     );
+
     final response = await http.put(
       uri,
       headers: <String, String>{
@@ -121,14 +122,48 @@ class EmployeeApiServices {
         'payType': e.payType,
         'hourlyRate': e.hourlyRate,
         'weeklyHours': e.weeklyHours,
-        //'pin': e.pin,
+        'pin': e.pin,
         'imageUrl': e.imageUrl,
       }),
     );
-
     if (response.statusCode == 200) {
-      log('updated');
-      log(response.body);
+      return Employee.fromJson(jsonDecode(response.body));
+    } else {
+      log('not updated');
+      throw Exception('Failed to update album.');
+    }
+  }
+
+  Future<Employee?> updateEmployeeSamePin(
+    Employee e,
+    String id,
+  ) async {
+    final Uri uri = Uri(
+      scheme: 'https',
+      host: kEmployeesHost,
+      path: '/employee/$id',
+    );
+
+    final response = await http.put(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'firstName': e.firstName,
+        'lastName': e.lastName,
+        'email': e.email,
+        'countryCode': e.countryCode,
+        'phoneNumber': e.phoneNumber,
+        'employeeId': e.employeeId,
+        'jobRole': e.jobRole,
+        'payType': e.payType,
+        'hourlyRate': e.hourlyRate,
+        'weeklyHours': e.weeklyHours,
+        'imageUrl': e.imageUrl,
+      }),
+    );
+    if (response.statusCode == 200) {
       return Employee.fromJson(jsonDecode(response.body));
     } else {
       log('not updated');

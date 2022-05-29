@@ -16,14 +16,12 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //ScrollController _controller = ScrollController();
     return ListView(
       reverse: true,
       children: [
         GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: AlertDialog(
-            //SingleChildScrollView(
             content: Container(
               width: MediaQuery.of(context).size.width / 1.4,
               height: MediaQuery.of(context).size.height,
@@ -55,19 +53,10 @@ class ShowInfoEmployeeDialog extends StatelessWidget {
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 1.25,
-                    // child: ListView(
-                    //   physics: const AlwaysScrollableScrollPhysics(),
-                    //   controller: _controller,
-                    //   children: [
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height,
                       child: const ShowEmployeeForm(),
                     ),
-                    // const SizedBox(
-                    //   height: 5,
-                    // ),
-                    //   ].reversed.toList(),
-                    // ),
                   ),
                 ],
               ),
@@ -125,7 +114,11 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
     if (employeeDetails.employeeStatus == EmployeeStatus.adding) {
       return addPin;
     } else if (employeeDetails.employeeStatus == EmployeeStatus.read &&
-        addPin != employeeDetails.employeeDetails.pin) {
+        addPin == 0) {
+      return employeeDetails.employeeDetails.pin;
+    } else if (employeeDetails.employeeStatus == EmployeeStatus.read &&
+        addPin != employeeDetails.employeeDetails.pin &&
+        addPin != 0) {
       return addPin;
     } else if (employeeDetails.employeeStatus == EmployeeStatus.read) {
       return employeeDetails.employeeDetails.pin;
@@ -152,9 +145,6 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
 
     form.save();
 
-    // final employeeDetails = BlocProvider.of<EmployeeDetailsBloc>(context).state;
-    // final imagePath =
-    //     BlocProvider.of<EmployeeImageBloc>(context).state.imageLocalPath;
     late String? imageUrl;
     late CloudinaryResponse response;
     if (imagePath!.isNotEmpty) {
