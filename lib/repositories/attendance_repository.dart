@@ -47,4 +47,16 @@ class AttendanceRepository {
       throw CustomError(message: e.toString());
     }
   }
+
+  Future<void> deleteAttendance(
+    String id,
+  ) async {
+    try {
+      await attendanceApiServices.deleteAttendance(id);
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
 }

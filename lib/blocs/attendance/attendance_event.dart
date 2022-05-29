@@ -73,6 +73,13 @@ class UpdateWorkedEndTimeEvent extends AttendanceEvent {
   });
 }
 
+class DeleteWorkedTimeEvent extends AttendanceEvent {
+  final String id;
+  const DeleteWorkedTimeEvent({
+    required this.id,
+  });
+}
+
 class ClearDetailsEvent extends AttendanceEvent {}
 
 class ClearAddTimeFieldsEvent extends AttendanceEvent {}

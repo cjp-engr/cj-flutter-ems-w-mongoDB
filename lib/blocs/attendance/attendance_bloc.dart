@@ -23,6 +23,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<ClearAddTimeFieldsEvent>(_clearAddTimeFields);
     on<UpdateWorkedStartTimeEvent>(_updateWorkedStartTime);
     on<UpdateWorkedEndTimeEvent>(_updateWorkedEndTime);
+    on<DeleteWorkedTimeEvent>(_deleteWorkedTime);
   }
 
   void _getEmployeeDetails(
@@ -178,6 +179,23 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     emit(state.copyWith(
       attendanceList: attendanceL,
       attStatus: AttendanceStatus.updated,
+    ));
+  }
+
+  void _deleteWorkedTime(
+    DeleteWorkedTimeEvent event,
+    Emitter<AttendanceState> emit,
+  ) async {
+    emit(state.copyWith(attStatus: AttendanceStatus.deleting));
+    await attendanceRepository.deleteAttendance(event.id);
+    final List<Attendance>? attendanceL =
+        await attendanceRepository.fetchAttendanceList(
+      state.uniqueId,
+      state.workDate.millisecondsSinceEpoch.toString(),
+    );
+    emit(state.copyWith(
+      attendanceList: attendanceL,
+      attStatus: AttendanceStatus.deleted,
     ));
   }
 }

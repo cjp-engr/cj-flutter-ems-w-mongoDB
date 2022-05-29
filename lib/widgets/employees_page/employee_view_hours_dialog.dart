@@ -227,7 +227,11 @@ class TimeWorkedList extends StatelessWidget {
                       height: 70,
                       width: 80,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<AttendanceBloc>().add(
+                              DeleteWorkedTimeEvent(
+                                  id: state.attendanceList[index].id!));
+                        },
                         style: ElevatedButton.styleFrom(
                           primary: redButton,
                         ),
