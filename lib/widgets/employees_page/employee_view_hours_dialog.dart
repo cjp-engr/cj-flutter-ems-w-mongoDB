@@ -224,7 +224,7 @@ class TimeWorkedList extends StatelessWidget {
                       width: 80,
                     ),
                     SizedBox(
-                      height: 70,
+                      height: 65,
                       width: 80,
                       child: ElevatedButton(
                         onPressed: () {
