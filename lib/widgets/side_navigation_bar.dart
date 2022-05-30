@@ -1,4 +1,5 @@
 import 'package:ems_app/blocs/side_navigation/side_navigation_bloc.dart';
+import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/pages/dashboard_page.dart';
 import 'package:ems_app/pages/employee_page.dart';
 import 'package:ems_app/pages/employees_page.dart';
@@ -36,9 +37,10 @@ class SideNavigationBar extends StatelessWidget {
                             .read<SideNavigationBloc>()
                             .add(const SwitchActivePageEvent(activePage: 0));
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.notes,
                         size: 100,
+                        color: darkBlueText,
                       ),
                     ),
                   ),
@@ -48,9 +50,10 @@ class SideNavigationBar extends StatelessWidget {
                           .read<SideNavigationBloc>()
                           .add(const SwitchActivePageEvent(activePage: 1));
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.person,
                       size: 100,
+                      color: darkBlueText,
                     ),
                   ),
                   TextButton(
@@ -59,9 +62,10 @@ class SideNavigationBar extends StatelessWidget {
                           .read<SideNavigationBloc>()
                           .add(const SwitchActivePageEvent(activePage: 2));
                     },
-                    child: const Icon(
+                    child: Icon(
                       Icons.note_sharp,
                       size: 100,
+                      color: darkBlueText,
                     ),
                   ),
                   Padding(
@@ -74,9 +78,10 @@ class SideNavigationBar extends StatelessWidget {
                           builder: (context) => const SwitchPin(),
                         );
                       },
-                      child: const Icon(
+                      child: Icon(
                         Icons.switch_account_outlined,
                         size: 100,
+                        color: darkBlueText,
                       ),
                     ),
                   ),
