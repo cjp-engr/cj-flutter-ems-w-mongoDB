@@ -173,6 +173,50 @@ class TimeWorkedList extends StatelessWidget {
       }
     }
 
+    int? clockInMinute(int x) {
+      return int.tryParse(DateFormat('mm').format(
+        DateTime.fromMillisecondsSinceEpoch(x),
+      ));
+    }
+
+    int? clockInHour(int x) {
+      if (DateFormat('a').format(
+            DateTime.fromMillisecondsSinceEpoch(x),
+          ) ==
+          'AM') {
+        return int.tryParse(DateFormat('h').format(
+          DateTime.fromMillisecondsSinceEpoch(x),
+        ));
+      } else {
+        return int.tryParse(DateFormat('h').format(
+              DateTime.fromMillisecondsSinceEpoch(x),
+            ))! +
+            12;
+      }
+    }
+
+    int? clockOutMinute(int x) {
+      return int.tryParse(DateFormat('mm').format(
+        DateTime.fromMillisecondsSinceEpoch(x),
+      ));
+    }
+
+    int? clockOutHour(int x) {
+      if (DateFormat('a').format(
+            DateTime.fromMillisecondsSinceEpoch(x),
+          ) ==
+          'AM') {
+        return int.tryParse(DateFormat('h').format(
+          DateTime.fromMillisecondsSinceEpoch(x),
+        ));
+      } else {
+        return int.tryParse(DateFormat('h').format(
+              DateTime.fromMillisecondsSinceEpoch(x),
+            ))! +
+            12;
+      }
+    }
+
     return BlocBuilder<AttendanceBloc, AttendanceState>(
       builder: (context, state) {
         if (state.attStatus == AttendanceStatus.reading ||
@@ -183,22 +227,13 @@ class TimeWorkedList extends StatelessWidget {
         return ListView.builder(
           itemCount: state.attendanceList.length,
           itemBuilder: (BuildContext context, int index) {
-            int? clockInHour = int.tryParse(DateFormat('h').format(
-              DateTime.fromMillisecondsSinceEpoch(
-                  state.attendanceList[index].clockin!),
-            ));
-            int? clockInMinute = int.tryParse(DateFormat('mm').format(
-              DateTime.fromMillisecondsSinceEpoch(
-                  state.attendanceList[index].clockin!),
-            ));
-            int? clockOutHour = int.tryParse(DateFormat('h').format(
-              DateTime.fromMillisecondsSinceEpoch(
-                  state.attendanceList[index].clockout!),
-            ));
-            int? clockOutMinute = int.tryParse(DateFormat('mm').format(
-              DateTime.fromMillisecondsSinceEpoch(
-                  state.attendanceList[index].clockout!),
-            ));
+            int epochClockIn = state.attendanceList[index].clockin!;
+            int epochClockOut = state.attendanceList[index].clockout!;
+            int clockInH = clockInHour(epochClockIn)!;
+            int clockInM = clockInMinute(epochClockIn)!;
+            int clockOutH = clockOutHour(epochClockOut)!;
+            int clockOutM = clockOutMinute(epochClockOut)!;
+
             return Column(
               children: [
                 Row(
@@ -212,8 +247,8 @@ class TimeWorkedList extends StatelessWidget {
                         onPressed: () {
                           _showStartTime(
                             state.attendanceList[index],
-                            clockInHour!,
-                            clockInMinute!,
+                            clockInH,
+                            clockInM,
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -245,8 +280,8 @@ class TimeWorkedList extends StatelessWidget {
                         onPressed: () {
                           _showEndTime(
                             state.attendanceList[index],
-                            clockOutHour!,
-                            clockOutMinute!,
+                            clockOutH,
+                            clockOutM,
                           );
                         },
                         style: ElevatedButton.styleFrom(
