@@ -108,7 +108,18 @@ class MyApp extends StatelessWidget {
               ),
             ),
             timePickerTheme: TimePickerThemeData(
-              hourMinuteTextColor: redButton,
+              hourMinuteTextStyle: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 50.0,
+                fontWeight: FontWeight.bold,
+                color: darkBlueText,
+              ),
+              dayPeriodTextStyle: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: darkBlueText,
+              ),
             ),
             textTheme: const TextTheme(
               button: TextStyle(
