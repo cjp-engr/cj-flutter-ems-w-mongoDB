@@ -115,10 +115,17 @@ class TimeWorkedList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _showStartTime(final a) async {
+    Future<void> _showStartTime(
+      final attendance,
+      int initHour,
+      int initMinute,
+    ) async {
       final TimeOfDay? result = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.now(),
+        initialTime: TimeOfDay(
+          hour: initHour,
+          minute: initMinute,
+        ),
       );
       final DateTime dateSelected =
           BlocProvider.of<AttendanceBloc>(context).state.workDate;
@@ -131,16 +138,23 @@ class TimeWorkedList extends StatelessWidget {
           result.minute,
         );
         context.read<AttendanceBloc>().add(UpdateWorkedStartTimeEvent(
-              att: a,
+              att: attendance,
               startTime: startTime,
             ));
       }
     }
 
-    Future<void> _showEndTime(final a) async {
+    Future<void> _showEndTime(
+      final attendance,
+      int initHour,
+      int initMinute,
+    ) async {
       final TimeOfDay? result = await showTimePicker(
         context: context,
-        initialTime: TimeOfDay.now(),
+        initialTime: TimeOfDay(
+          hour: initHour,
+          minute: initMinute,
+        ),
       );
       final DateTime dateSelected =
           BlocProvider.of<AttendanceBloc>(context).state.workDate;
@@ -153,7 +167,7 @@ class TimeWorkedList extends StatelessWidget {
           result.minute,
         );
         context.read<AttendanceBloc>().add(UpdateWorkedEndTimeEvent(
-              att: a,
+              att: attendance,
               endTime: endTime,
             ));
       }
@@ -169,6 +183,22 @@ class TimeWorkedList extends StatelessWidget {
         return ListView.builder(
           itemCount: state.attendanceList.length,
           itemBuilder: (BuildContext context, int index) {
+            int? clockInHour = int.tryParse(DateFormat('h').format(
+              DateTime.fromMillisecondsSinceEpoch(
+                  state.attendanceList[index].clockin!),
+            ));
+            int? clockInMinute = int.tryParse(DateFormat('mm').format(
+              DateTime.fromMillisecondsSinceEpoch(
+                  state.attendanceList[index].clockin!),
+            ));
+            int? clockOutHour = int.tryParse(DateFormat('h').format(
+              DateTime.fromMillisecondsSinceEpoch(
+                  state.attendanceList[index].clockout!),
+            ));
+            int? clockOutMinute = int.tryParse(DateFormat('mm').format(
+              DateTime.fromMillisecondsSinceEpoch(
+                  state.attendanceList[index].clockout!),
+            ));
             return Column(
               children: [
                 Row(
@@ -180,7 +210,11 @@ class TimeWorkedList extends StatelessWidget {
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
-                          _showStartTime(state.attendanceList[index]);
+                          _showStartTime(
+                            state.attendanceList[index],
+                            clockInHour!,
+                            clockInMinute!,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           side: BorderSide(color: darkBlueText, width: 2.5),
@@ -209,7 +243,11 @@ class TimeWorkedList extends StatelessWidget {
                       width: 200,
                       child: ElevatedButton(
                         onPressed: () {
-                          _showEndTime(state.attendanceList[index]);
+                          _showEndTime(
+                            state.attendanceList[index],
+                            clockOutHour!,
+                            clockOutMinute!,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           side: BorderSide(color: darkBlueText, width: 2.5),
