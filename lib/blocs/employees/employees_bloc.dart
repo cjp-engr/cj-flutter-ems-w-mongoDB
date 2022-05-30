@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/blocs/blocs.dart';
@@ -29,7 +28,6 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
         add(FetchAllEmployeesEvent());
       }
     });
-    log('my test');
     on<FetchAllEmployeesEvent>(_fetchAllEmployees);
   }
 

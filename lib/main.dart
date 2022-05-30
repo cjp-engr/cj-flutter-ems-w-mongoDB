@@ -91,9 +91,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           BlocProvider<AttendanceTimeWorkedBloc>(
-            create: (context) => AttendanceTimeWorkedBloc(
-              attendanceBloc: BlocProvider.of<AttendanceBloc>(context),
-            ),
+            create: (context) => AttendanceTimeWorkedBloc(),
           ),
         ],
         child: MaterialApp(

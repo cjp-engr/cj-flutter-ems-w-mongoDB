@@ -7,4 +7,9 @@ abstract class AttendanceTimeWorkedEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class DisplayTimeWorkedEvent extends AttendanceTimeWorkedEvent {}
+class GetTimeWorkedEvent extends AttendanceTimeWorkedEvent {
+  final Duration duration;
+  const GetTimeWorkedEvent({
+    required this.duration,
+  });
+}

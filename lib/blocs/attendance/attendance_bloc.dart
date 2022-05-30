@@ -32,6 +32,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     GetEmployeeDetailsEvent event,
     Emitter<AttendanceState> emit,
   ) async {
+    log('bloc:' + state.attStatus.toString());
     emit(state.copyWith(
       uniqueId: event.uniqueId,
       firstName: event.firstName,
@@ -39,19 +40,18 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       employeeId: event.employeeId,
       attStatus: AttendanceStatus.reading,
     ));
-    if (state.attStatus == AttendanceStatus.reading) {
-      final List<Attendance>? attendance =
-          await attendanceRepository.fetchAttendanceList(
-        state.uniqueId,
-        state.workDate.millisecondsSinceEpoch.toString(),
-      );
+    log('bloc:' + state.attStatus.toString());
+    final List<Attendance>? attendance =
+        await attendanceRepository.fetchAttendanceList(
+      state.uniqueId,
+      state.workDate.millisecondsSinceEpoch.toString(),
+    );
 
-      emit(state.copyWith(
-        attendanceList: attendance,
-        attStatus: AttendanceStatus.read,
-      ));
-      log(state.attStatus.toString());
-    }
+    emit(state.copyWith(
+      attendanceList: attendance,
+      attStatus: AttendanceStatus.read,
+    ));
+    log('bloc:' + state.attStatus.toString());
   }
 
   void _getSelectedDate(
@@ -124,6 +124,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       employeeId: '',
       status: 0,
       attendanceList: [],
+      attStatus: AttendanceStatus.clear,
     ));
   }
 

@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
+import 'package:ems_app/blocs/attendance_time_worked/attendance_time_worked_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/widgets/employees_page/employee_view_hours_entry_dialog.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +30,17 @@ class EmployeeViewHoursDialog extends StatelessWidget {
                     ),
                   ),
             ),
-            Text(
-              '00H 00M',
-              style: Theme.of(context).textTheme.headline5!.merge(
-                    const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            BlocBuilder<AttendanceTimeWorkedBloc, AttendanceTimeWorkedState>(
+              builder: (context, state) {
+                return Text(
+                  state.hours + 'H ' + state.minutes + 'M',
+                  style: Theme.of(context).textTheme.headline5!.merge(
+                        const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                );
+              },
             ),
             const SizedBox(
               height: 3,
@@ -174,165 +181,169 @@ class TimeWorkedList extends StatelessWidget {
     }
 
     int? clockInMinute(int x) {
-      return int.tryParse(DateFormat('mm').format(
-        DateTime.fromMillisecondsSinceEpoch(x),
-      ));
+      return int.tryParse(
+          DateFormat('mm').format(DateTime.fromMillisecondsSinceEpoch(x)));
     }
 
     int? clockInHour(int x) {
-      if (DateFormat('a').format(
-            DateTime.fromMillisecondsSinceEpoch(x),
-          ) ==
+      if (DateFormat('a').format(DateTime.fromMillisecondsSinceEpoch(x)) ==
           'AM') {
-        return int.tryParse(DateFormat('h').format(
-          DateTime.fromMillisecondsSinceEpoch(x),
-        ));
+        return int.tryParse(
+            DateFormat('h').format(DateTime.fromMillisecondsSinceEpoch(x)));
       } else {
-        return int.tryParse(DateFormat('h').format(
-              DateTime.fromMillisecondsSinceEpoch(x),
-            ))! +
+        return int.tryParse(DateFormat('h')
+                .format(DateTime.fromMillisecondsSinceEpoch(x)))! +
             12;
       }
     }
 
     int? clockOutMinute(int x) {
-      return int.tryParse(DateFormat('mm').format(
-        DateTime.fromMillisecondsSinceEpoch(x),
-      ));
+      return int.tryParse(
+          DateFormat('mm').format(DateTime.fromMillisecondsSinceEpoch(x)));
     }
 
     int? clockOutHour(int x) {
-      if (DateFormat('a').format(
-            DateTime.fromMillisecondsSinceEpoch(x),
-          ) ==
+      if (DateFormat('a').format(DateTime.fromMillisecondsSinceEpoch(x)) ==
           'AM') {
-        return int.tryParse(DateFormat('h').format(
-          DateTime.fromMillisecondsSinceEpoch(x),
-        ));
+        return int.tryParse(
+            DateFormat('h').format(DateTime.fromMillisecondsSinceEpoch(x)));
       } else {
-        return int.tryParse(DateFormat('h').format(
-              DateTime.fromMillisecondsSinceEpoch(x),
-            ))! +
+        return int.tryParse(DateFormat('h')
+                .format(DateTime.fromMillisecondsSinceEpoch(x)))! +
             12;
       }
     }
 
-    return BlocBuilder<AttendanceBloc, AttendanceState>(
-      builder: (context, state) {
-        if (state.attStatus == AttendanceStatus.reading ||
-            state.attStatus == AttendanceStatus.adding ||
-            state.attStatus == AttendanceStatus.updating) {
-          return const Center(child: Text('Loading'));
+    return BlocListener<AttendanceBloc, AttendanceState>(
+      listener: (context, stateListen) {
+        log(stateListen.attStatus.toString());
+        int hoursWorked = 0;
+        for (var item in stateListen.attendanceList) {
+          hoursWorked += (item.clockout! - item.clockin!);
         }
-        return ListView.builder(
-          itemCount: state.attendanceList.length,
-          itemBuilder: (BuildContext context, int index) {
-            int epochClockIn = state.attendanceList[index].clockin!;
-            int epochClockOut = state.attendanceList[index].clockout!;
-            int clockInH = clockInHour(epochClockIn)!;
-            int clockInM = clockInMinute(epochClockIn)!;
-            int clockOutH = clockOutHour(epochClockOut)!;
-            int clockOutM = clockOutMinute(epochClockOut)!;
 
-            return Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 65,
-                      width: 200,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _showStartTime(
-                            state.attendanceList[index],
-                            clockInH,
-                            clockInM,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          side: BorderSide(color: darkBlueText, width: 2.5),
-                          primary: Colors.white,
-                        ),
-                        child: Text(
-                          DateFormat('h:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                state.attendanceList[index].clockin!),
-                          ),
-                          style: Theme.of(context).textTheme.bodyText1!.merge(
-                                TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlueText,
-                                  fontSize: 35,
-                                ),
-                              ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    SizedBox(
-                      height: 65,
-                      width: 200,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _showEndTime(
-                            state.attendanceList[index],
-                            clockOutH,
-                            clockOutM,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          side: BorderSide(color: darkBlueText, width: 2.5),
-                          primary: Colors.white,
-                        ),
-                        child: Text(
-                          DateFormat('h:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                state.attendanceList[index].clockout!),
-                          ),
-                          style: Theme.of(context).textTheme.bodyText1!.merge(
-                                TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlueText,
-                                  fontSize: 35,
-                                ),
-                              ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 80,
-                    ),
-                    SizedBox(
-                      height: 65,
-                      width: 80,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          context.read<AttendanceBloc>().add(
-                              DeleteWorkedTimeEvent(
-                                  id: state.attendanceList[index].id!));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: redButton,
-                        ),
-                        child: Icon(
-                          Icons.delete_outline_outlined,
-                          size: 50,
-                          color: darkBlueText,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-              ],
-            );
-          },
-        );
+        final duration = Duration(seconds: (hoursWorked * 0.001).toInt());
+        context
+            .read<AttendanceTimeWorkedBloc>()
+            .add(GetTimeWorkedEvent(duration: duration));
       },
+      child: BlocBuilder<AttendanceBloc, AttendanceState>(
+        builder: (context, state) {
+          if (state.attStatus == AttendanceStatus.reading ||
+              state.attStatus == AttendanceStatus.adding ||
+              state.attStatus == AttendanceStatus.updating) {
+            return const Center(child: Text('Loading'));
+          }
+          return ListView.builder(
+            itemCount: state.attendanceList.length,
+            itemBuilder: (BuildContext context, int index) {
+              int epochClockIn = state.attendanceList[index].clockin!;
+              int epochClockOut = state.attendanceList[index].clockout!;
+              int clockInH = clockInHour(epochClockIn)!;
+              int clockInM = clockInMinute(epochClockIn)!;
+              int clockOutH = clockOutHour(epochClockOut)!;
+              int clockOutM = clockOutMinute(epochClockOut)!;
+
+              return Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 65,
+                        width: 200,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showStartTime(
+                              state.attendanceList[index],
+                              clockInH,
+                              clockInM,
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            side: BorderSide(color: darkBlueText, width: 2.5),
+                            primary: Colors.white,
+                          ),
+                          child: Text(
+                            DateFormat('h:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  state.attendanceList[index].clockin!),
+                            ),
+                            style: Theme.of(context).textTheme.bodyText1!.merge(
+                                  TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: darkBlueText,
+                                    fontSize: 35,
+                                  ),
+                                ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      SizedBox(
+                        height: 65,
+                        width: 200,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showEndTime(
+                              state.attendanceList[index],
+                              clockOutH,
+                              clockOutM,
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            side: BorderSide(color: darkBlueText, width: 2.5),
+                            primary: Colors.white,
+                          ),
+                          child: Text(
+                            DateFormat('h:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  state.attendanceList[index].clockout!),
+                            ),
+                            style: Theme.of(context).textTheme.bodyText1!.merge(
+                                  TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: darkBlueText,
+                                    fontSize: 35,
+                                  ),
+                                ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 80,
+                      ),
+                      SizedBox(
+                        height: 65,
+                        width: 80,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.read<AttendanceBloc>().add(
+                                DeleteWorkedTimeEvent(
+                                    id: state.attendanceList[index].id!));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: redButton,
+                          ),
+                          child: Icon(
+                            Icons.delete_outline_outlined,
+                            size: 50,
+                            color: darkBlueText,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
