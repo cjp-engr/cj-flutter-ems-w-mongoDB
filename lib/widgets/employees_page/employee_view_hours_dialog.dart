@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
 import 'package:ems_app/blocs/attendance_time_worked/attendance_time_worked_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
@@ -216,7 +214,6 @@ class TimeWorkedList extends StatelessWidget {
 
     return BlocListener<AttendanceBloc, AttendanceState>(
       listener: (context, stateListen) {
-        log(stateListen.attStatus.toString());
         int hoursWorked = 0;
         for (var item in stateListen.attendanceList) {
           hoursWorked += (item.clockout! - item.clockin!);

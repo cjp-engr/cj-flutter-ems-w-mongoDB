@@ -14,6 +14,7 @@ part 'employees_state.dart';
 class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   late final StreamSubscription empDetailsSubscription;
   final EmployeeRepository employeeRepository;
+
   final EmployeeDetailsBloc empDetailsBloc;
 
   EmployeesBloc({

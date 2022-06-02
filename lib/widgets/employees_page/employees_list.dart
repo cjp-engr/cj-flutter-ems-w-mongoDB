@@ -1,4 +1,5 @@
 import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
+import 'package:ems_app/blocs/attendance_time_worked/attendance_time_worked_bloc.dart';
 import 'package:ems_app/blocs/employee_details/employee_details_bloc.dart';
 import 'package:ems_app/blocs/employees/employees_bloc.dart';
 import 'package:ems_app/constants/constants.dart';
@@ -45,7 +46,7 @@ class EmployeesList extends StatelessWidget {
                     SizedBox(
                       width: 190,
                     ),
-                    Text('SCHEDULE'),
+                    Text('ATTENDANCE'),
                   ],
                 ),
               ),
@@ -157,7 +158,13 @@ class EmployeesData extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(state.employeesList[index].email!),
-                        Text(state.employeesList[index].phoneNumber!),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(state.employeesList[index].countryCode! + ' '),
+                            Text(state.employeesList[index].phoneNumber!),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -171,7 +178,9 @@ class EmployeesData extends StatelessWidget {
                         Column(
                           children: const [
                             Text('Time Worked'),
-                            Text('00H 00M'),
+                            SizedBox(
+                              height: 20,
+                            ),
                           ],
                         ),
                         const SizedBox(

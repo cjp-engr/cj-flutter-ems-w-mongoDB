@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/model_custom_error.dart';
 import 'package:equatable/equatable.dart';
@@ -32,7 +30,6 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     GetEmployeeDetailsEvent event,
     Emitter<AttendanceState> emit,
   ) async {
-    log('bloc:' + state.attStatus.toString());
     emit(state.copyWith(
       uniqueId: event.uniqueId,
       firstName: event.firstName,
@@ -40,7 +37,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       employeeId: event.employeeId,
       attStatus: AttendanceStatus.reading,
     ));
-    log('bloc:' + state.attStatus.toString());
+
     final List<Attendance>? attendance =
         await attendanceRepository.fetchAttendanceList(
       state.uniqueId,
@@ -51,7 +48,6 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       attendanceList: attendance,
       attStatus: AttendanceStatus.read,
     ));
-    log('bloc:' + state.attStatus.toString());
   }
 
   void _getSelectedDate(

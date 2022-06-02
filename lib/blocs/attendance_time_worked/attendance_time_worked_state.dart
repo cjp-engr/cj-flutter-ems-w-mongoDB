@@ -3,6 +3,7 @@ part of 'attendance_time_worked_bloc.dart';
 class AttendanceTimeWorkedState extends Equatable {
   final String hours;
   final String minutes;
+
   const AttendanceTimeWorkedState({
     required this.hours,
     required this.minutes,

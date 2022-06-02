@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:ems_app/repositories/attendance_repository.dart';
 
 import 'package:equatable/equatable.dart';
 
@@ -7,7 +8,10 @@ part 'attendance_time_worked_state.dart';
 
 class AttendanceTimeWorkedBloc
     extends Bloc<AttendanceTimeWorkedEvent, AttendanceTimeWorkedState> {
-  AttendanceTimeWorkedBloc() : super(AttendanceTimeWorkedState.initial()) {
+  final AttendanceRepository attendanceRepository;
+  AttendanceTimeWorkedBloc({
+    required this.attendanceRepository,
+  }) : super(AttendanceTimeWorkedState.initial()) {
     on<GetTimeWorkedEvent>(_getTimeWorked);
   }
 

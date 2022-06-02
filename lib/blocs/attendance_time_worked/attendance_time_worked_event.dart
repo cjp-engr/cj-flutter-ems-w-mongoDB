@@ -13,3 +13,12 @@ class GetTimeWorkedEvent extends AttendanceTimeWorkedEvent {
     required this.duration,
   });
 }
+
+class TestEvent extends AttendanceTimeWorkedEvent {
+  final String id;
+  final DateTime workedDate;
+  const TestEvent({
+    required this.id,
+    required this.workedDate,
+  });
+}
