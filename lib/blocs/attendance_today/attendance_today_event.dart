@@ -17,3 +17,7 @@ class EnterAttendancePinEvent extends AttendanceTodayEvent {
 class ClockInClickedEvent extends AttendanceTodayEvent {}
 
 class ClockOutClickedEvent extends AttendanceTodayEvent {}
+
+class ClockInSuccessfulEvent extends AttendanceTodayEvent {}
+
+class ClockOutSuccessfulEvent extends AttendanceTodayEvent {}

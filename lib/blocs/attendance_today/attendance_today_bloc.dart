@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/employee.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
@@ -15,6 +17,8 @@ class AttendanceTodayBloc
     on<EnterAttendancePinEvent>(_enterAttendancePin);
     on<ClockInClickedEvent>(_clockInClicked);
     on<ClockOutClickedEvent>(_clockOutClicked);
+    on<ClockInSuccessfulEvent>(_clockInSuccessful);
+    on<ClockOutSuccessfulEvent>(_clockOutSuccessful);
   }
 
   _enterAttendancePin(
@@ -72,11 +76,12 @@ class AttendanceTodayBloc
 
     if (emp.toString() != 'null') {
       if (inPin == emp?.pin) {
+        log(emp!.id.toString());
         emit(state.copyWith(
-          pin: [],
           attTodayStatus: AttendanceTodayPinStatus.isExisting,
-          pinLength: 0,
         ));
+
+        //TODO: event for the employee to clocked in successfully
       } else {
         emit(state.copyWith(
           pin: [],
@@ -107,10 +112,9 @@ class AttendanceTodayBloc
     if (emp.toString() != 'null') {
       if (inPin == emp?.pin) {
         emit(state.copyWith(
-          pin: [],
           attTodayStatus: AttendanceTodayPinStatus.isExisting,
-          pinLength: 0,
         ));
+        //TODO: event for the employee to clocked in successfully
       } else {
         emit(state.copyWith(
           pin: [],
@@ -126,4 +130,14 @@ class AttendanceTodayBloc
       ));
     }
   }
+
+  void _clockInSuccessful(
+    ClockInSuccessfulEvent event,
+    Emitter<AttendanceTodayState> emit,
+  ) {}
+
+  void _clockOutSuccessful(
+    ClockOutSuccessfulEvent event,
+    Emitter<AttendanceTodayState> emit,
+  ) {}
 }
