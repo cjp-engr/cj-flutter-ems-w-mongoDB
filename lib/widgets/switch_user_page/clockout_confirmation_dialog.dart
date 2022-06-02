@@ -1,3 +1,6 @@
+import 'package:ems_app/blocs/blocs.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../constants/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -13,57 +16,104 @@ class ClockoutConfirmationDialog extends StatelessWidget {
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
-        child: Column(
-          children: [
-            const Text(
-              'Are you sure you want to clock out?',
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 35,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: BlocBuilder<AttendanceTodayBloc, AttendanceTodayState>(
+          builder: (context, state) {
+            if (state.attTodayStatus == AttendanceTodayPinStatus.loading) {
+              return Column(
+                children: const [
+                  Text('Loading'),
+                ],
+              );
+            }
+
+            if (state.attTodayStatus ==
+                AttendanceTodayPinStatus.isNotExisting) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'You entered a wrong PIN!',
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 80,
+                    width: 130,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          color: darkBlueText,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: yellowButton,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  height: 80,
-                  width: 130,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'NO',
-                      style: TextStyle(
-                        color: darkBlueText,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: yellowButton,
-                    ),
-                  ),
+                const Text(
+                  'Are you sure you want to clock out?',
+                  textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: 80,
-                  width: 130,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'YES',
-                      style: TextStyle(
-                        color: darkBlueText,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      height: 80,
+                      width: 130,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'NO',
+                          style: TextStyle(
+                            color: darkBlueText,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: yellowButton,
+                        ),
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      primary: redButton,
+                    SizedBox(
+                      height: 80,
+                      width: 130,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'YES',
+                          style: TextStyle(
+                            color: darkBlueText,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: redButton,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

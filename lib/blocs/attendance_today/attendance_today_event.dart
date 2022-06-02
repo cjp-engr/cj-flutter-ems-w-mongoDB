@@ -13,3 +13,7 @@ class EnterAttendancePinEvent extends AttendanceTodayEvent {
     required this.enteredPIN,
   });
 }
+
+class ClockInClickedEvent extends AttendanceTodayEvent {}
+
+class ClockOutClickedEvent extends AttendanceTodayEvent {}

@@ -35,24 +35,6 @@ class AttendanceRepository {
     }
   }
 
-  Future<List<Attendance>?> fetchAttendanceListSorted(
-    String uniqueId,
-    String workDate,
-  ) async {
-    try {
-      List<Attendance>? attendance =
-          await attendanceApiServices.getAttendanceSorted(
-        uniqueId,
-        workDate,
-      );
-      return attendance;
-    } on CustomException catch (e) {
-      throw CustomError(message: e.message);
-    } catch (e) {
-      throw CustomError(message: e.toString());
-    }
-  }
-
   Future<void> updateAttendance(
     Attendance a,
     String id,

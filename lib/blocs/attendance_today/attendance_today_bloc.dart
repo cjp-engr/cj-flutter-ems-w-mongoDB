@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:ems_app/models/employee.dart';
+import 'package:ems_app/repositories/employee_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'attendance_today_event.dart';
@@ -6,8 +8,13 @@ part 'attendance_today_state.dart';
 
 class AttendanceTodayBloc
     extends Bloc<AttendanceTodayEvent, AttendanceTodayState> {
-  AttendanceTodayBloc() : super(AttendanceTodayState.initial()) {
+  final EmployeeRepository employeeRepository;
+  AttendanceTodayBloc({
+    required this.employeeRepository,
+  }) : super(AttendanceTodayState.initial()) {
     on<EnterAttendancePinEvent>(_enterAttendancePin);
+    on<ClockInClickedEvent>(_clockInClicked);
+    on<ClockOutClickedEvent>(_clockOutClicked);
   }
 
   _enterAttendancePin(
@@ -49,6 +56,74 @@ class AttendanceTodayBloc
           ));
         }
       }
+    }
+  }
+
+  void _clockInClicked(
+    ClockInClickedEvent event,
+    Emitter<AttendanceTodayState> emit,
+  ) async {
+    emit(state.copyWith(
+      attTodayStatus: AttendanceTodayPinStatus.loading,
+    ));
+    String strPin = state.pin.join('');
+    int? inPin = int.tryParse(strPin);
+    Employee? emp = await employeeRepository.fetchEmployeePin(strPin);
+
+    if (emp.toString() != 'null') {
+      if (inPin == emp?.pin) {
+        emit(state.copyWith(
+          pin: [],
+          attTodayStatus: AttendanceTodayPinStatus.isExisting,
+          pinLength: 0,
+        ));
+      } else {
+        emit(state.copyWith(
+          pin: [],
+          attTodayStatus: AttendanceTodayPinStatus.isNotExisting,
+          pinLength: 0,
+        ));
+      }
+    } else {
+      emit(state.copyWith(
+        pin: [],
+        attTodayStatus: AttendanceTodayPinStatus.isNotExisting,
+        pinLength: 0,
+      ));
+    }
+  }
+
+  void _clockOutClicked(
+    ClockOutClickedEvent event,
+    Emitter<AttendanceTodayState> emit,
+  ) async {
+    emit(state.copyWith(
+      attTodayStatus: AttendanceTodayPinStatus.loading,
+    ));
+    String strPin = state.pin.join('');
+    int? inPin = int.tryParse(strPin);
+    Employee? emp = await employeeRepository.fetchEmployeePin(strPin);
+
+    if (emp.toString() != 'null') {
+      if (inPin == emp?.pin) {
+        emit(state.copyWith(
+          pin: [],
+          attTodayStatus: AttendanceTodayPinStatus.isExisting,
+          pinLength: 0,
+        ));
+      } else {
+        emit(state.copyWith(
+          pin: [],
+          attTodayStatus: AttendanceTodayPinStatus.isNotExisting,
+          pinLength: 0,
+        ));
+      }
+    } else {
+      emit(state.copyWith(
+        pin: [],
+        attTodayStatus: AttendanceTodayPinStatus.isNotExisting,
+        pinLength: 0,
+      ));
     }
   }
 }

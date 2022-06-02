@@ -103,22 +103,40 @@ class SwitchPin extends StatelessWidget {
                               width: 130,
                               child: ElevatedButton(
                                 onPressed: () {
+                                  context
+                                      .read<AttendanceTodayBloc>()
+                                      .add(ClockInClickedEvent());
+
                                   showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        const ClockinConfirmationDialog(),
-                                  );
+                                      context: context,
+                                      builder: (context) =>
+                                          const ClockinConfirmationDialog());
                                 },
                                 style: ElevatedButton.styleFrom(
                                   primary: yellowButton,
                                 ),
-                                child: Text(
-                                  'IN',
-                                  style: TextStyle(
-                                    color: darkBlueText,
-                                    fontSize: 45,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      'CLOCK',
+                                      style: TextStyle(
+                                        color: darkBlueText,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      'IN',
+                                      style: TextStyle(
+                                        color: darkBlueText,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -145,6 +163,9 @@ class SwitchPin extends StatelessWidget {
                               width: 130,
                               child: ElevatedButton(
                                 onPressed: () {
+                                  context
+                                      .read<AttendanceTodayBloc>()
+                                      .add(ClockOutClickedEvent());
                                   showDialog(
                                     context: context,
                                     builder: (context) =>
@@ -154,13 +175,28 @@ class SwitchPin extends StatelessWidget {
                                 style: ElevatedButton.styleFrom(
                                   primary: yellowButton,
                                 ),
-                                child: Text(
-                                  'OUT',
-                                  style: TextStyle(
-                                    color: darkBlueText,
-                                    fontSize: 45,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      'CLOCK',
+                                      style: TextStyle(
+                                        color: darkBlueText,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      'OUT',
+                                      style: TextStyle(
+                                        color: darkBlueText,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

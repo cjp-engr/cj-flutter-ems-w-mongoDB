@@ -79,7 +79,7 @@ class EmployeePinBloc extends Bloc<EmployeePinEvent, EmployeePinState> {
     String strPin = state.pin.join('');
     int? inPin = int.tryParse(strPin);
     Employee? emp = await employeeRepository.fetchEmployeePin(strPin);
-    //log(employee.firstName!);
+
     if (inPin == emp?.pin) {
       emit(state.copyWith(
         pin: [],
