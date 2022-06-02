@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/blocs/blocs.dart';
-import 'package:ems_app/models/model_custom_error.dart';
-import 'package:ems_app/models/country_codes.dart';
-import 'package:ems_app/repositories/country_code_repository.dart';
+import '../../blocs/blocs.dart';
+import '../../models/model_custom_error.dart';
+import '../../models/country_codes.dart';
+import '../../repositories/country_code_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'country_codes_event.dart';

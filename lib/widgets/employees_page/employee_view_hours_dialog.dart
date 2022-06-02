@@ -1,7 +1,6 @@
-import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
-import 'package:ems_app/blocs/attendance_time_worked/attendance_time_worked_bloc.dart';
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/widgets/employees_page/employee_view_hours_entry_dialog.dart';
+import '../../blocs/blocs.dart';
+import '../../constants/constants.dart';
+import '../../widgets/employees_page/employee_view_hours_entry_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';

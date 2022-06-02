@@ -1,22 +1,16 @@
-import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
-import 'package:ems_app/blocs/blocs.dart';
-import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
-import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
-import 'package:ems_app/blocs/side_navigation/side_navigation_bloc.dart';
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/repositories/attendance_repository.dart';
-import 'package:ems_app/repositories/country_code_repository.dart';
-import 'package:ems_app/repositories/employee_repository.dart';
-import 'package:ems_app/services/attendance_api_services.dart';
-import 'package:ems_app/services/country_code_api_services.dart';
-import 'package:ems_app/services/employee_api_services.dart';
-import 'package:ems_app/widgets/side_navigation_bar.dart';
+import '../../blocs/blocs.dart';
+import '../../constants/constants.dart';
+import '../../repositories/attendance_repository.dart';
+import '../../repositories/country_code_repository.dart';
+import '../../repositories/employee_repository.dart';
+import '../../services/attendance_api_services.dart';
+import '../../services/country_code_api_services.dart';
+import '../../services/employee_api_services.dart';
+import '../../widgets/side_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
-
-import 'blocs/attendance_time_worked/attendance_time_worked_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -94,6 +88,9 @@ class MyApp extends StatelessWidget {
             create: (context) => AttendanceTimeWorkedBloc(
               attendanceRepository: context.read<AttendanceRepository>(),
             ),
+          ),
+          BlocProvider<AttendanceTodayBloc>(
+            create: (context) => AttendanceTodayBloc(),
           ),
         ],
         child: MaterialApp(

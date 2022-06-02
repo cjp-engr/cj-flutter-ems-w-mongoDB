@@ -1,15 +1,13 @@
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
-import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
-import 'package:ems_app/blocs/employee_pin/employee_pin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:ems_app/blocs/blocs.dart';
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/models/employee.dart';
-import 'package:ems_app/widgets/employees_page/country_codes_dialog.dart';
-import 'package:ems_app/widgets/employees_page/employee_pin_dialog.dart';
-import 'package:ems_app/widgets/employees_page/employee_upload_photo_dialog.dart';
+import '../../blocs/blocs.dart';
+import '../../constants/constants.dart';
+import '../../models/employee.dart';
+import '../../widgets/employees_page/country_codes_dialog.dart';
+import '../../widgets/employees_page/employee_pin_dialog.dart';
+import '../../widgets/employees_page/employee_upload_photo_dialog.dart';
 
 class ShowInfoEmployeeDialog extends StatelessWidget {
   const ShowInfoEmployeeDialog({Key? key}) : super(key: key);

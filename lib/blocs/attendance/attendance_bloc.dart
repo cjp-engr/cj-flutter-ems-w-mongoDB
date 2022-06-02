@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/models/model_custom_error.dart';
+import '../../models/model_custom_error.dart';
 import 'package:equatable/equatable.dart';
 
-import 'package:ems_app/models/attendance.dart';
-import 'package:ems_app/repositories/attendance_repository.dart';
+import '../../models/attendance.dart';
+import '../../repositories/attendance_repository.dart';
 
 part 'attendance_event.dart';
 part 'attendance_state.dart';

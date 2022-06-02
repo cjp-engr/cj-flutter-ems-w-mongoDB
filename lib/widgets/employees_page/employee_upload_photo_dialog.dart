@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:ems_app/blocs/employee_image/employee_image_bloc.dart';
-import 'package:ems_app/constants/constants.dart';
+import '../../blocs/blocs.dart';
+import '../../constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';

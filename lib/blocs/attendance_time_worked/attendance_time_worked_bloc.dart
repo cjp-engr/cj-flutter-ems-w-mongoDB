@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/repositories/attendance_repository.dart';
+import '../../repositories/attendance_repository.dart';
 
 import 'package:equatable/equatable.dart';
 

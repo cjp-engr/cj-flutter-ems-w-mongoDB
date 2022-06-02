@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/blocs/blocs.dart';
+import '../../blocs/blocs.dart';
 
-import 'package:ems_app/models/employee.dart';
-import 'package:ems_app/models/model_custom_error.dart';
-import 'package:ems_app/repositories/employee_repository.dart';
+import '../../models/employee.dart';
+import '../../models/model_custom_error.dart';
+import '../../repositories/employee_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'employees_event.dart';

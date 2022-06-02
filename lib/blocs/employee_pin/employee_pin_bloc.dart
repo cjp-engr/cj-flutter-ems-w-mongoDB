@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/models/employee.dart';
+import '../../models/employee.dart';
 
-import 'package:ems_app/repositories/employee_repository.dart';
+import '../../repositories/employee_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'employee_pin_event.dart';

@@ -1,7 +1,6 @@
-import 'package:ems_app/blocs/attendance/attendance_bloc.dart';
-import 'package:ems_app/blocs/blocs.dart';
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/widgets/employees_page/show_info_employee_dialog.dart';
+import '../../blocs/blocs.dart';
+import '../../constants/constants.dart';
+import '../../widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

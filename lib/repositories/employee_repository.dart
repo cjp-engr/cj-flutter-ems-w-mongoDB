@@ -1,7 +1,7 @@
-import 'package:ems_app/exceptions/custom_exception.dart';
-import 'package:ems_app/models/model_custom_error.dart';
-import 'package:ems_app/models/employee.dart';
-import 'package:ems_app/services/employee_api_services.dart';
+import '../../exceptions/custom_exception.dart';
+import '../../models/model_custom_error.dart';
+import '../../models/employee.dart';
+import '../../services/employee_api_services.dart';
 
 class EmployeeRepository {
   final EmployeeApiServices employeeApiServices;

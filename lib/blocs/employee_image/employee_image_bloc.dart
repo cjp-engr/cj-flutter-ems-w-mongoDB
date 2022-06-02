@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/blocs/blocs.dart';
+import '../../blocs/blocs.dart';
 import 'package:equatable/equatable.dart';
 
 part 'employee_image_event.dart';

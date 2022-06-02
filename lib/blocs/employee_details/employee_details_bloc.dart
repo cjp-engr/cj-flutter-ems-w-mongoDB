@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:ems_app/models/employee.dart';
-import 'package:ems_app/models/model_custom_error.dart';
-import 'package:ems_app/repositories/employee_repository.dart';
+import '../../models/employee.dart';
+import '../../models/model_custom_error.dart';
+import '../../repositories/employee_repository.dart';
 import 'package:equatable/equatable.dart';
 
 part 'employee_details_event.dart';

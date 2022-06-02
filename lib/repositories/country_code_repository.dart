@@ -1,7 +1,7 @@
-import 'package:ems_app/exceptions/custom_exception.dart';
-import 'package:ems_app/models/model_custom_error.dart';
-import 'package:ems_app/models/country_codes.dart';
-import 'package:ems_app/services/country_code_api_services.dart';
+import '../../exceptions/custom_exception.dart';
+import '../../models/model_custom_error.dart';
+import '../../models/country_codes.dart';
+import '../../services/country_code_api_services.dart';
 
 class CountryCodeRepository {
   final CountryCodeApiServices countryCodeApiServices;

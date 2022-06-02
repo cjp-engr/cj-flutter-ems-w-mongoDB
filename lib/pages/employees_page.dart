@@ -1,5 +1,5 @@
-import 'package:ems_app/widgets/employees_page/employees_headers.dart';
-import 'package:ems_app/widgets/employees_page/employees_list.dart';
+import '../../widgets/employees_page/employees_headers.dart';
+import '../../widgets/employees_page/employees_list.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesPage extends StatelessWidget {

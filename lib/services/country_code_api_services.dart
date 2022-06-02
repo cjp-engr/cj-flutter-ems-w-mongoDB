@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/models/country_codes.dart';
+import '../../constants/constants.dart';
+import '../../models/country_codes.dart';
 import 'package:http/http.dart' as http;
 
 class CountryCodeApiServices {

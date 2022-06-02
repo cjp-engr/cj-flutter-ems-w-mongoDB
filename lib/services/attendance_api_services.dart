@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/models/attendance.dart';
+import '../../constants/constants.dart';
+import '../../models/attendance.dart';
 import 'package:http/http.dart' as http;
 
 class AttendanceApiServices {

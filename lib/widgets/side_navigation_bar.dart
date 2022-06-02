@@ -1,9 +1,9 @@
-import 'package:ems_app/blocs/side_navigation/side_navigation_bloc.dart';
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/pages/dashboard_page.dart';
-import 'package:ems_app/pages/employee_page.dart';
-import 'package:ems_app/pages/employees_page.dart';
-import 'package:ems_app/widgets/switch_user_page/switch_pin.dart';
+import '../../blocs/blocs.dart';
+import '../../constants/constants.dart';
+import '../../pages/dashboard_page.dart';
+import '../../pages/employee_page.dart';
+import '../../pages/employees_page.dart';
+import '../../widgets/switch_user_page/switch_pin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

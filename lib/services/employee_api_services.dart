@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:ems_app/constants/constants.dart';
-import 'package:ems_app/models/employee.dart';
+import '../../constants/constants.dart';
+import '../../models/employee.dart';
 import 'package:http/http.dart' as http;
 
 class EmployeeApiServices {
