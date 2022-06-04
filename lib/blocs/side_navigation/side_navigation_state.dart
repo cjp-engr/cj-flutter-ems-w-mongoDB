@@ -7,7 +7,7 @@ class SideNavigationState extends Equatable {
   });
 
   factory SideNavigationState.initial() {
-    return const SideNavigationState(activePage: 1);
+    return const SideNavigationState(activePage: 3);
   }
 
   @override

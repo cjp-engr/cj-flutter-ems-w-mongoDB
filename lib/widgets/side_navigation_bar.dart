@@ -13,6 +13,7 @@ class SideNavigationBar extends StatelessWidget {
     DashboardPage(),
     EmployeePage(),
     EmployeesPage(),
+    ShowPinDialog(),
   ];
 
   @override
@@ -101,5 +102,22 @@ class SideNavigationBar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ShowPinDialog extends StatelessWidget {
+  const ShowPinDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Future.delayed(
+      Duration.zero,
+      () => showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (context) => const SwitchPin(),
+      ),
+    );
+    return Container();
   }
 }

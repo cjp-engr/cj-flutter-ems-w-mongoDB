@@ -201,7 +201,7 @@ class EmployeesData extends StatelessWidget {
                               );
                               context
                                   .read<AttendanceBloc>()
-                                  .add(GetEmployeeDetailsEvent(
+                                  .add(ShowWorkedTimeEvent(
                                     uniqueId: state.employeesList[index].id!,
                                     firstName:
                                         state.employeesList[index].firstName!,

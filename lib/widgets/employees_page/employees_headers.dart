@@ -101,8 +101,9 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                           TextButton(
                             onPressed: () {
                               context.read<AttendanceBloc>().add(
-                                  GetSelectedDateEvent(
-                                      selectedDate: selectedDate));
+                                    GetSelectedDateEvent(
+                                        selectedDate: selectedDate),
+                                  );
                               Navigator.of(context).pop();
                             },
                             child: const Text('OK'),

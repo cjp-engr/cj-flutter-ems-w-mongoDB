@@ -13,7 +13,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   AttendanceBloc({
     required this.attendanceRepository,
   }) : super(AttendanceState.initial()) {
-    on<GetEmployeeDetailsEvent>(_getEmployeeDetails);
+    on<ShowWorkedTimeEvent>(_showWorkedTime);
     on<GetSelectedDateEvent>(_getSelectedDate);
     on<GetWorkedStartTimeEvent>(_getWorkedStartTime);
     on<GetWorkedEndTimeEvent>(_getWorkedEndTime);
@@ -26,8 +26,8 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     on<DeleteWorkedTimeEvent>(_deleteWorkedTime);
   }
 
-  void _getEmployeeDetails(
-    GetEmployeeDetailsEvent event,
+  void _showWorkedTime(
+    ShowWorkedTimeEvent event,
     Emitter<AttendanceState> emit,
   ) async {
     emit(state.copyWith(

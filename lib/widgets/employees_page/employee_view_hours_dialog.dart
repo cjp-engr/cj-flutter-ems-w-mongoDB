@@ -29,14 +29,17 @@ class EmployeeViewHoursDialog extends StatelessWidget {
             ),
             BlocBuilder<AttendanceTimeWorkedBloc, AttendanceTimeWorkedState>(
               builder: (context, state) {
-                return Text(
-                  state.hours + 'H ' + state.minutes + 'M',
-                  style: Theme.of(context).textTheme.headline5!.merge(
-                        const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                );
+                return int.tryParse(state.hours)! < 0 &&
+                        int.tryParse(state.minutes)! < 0
+                    ? const Text('Hello')
+                    : Text(
+                        state.hours + 'H ' + state.minutes + 'M',
+                        style: Theme.of(context).textTheme.headline5!.merge(
+                              const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                      );
               },
             ),
             const SizedBox(
@@ -53,59 +56,102 @@ class EmployeeViewHoursDialog extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(
-                  height: 70,
-                  width: 160,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) =>
-                            const EmployeeViewHoursEntryDialog(),
+            BlocBuilder<AttendanceBloc, AttendanceState>(
+              builder: (context, state) {
+                return state.workDate !=
+                        DateTime(
+                          DateTime.now().year,
+                          DateTime.now().month,
+                          DateTime.now().day,
+                        )
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            height: 70,
+                            width: 160,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      const EmployeeViewHoursEntryDialog(),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: redButton,
+                              ),
+                              child: Text(
+                                'ADD',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .merge(
+                                      TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: darkBlueText,
+                                        fontSize: 30,
+                                      ),
+                                    ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 70,
+                            width: 160,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                context
+                                    .read<AttendanceBloc>()
+                                    .add(ClearDetailsEvent());
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: yellowButton,
+                              ),
+                              child: Text(
+                                'DONE',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .merge(
+                                      TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: darkBlueText,
+                                        fontSize: 30,
+                                      ),
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : SizedBox(
+                        height: 70,
+                        width: 160,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            context
+                                .read<AttendanceBloc>()
+                                .add(ClearDetailsEvent());
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: yellowButton,
+                          ),
+                          child: Text(
+                            'DONE',
+                            style: Theme.of(context).textTheme.bodyText1!.merge(
+                                  TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: darkBlueText,
+                                    fontSize: 30,
+                                  ),
+                                ),
+                          ),
+                        ),
                       );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: redButton,
-                    ),
-                    child: Text(
-                      'ADD',
-                      style: Theme.of(context).textTheme.bodyText1!.merge(
-                            TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: darkBlueText,
-                              fontSize: 30,
-                            ),
-                          ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 70,
-                  width: 160,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      context.read<AttendanceBloc>().add(ClearDetailsEvent());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: yellowButton,
-                    ),
-                    child: Text(
-                      'DONE',
-                      style: Theme.of(context).textTheme.bodyText1!.merge(
-                            TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: darkBlueText,
-                              fontSize: 30,
-                            ),
-                          ),
-                    ),
-                  ),
-                ),
-              ],
+              },
             ),
           ],
         ),
@@ -294,19 +340,36 @@ class TimeWorkedList extends StatelessWidget {
                             side: BorderSide(color: darkBlueText, width: 2.5),
                             primary: Colors.white,
                           ),
-                          child: Text(
-                            DateFormat('h:mm a').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  state.attendanceList[index].clockout!),
-                            ),
-                            style: Theme.of(context).textTheme.bodyText1!.merge(
-                                  TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: darkBlueText,
-                                    fontSize: 35,
+                          child: state.attendanceList[index].clockout == -1
+                              ? Text(
+                                  'still working...',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .merge(
+                                        TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: darkBlueText,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                )
+                              : Text(
+                                  DateFormat('h:mm a').format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        state.attendanceList[index].clockout!),
                                   ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .merge(
+                                        TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: darkBlueText,
+                                          fontSize: 35,
+                                        ),
+                                      ),
                                 ),
-                          ),
                         ),
                       ),
                       const SizedBox(

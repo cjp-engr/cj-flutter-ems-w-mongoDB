@@ -7,13 +7,13 @@ abstract class AttendanceEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetEmployeeDetailsEvent extends AttendanceEvent {
+class ShowWorkedTimeEvent extends AttendanceEvent {
   final String uniqueId;
   final String firstName;
   final String lastName;
   final String employeeId;
 
-  const GetEmployeeDetailsEvent({
+  const ShowWorkedTimeEvent({
     required this.uniqueId,
     required this.firstName,
     required this.lastName,

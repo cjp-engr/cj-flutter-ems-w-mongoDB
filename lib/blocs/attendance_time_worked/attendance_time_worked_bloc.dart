@@ -8,10 +8,7 @@ part 'attendance_time_worked_state.dart';
 
 class AttendanceTimeWorkedBloc
     extends Bloc<AttendanceTimeWorkedEvent, AttendanceTimeWorkedState> {
-  final AttendanceRepository attendanceRepository;
-  AttendanceTimeWorkedBloc({
-    required this.attendanceRepository,
-  }) : super(AttendanceTimeWorkedState.initial()) {
+  AttendanceTimeWorkedBloc() : super(AttendanceTimeWorkedState.initial()) {
     on<GetTimeWorkedEvent>(_getTimeWorked);
   }
 
