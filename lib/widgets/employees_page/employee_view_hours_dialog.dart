@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../../blocs/blocs.dart';
 import '../../constants/constants.dart';
 import '../../widgets/employees_page/employee_view_hours_entry_dialog.dart';
@@ -261,7 +263,12 @@ class TimeWorkedList extends StatelessWidget {
       listener: (context, stateListen) {
         int hoursWorked = 0;
         for (var item in stateListen.attendanceList) {
-          hoursWorked += (item.clockout! - item.clockin!);
+          if (item.clockout! > 0) {
+            hoursWorked += (item.clockout! - item.clockin!);
+          } else {
+            int now = DateTime.now().millisecondsSinceEpoch;
+            hoursWorked += (now - item.clockin!);
+          }
         }
 
         final duration = Duration(seconds: (hoursWorked * 0.001).toInt());
