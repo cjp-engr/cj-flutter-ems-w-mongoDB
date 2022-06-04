@@ -36,6 +36,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       lastName: event.lastName,
       employeeId: event.employeeId,
       attStatus: AttendanceStatus.reading,
+      workDate: state.workDate,
     ));
 
     final List<Attendance>? attendance =

@@ -19,6 +19,7 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
   void initState() {
     super.initState();
     nameController = TextEditingController();
+    _initSetDate();
     _initLoadEmployee();
   }
 
@@ -30,6 +31,18 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
 
   void _initLoadEmployee() {
     context.read<EmployeesBloc>().add(FetchAllEmployeesEvent());
+  }
+
+  void _initSetDate() {
+    context.read<AttendanceBloc>().add(
+          GetSelectedDateEvent(
+            selectedDate: DateTime(
+              DateTime.now().year,
+              DateTime.now().month,
+              DateTime.now().day,
+            ),
+          ),
+        );
   }
 
   @override
@@ -74,17 +87,23 @@ class _EmployeesHeadersState extends State<EmployeesHeaders> {
                             onPressed: () {
                               Navigator.of(context).pop();
                               context.read<AttendanceBloc>().add(
-                                  GetSelectedDateEvent(
-                                      selectedDate: DateTime.now()));
+                                    GetSelectedDateEvent(
+                                      selectedDate: DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        DateTime.now().day,
+                                      ),
+                                    ),
+                                  );
                             },
                             child: const Text('Current Date'),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pop();
                               context.read<AttendanceBloc>().add(
                                   GetSelectedDateEvent(
                                       selectedDate: selectedDate));
+                              Navigator.of(context).pop();
                             },
                             child: const Text('OK'),
                           ),

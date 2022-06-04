@@ -51,7 +51,7 @@ class AttendanceState extends Equatable {
       employeeId: '',
       clockin: DateTime(1970, 1, 1),
       clockout: DateTime(1970, 1, 1),
-      workDate: DateTime.now(),
+      workDate: DateTime(1970, 1, 1),
       status: 0,
       attStatus: AttendanceStatus.initial,
       attendanceList: const [],
