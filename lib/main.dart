@@ -92,6 +92,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<AttendanceTodayBloc>(
             create: (context) => AttendanceTodayBloc(
               employeeRepository: context.read<EmployeeRepository>(),
+              attendanceRepository: context.read<AttendanceRepository>(),
             ),
           ),
         ],

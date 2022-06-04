@@ -48,6 +48,24 @@ class AttendanceRepository {
     }
   }
 
+  Future<void> updateTodayAttendance(
+    String uniqueId,
+    String workDate,
+    Attendance a,
+  ) async {
+    try {
+      await attendanceApiServices.updateTodayAttendance(
+        uniqueId,
+        workDate,
+        a,
+      );
+    } on CustomException catch (e) {
+      throw CustomError(message: e.message);
+    } catch (e) {
+      throw CustomError(message: e.toString());
+    }
+  }
+
   Future<void> deleteAttendance(
     String id,
   ) async {

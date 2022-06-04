@@ -142,6 +142,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     var attendance = Attendance(
       clockin: event.startTime.millisecondsSinceEpoch,
       clockout: event.att.clockout,
+      status: 3,
     );
     await attendanceRepository.updateAttendance(
       attendance,
@@ -166,6 +167,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     var attendance = Attendance(
       clockin: event.att.clockin,
       clockout: event.endTime.millisecondsSinceEpoch,
+      status: 3,
     );
     await attendanceRepository.updateAttendance(
       attendance,

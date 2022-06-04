@@ -16,8 +16,27 @@ class EnterAttendancePinEvent extends AttendanceTodayEvent {
 
 class ClockInClickedEvent extends AttendanceTodayEvent {}
 
+class ClockInSuccessfulEvent extends AttendanceTodayEvent {
+  final Employee employee;
+  const ClockInSuccessfulEvent({
+    required this.employee,
+  });
+}
+
 class ClockOutClickedEvent extends AttendanceTodayEvent {}
 
-class ClockInSuccessfulEvent extends AttendanceTodayEvent {}
+class ClockOutSuccessfulEvent extends AttendanceTodayEvent {
+  final Employee employee;
+  const ClockOutSuccessfulEvent({
+    required this.employee,
+  });
+}
 
-class ClockOutSuccessfulEvent extends AttendanceTodayEvent {}
+class SubmitWorkedTimeTodayEvent extends AttendanceTodayEvent {
+  final Attendance attendance;
+  const SubmitWorkedTimeTodayEvent({
+    required this.attendance,
+  });
+}
+
+class ClearDetailsTodayEvent extends AttendanceTodayEvent {}

@@ -92,6 +92,40 @@ class AttendanceApiServices {
       body: jsonEncode(<String, dynamic>{
         'clockin': a.clockin,
         'clockout': a.clockout,
+        'status': a.status,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return Attendance.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to update album.');
+    }
+  }
+
+  Future<Attendance?> updateTodayAttendance(
+    String uniqueId,
+    String workDate,
+    Attendance a,
+  ) async {
+    final Uri uri = Uri(
+        scheme: 'https',
+        host: kEmployeesHost,
+        path: '/attendance',
+        queryParameters: {
+          'uniqueId': uniqueId,
+          'workDate': workDate,
+          'status': '1',
+          'clockout': '-1',
+        });
+    final response = await http.put(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'clockout': a.clockout,
+        'status': a.status,
       }),
     );
 
