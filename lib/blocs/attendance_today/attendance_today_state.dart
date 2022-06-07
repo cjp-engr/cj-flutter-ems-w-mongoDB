@@ -23,6 +23,8 @@ enum EnterTodayPinStatus {
   isManager,
   isNotManager,
   isNotExisting,
+  isEntered,
+  isNotEntered,
   loaded,
   error,
 }

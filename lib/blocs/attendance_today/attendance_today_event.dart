@@ -42,3 +42,10 @@ class SubmitWorkedTimeTodayEvent extends AttendanceTodayEvent {
 class ClearDetailsTodayEvent extends AttendanceTodayEvent {}
 
 class EnterAttClickedEvent extends AttendanceTodayEvent {}
+
+class IsEmployeeEnteredEvent extends AttendanceTodayEvent {
+  final bool isEntered;
+  const IsEmployeeEnteredEvent({
+    required this.isEntered,
+  });
+}

@@ -74,10 +74,12 @@ class SideNavigationBar extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         showDialog(
-                          barrierDismissible: true,
+                          barrierDismissible: false,
                           context: context,
                           builder: (context) => const SwitchPin(),
                         );
+                        context.read<AttendanceTodayBloc>().add(
+                            const IsEmployeeEnteredEvent(isEntered: false));
                       },
                       child: Icon(
                         Icons.switch_account_outlined,
@@ -113,7 +115,7 @@ class ShowPinDialog extends StatelessWidget {
     Future.delayed(
       Duration.zero,
       () => showDialog(
-        barrierDismissible: true,
+        barrierDismissible: false,
         context: context,
         builder: (context) => const SwitchPin(),
       ),

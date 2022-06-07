@@ -1,3 +1,5 @@
+import 'package:flutter/scheduler.dart';
+
 import '../../blocs/blocs.dart';
 import '../../constants/constants.dart';
 import '../../widgets/switch_user_page/clockin_confirmation_dialog.dart';
@@ -13,6 +15,24 @@ class SwitchPin extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AttendanceTodayBloc, AttendanceTodayState>(
       builder: (context, state) {
+        if (state.enterStatus == EnterTodayPinStatus.isManager) {
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            Navigator.of(context).pop();
+          });
+
+          context
+              .read<AttendanceTodayBloc>()
+              .add(const IsEmployeeEnteredEvent(isEntered: true));
+        }
+        if (state.enterStatus == EnterTodayPinStatus.isNotEntered) {
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("You entered an incorrect PIN!"),
+              duration: Duration(seconds: 1),
+            ));
+          });
+        }
+
         return SimpleDialog(
           children: [
             Row(
