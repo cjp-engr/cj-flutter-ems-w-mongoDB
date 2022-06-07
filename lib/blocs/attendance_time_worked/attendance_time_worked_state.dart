@@ -11,8 +11,8 @@ class AttendanceTimeWorkedState extends Equatable {
 
   factory AttendanceTimeWorkedState.initial() {
     return const AttendanceTimeWorkedState(
-      hours: '00',
-      minutes: '00',
+      hours: '0',
+      minutes: '0',
     );
   }
 

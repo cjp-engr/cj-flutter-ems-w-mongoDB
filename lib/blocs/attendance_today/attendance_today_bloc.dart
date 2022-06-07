@@ -206,29 +206,30 @@ class AttendanceTodayBloc
     String strPin = state.pin.join('');
     int? inPin = int.tryParse(strPin);
     Employee? emp = await employeeRepository.fetchEmployeePin(strPin);
-    log(state.enterStatus.toString());
+
     if (emp.toString() != 'null' &&
         (state.enterStatus == EnterTodayPinStatus.isNotEntered ||
             state.enterStatus == EnterTodayPinStatus.initial)) {
-      if (inPin == emp?.pin && emp?.jobRole == 'Manager') {
-        emit(state.copyWith(
-          pin: [],
-          enterStatus: EnterTodayPinStatus.isManager,
-          pinLength: 0,
-        ));
-        log('is a manager');
-      } else {
-        emit(state.copyWith(
-          pin: [],
-          enterStatus: EnterTodayPinStatus.isNotEntered,
-          pinLength: 0,
-        ));
-        log('is not a manager');
+      if (inPin == emp?.pin) {
+        if (emp?.jobRole == 'Manager') {
+          emit(state.copyWith(
+            pin: [],
+            enterStatus: EnterTodayPinStatus.isManager,
+            pinLength: 0,
+          ));
+        } else {
+          emit(state.copyWith(
+            pin: [],
+            enterStatus: EnterTodayPinStatus.isNotManager,
+            pinLength: 0,
+          ));
+          log('is not a manager');
+        }
       }
     } else {
       emit(state.copyWith(
         pin: [],
-        enterStatus: EnterTodayPinStatus.isNotEntered,
+        enterStatus: EnterTodayPinStatus.isNotExisting,
         pinLength: 0,
       ));
       log('is not existing');

@@ -1,3 +1,4 @@
+import 'package:ems_app/widgets/switch_user_page/is_not_entered_dialog.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../blocs/blocs.dart';
@@ -24,12 +25,12 @@ class SwitchPin extends StatelessWidget {
               .read<AttendanceTodayBloc>()
               .add(const IsEmployeeEnteredEvent(isEntered: true));
         }
-        if (state.enterStatus == EnterTodayPinStatus.isNotEntered) {
+        if (state.enterStatus == EnterTodayPinStatus.isNotManager ||
+            state.enterStatus == EnterTodayPinStatus.isNotExisting) {
           SchedulerBinding.instance.addPostFrameCallback((_) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("You entered an incorrect PIN!"),
-              duration: Duration(seconds: 1),
-            ));
+            showDialog(
+                context: context,
+                builder: (context) => const IsNotEnteredDialog());
           });
         }
 
