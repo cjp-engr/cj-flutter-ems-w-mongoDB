@@ -17,11 +17,22 @@ enum AttendanceTodayPinStatus {
   error,
 }
 
+enum EnterTodayPinStatus {
+  loading,
+  initial,
+  isManager,
+  isNotManager,
+  isNotExisting,
+  loaded,
+  error,
+}
+
 class AttendanceTodayState extends Equatable {
   final List<String> pin;
   final int pinLength;
   final int enteredPIN;
   final AttendanceTodayPinStatus attTodayStatus;
+  final EnterTodayPinStatus enterStatus;
   final Employee employee;
 
   const AttendanceTodayState({
@@ -29,6 +40,7 @@ class AttendanceTodayState extends Equatable {
     required this.pinLength,
     required this.enteredPIN,
     required this.attTodayStatus,
+    required this.enterStatus,
     required this.employee,
   });
 
@@ -38,6 +50,7 @@ class AttendanceTodayState extends Equatable {
       pinLength: 0,
       enteredPIN: 0,
       attTodayStatus: AttendanceTodayPinStatus.initial,
+      enterStatus: EnterTodayPinStatus.initial,
       employee: Employee(
         firstName: '',
         lastName: '',
@@ -60,6 +73,7 @@ class AttendanceTodayState extends Equatable {
         pinLength,
         enteredPIN,
         attTodayStatus,
+        enterStatus,
         employee,
       ];
 
@@ -68,6 +82,7 @@ class AttendanceTodayState extends Equatable {
     int? pinLength,
     int? enteredPIN,
     AttendanceTodayPinStatus? attTodayStatus,
+    EnterTodayPinStatus? enterStatus,
     Employee? employee,
   }) {
     return AttendanceTodayState(
@@ -75,12 +90,13 @@ class AttendanceTodayState extends Equatable {
       pinLength: pinLength ?? this.pinLength,
       enteredPIN: enteredPIN ?? this.enteredPIN,
       attTodayStatus: attTodayStatus ?? this.attTodayStatus,
+      enterStatus: enterStatus ?? this.enterStatus,
       employee: employee ?? this.employee,
     );
   }
 
   @override
   String toString() {
-    return 'AttendanceTodayState(pin: $pin, pinLength: $pinLength, enteredPIN: $enteredPIN, attTodayStatus: $attTodayStatus, employee: $employee)';
+    return 'AttendanceTodayState(pin: $pin, pinLength: $pinLength, enteredPIN: $enteredPIN, attTodayStatus: $attTodayStatus, enterStatus: $enterStatus, employee: $employee)';
   }
 }

@@ -40,3 +40,5 @@ class SubmitWorkedTimeTodayEvent extends AttendanceTodayEvent {
 }
 
 class ClearDetailsTodayEvent extends AttendanceTodayEvent {}
+
+class EnterAttClickedEvent extends AttendanceTodayEvent {}

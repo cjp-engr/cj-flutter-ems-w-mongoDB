@@ -144,7 +144,11 @@ class SwitchPin extends StatelessWidget {
                               height: 80,
                               width: 130,
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  context
+                                      .read<AttendanceTodayBloc>()
+                                      .add(EnterAttClickedEvent());
+                                },
                                 style: ElevatedButton.styleFrom(
                                   primary: redButton,
                                 ),

@@ -21,10 +21,48 @@ class AttendanceTodayBloc
     on<EnterAttendancePinEvent>(_enterAttendancePin);
     on<ClockInClickedEvent>(_clockInClicked);
     on<ClockOutClickedEvent>(_clockOutClicked);
+    on<EnterAttClickedEvent>(_enterAttClicked);
     on<ClockInSuccessfulEvent>(_clockInSuccessful);
     on<ClockOutSuccessfulEvent>(_clockOutSuccessful);
     on<SubmitWorkedTimeTodayEvent>(_submitWorkedTimeToday);
     on<ClearDetailsTodayEvent>(_clearDetailsToday);
+  }
+
+  void _enterAttClicked(
+    EnterAttClickedEvent event,
+    Emitter<AttendanceTodayState> emit,
+  ) async {
+    emit(state.copyWith(
+      enterStatus: EnterTodayPinStatus.loading,
+    ));
+    String strPin = state.pin.join('');
+    int? inPin = int.tryParse(strPin);
+    Employee? emp = await employeeRepository.fetchEmployeePin(strPin);
+
+    if (emp.toString() != 'null') {
+      if (inPin == emp?.pin && emp?.jobRole == 'Manager') {
+        emit(state.copyWith(
+          pin: [],
+          enterStatus: EnterTodayPinStatus.isManager,
+          pinLength: 0,
+        ));
+        log('is a manager');
+      } else {
+        emit(state.copyWith(
+          pin: [],
+          enterStatus: EnterTodayPinStatus.isNotManager,
+          pinLength: 0,
+        ));
+        log('is not a manager');
+      }
+    } else {
+      emit(state.copyWith(
+        pin: [],
+        enterStatus: EnterTodayPinStatus.isNotExisting,
+        pinLength: 0,
+      ));
+      log('is not existing');
+    }
   }
 
   void _enterAttendancePin(
