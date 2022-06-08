@@ -1,7 +1,8 @@
+import 'package:ems_app/pages/payroll_page.dart';
+
 import '../../blocs/blocs.dart';
 import '../../constants/constants.dart';
 import '../../pages/dashboard_page.dart';
-import '../../pages/employee_page.dart';
 import '../../pages/employees_page.dart';
 import '../../widgets/switch_user_page/switch_pin.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class SideNavigationBar extends StatelessWidget {
   const SideNavigationBar({Key? key}) : super(key: key);
   static const List<Widget> _widgetOptions = <Widget>[
     DashboardPage(),
-    EmployeePage(),
+    PayrollPage(),
     EmployeesPage(),
     ShowPinDialog(),
   ];
