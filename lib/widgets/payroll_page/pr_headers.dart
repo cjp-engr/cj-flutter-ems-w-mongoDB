@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,76 +35,171 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
 
   @override
   Widget build(BuildContext context) {
-    void _showDatePicker() {
-      showCupertinoModalPopup(
+    List<String> month = [
+      'January',
+      'Febraury',
+      'March',
+      'April',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+    void _showMonthYearPicker() {
+      showDialog(
           context: context,
           builder: (BuildContext builder) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 220),
               child: Stack(
                 children: [
-                  Container(
-                    height:
-                        MediaQuery.of(context).copyWith().size.height * 0.42,
-                    width: MediaQuery.of(context).copyWith().size.height * 0.38,
-                    color: Colors.white,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10,
-                      left: 20,
-                    ),
-                    child: Text(
-                      'Select Date',
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                        right: 5,
-                        bottom: 5,
+                  Positioned.fill(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: MediaQuery.of(context).copyWith().size.height *
+                            0.42,
+                        width: MediaQuery.of(context).copyWith().size.height *
+                            0.45,
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                                left: 20,
+                              ),
+                              child: Text(
+                                'Select Date',
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
+                            ),
+                            SizedBox(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context)
+                                            .copyWith()
+                                            .size
+                                            .height *
+                                        0.25,
+                                    width: MediaQuery.of(context)
+                                            .copyWith()
+                                            .size
+                                            .height *
+                                        0.20,
+                                    child: CupertinoPicker(
+                                      itemExtent: 32,
+                                      onSelectedItemChanged: (value) {
+                                        log(month[value]);
+                                      },
+                                      children: [
+                                        for (int i = 0; i < month.length; i++)
+                                          Text(month[i]),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context)
+                                            .copyWith()
+                                            .size
+                                            .height *
+                                        0.25,
+                                    width: MediaQuery.of(context)
+                                            .copyWith()
+                                            .size
+                                            .height *
+                                        0.20,
+                                    child: CupertinoPicker(
+                                      itemExtent: 32,
+                                      onSelectedItemChanged: (value) {},
+                                      children: [
+                                        for (int i = 0; i < 70; i++)
+                                          Text((1970 + i).toString()),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                                right: 5,
+                                bottom: 5,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Current Date'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50),
-                    child: SizedBox(
-                      height:
-                          MediaQuery.of(context).copyWith().size.height * 0.30,
-                      width:
-                          MediaQuery.of(context).copyWith().size.height * 0.38,
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.date,
-                        onDateTimeChanged: (value) {
-                          setState(() {});
-                        },
-                        minimumYear: 1970,
-                        maximumDate: DateTime.now(),
-                        maximumYear: DateTime.now().year,
-                        initialDateTime: DateTime.now(),
-                      ),
-                    ),
-                  ),
+
+                  // SizedBox(
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Padding(
+                  //         padding: const EdgeInsets.only(top: 10),
+                  //         child: SizedBox(
+                  //           height:
+                  //               MediaQuery.of(context).copyWith().size.height *
+                  //                   0.30,
+                  //           width:
+                  //               MediaQuery.of(context).copyWith().size.height *
+                  //                   0.20,
+                  //           child: CupertinoPicker(
+                  //             itemExtent: 32,
+                  //             onSelectedItemChanged: (value) {
+                  //               log(test[value]);
+                  //             },
+                  //             children: const [
+                  //               Text('Item1'),
+                  //               Text('Item1'),
+                  //               // Text('March'),
+                  //               // Text('...'),
+                  //               Text('Item1'),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Padding(
+                  //         padding: const EdgeInsets.only(top: 10),
+                  //         child: SizedBox(
+                  //           height:
+                  //               MediaQuery.of(context).copyWith().size.height *
+                  //                   0.30,
+                  //           width:
+                  //               MediaQuery.of(context).copyWith().size.height *
+                  //                   0.20,
+                  //           child: CupertinoPicker(
+                  //             itemExtent: 32,
+                  //             onSelectedItemChanged: (value) {
+                  //               log(test[value]);
+                  //             },
+                  //             children: const [
+                  //               Text('Item2'),
+                  //               Text('Item2'),
+                  //               // Text('March'),
+                  //               // Text('...'),
+                  //               Text('Item2'),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             );
@@ -170,7 +267,7 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
                     Icon(Icons.calendar_month_outlined),
                   ],
                 ),
-                onPressed: _showDatePicker,
+                onPressed: _showMonthYearPicker,
                 style: ElevatedButton.styleFrom(
                   side: BorderSide(
                     width: 2.5,

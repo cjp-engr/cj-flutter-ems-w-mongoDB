@@ -1,11 +1,6 @@
 import 'package:ems_app/widgets/payroll_page/show_info_payroll_dialog.dart';
 
-import '../../blocs/attendance/attendance_bloc.dart';
-import '../../blocs/employee_details/employee_details_bloc.dart';
 import '../../blocs/employees/employees_bloc.dart';
-import '../../constants/constants.dart';
-import '../../widgets/employees_page/employee_view_hours_dialog.dart';
-import '../../widgets/employees_page/show_info_employee_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
