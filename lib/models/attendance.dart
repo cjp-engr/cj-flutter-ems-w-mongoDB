@@ -10,6 +10,7 @@ class Attendance extends Equatable {
   final int? clockout;
   final int? workDate;
   final int? status;
+  final int? hourlyRate;
 
   const Attendance({
     this.id,
@@ -21,6 +22,7 @@ class Attendance extends Equatable {
     this.clockout,
     this.workDate,
     this.status,
+    this.hourlyRate,
   });
 
   Attendance.fromJson(Map<String, dynamic> json)
@@ -32,7 +34,8 @@ class Attendance extends Equatable {
         clockin = json['clockin'],
         clockout = json['clockout'],
         workDate = json['workDate'],
-        status = json['status'];
+        status = json['status'],
+        hourlyRate = json['hourlyRate'];
 
   factory Attendance.initial() => const Attendance(
         id: '',
@@ -44,6 +47,7 @@ class Attendance extends Equatable {
         clockout: 0,
         workDate: 0,
         status: 0,
+        hourlyRate: 0,
       );
 
   @override
@@ -58,11 +62,12 @@ class Attendance extends Equatable {
       clockout,
       workDate,
       status,
+      hourlyRate,
     ];
   }
 
   @override
   String toString() {
-    return 'Attendance(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status)';
+    return 'Attendance(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status, hourlyRate: $hourlyRate)';
   }
 }

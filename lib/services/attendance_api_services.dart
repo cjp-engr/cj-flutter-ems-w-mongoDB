@@ -32,6 +32,7 @@ class AttendanceApiServices {
           'clockout': a.clockout,
           'workDate': a.workDate,
           'status': a.status,
+          'hourlyRate': a.hourlyRate,
         }),
       );
 

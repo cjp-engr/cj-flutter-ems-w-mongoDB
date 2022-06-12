@@ -24,6 +24,7 @@ class AttendanceState extends Equatable {
   final DateTime clockout;
   final DateTime workDate;
   final int status;
+  final int hourlyRate;
   final AttendanceStatus attStatus;
   final List<Attendance> attendanceList;
   final CustomError customError;
@@ -37,6 +38,7 @@ class AttendanceState extends Equatable {
     required this.clockout,
     required this.workDate,
     required this.status,
+    required this.hourlyRate,
     required this.attStatus,
     required this.attendanceList,
     required this.customError,
@@ -53,6 +55,7 @@ class AttendanceState extends Equatable {
       clockout: DateTime(1970, 1, 1),
       workDate: DateTime(1970, 1, 1),
       status: 0,
+      hourlyRate: 0,
       attStatus: AttendanceStatus.initial,
       attendanceList: const [],
       customError: const CustomError(),
@@ -70,6 +73,7 @@ class AttendanceState extends Equatable {
         clockout,
         workDate,
         status,
+        hourlyRate,
         attStatus,
         attendanceList,
         customError,
@@ -85,6 +89,7 @@ class AttendanceState extends Equatable {
     DateTime? clockout,
     DateTime? workDate,
     int? status,
+    int? hourlyRate,
     AttendanceStatus? attStatus,
     List<Attendance>? attendanceList,
     CustomError? customError,
@@ -99,6 +104,7 @@ class AttendanceState extends Equatable {
       clockout: clockout ?? this.clockout,
       workDate: workDate ?? this.workDate,
       status: status ?? this.status,
+      hourlyRate: hourlyRate ?? this.hourlyRate,
       attStatus: attStatus ?? this.attStatus,
       attendanceList: attendanceList ?? this.attendanceList,
       customError: customError ?? this.customError,
@@ -107,6 +113,6 @@ class AttendanceState extends Equatable {
 
   @override
   String toString() {
-    return 'AttendanceState(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status, attStatus: $attStatus, attendanceList: $attendanceList, customError: $customError)';
+    return 'AttendanceState(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status, hourlyRate: $hourlyRate, attStatus: $attStatus, attendanceList: $attendanceList, customError: $customError)';
   }
 }

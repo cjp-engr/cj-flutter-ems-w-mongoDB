@@ -209,6 +209,8 @@ class EmployeesData extends StatelessWidget {
                                         state.employeesList[index].lastName!,
                                     employeeId:
                                         state.employeesList[index].employeeId!,
+                                    hourlyRate:
+                                        state.employeesList[index].hourlyRate!,
                                   ));
                             },
                             child: Text(

@@ -12,12 +12,14 @@ class ShowWorkedTimeEvent extends AttendanceEvent {
   final String firstName;
   final String lastName;
   final String employeeId;
+  final int? hourlyRate;
 
   const ShowWorkedTimeEvent({
     required this.uniqueId,
     required this.firstName,
     required this.lastName,
     required this.employeeId,
+    required this.hourlyRate,
   });
 }
 

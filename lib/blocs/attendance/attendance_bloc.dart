@@ -35,6 +35,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       firstName: event.firstName,
       lastName: event.lastName,
       employeeId: event.employeeId,
+      hourlyRate: event.hourlyRate,
       attStatus: AttendanceStatus.reading,
       workDate: state.workDate,
     ));
@@ -89,6 +90,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       clockout: state.clockout.millisecondsSinceEpoch,
       workDate: state.workDate.millisecondsSinceEpoch,
       status: 3,
+      hourlyRate: state.hourlyRate,
     );
     add(SubmitWorkedTimeEvent(attendance: attendance));
   }
