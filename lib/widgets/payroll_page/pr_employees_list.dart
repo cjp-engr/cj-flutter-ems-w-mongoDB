@@ -57,7 +57,7 @@ class PayrollEmployeesList extends StatelessWidget {
               right: 30,
             ),
             child: SizedBox(
-              height: MediaQuery.of(context).size.height / 1.6,
+              height: MediaQuery.of(context).size.height * 0.6,
               child: BlocBuilder<EmployeesBloc, EmployeesState>(
                 builder: (context, state) {
                   if (state.employeesListStatus ==

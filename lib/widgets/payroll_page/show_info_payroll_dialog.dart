@@ -151,7 +151,7 @@ class PayrollInfoContent extends StatelessWidget {
               ),
             ],
           ),
-          for (int i = 0; i < 100; i++)
+          for (int i = 0; i < 60; i++)
             const TableRow(
               children: [
                 TableCell(
