@@ -256,7 +256,7 @@ class ShowDateFromPicker extends StatelessWidget {
                           );
                       Navigator.of(context).pop();
                     },
-                    child: const Text('Current Date'),
+                    child: const Text('Reset'),
                   ),
                   TextButton(
                     onPressed: () {
@@ -283,7 +283,7 @@ class ShowDateFromPicker extends StatelessWidget {
                 onDateTimeChanged: (value) {
                   dateFrom = value;
                 },
-                minimumYear: 1970,
+                minimumYear: 2000,
                 maximumDate: DateTime.now(),
                 maximumYear: DateTime.now().year,
                 initialDateTime: dateFrom,
@@ -346,7 +346,7 @@ class ShowDateToPicker extends StatelessWidget {
                             ),
                           );
                     },
-                    child: const Text('Current Date'),
+                    child: const Text('Reset'),
                   ),
                   TextButton(
                     onPressed: () {
@@ -373,7 +373,7 @@ class ShowDateToPicker extends StatelessWidget {
                 onDateTimeChanged: (value) {
                   selectedDate = value;
                 },
-                minimumYear: 1970,
+                minimumYear: 2000,
                 maximumDate: DateTime.now(),
                 maximumYear: DateTime.now().year,
                 initialDateTime: selectedDate,

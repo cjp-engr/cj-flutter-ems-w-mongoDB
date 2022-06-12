@@ -94,9 +94,9 @@ class PayrollInfoContent extends StatelessWidget {
           inside: const BorderSide(width: 1),
         ), //table border
         children: [
-          TableRow(
+          const TableRow(
             children: [
-              const TableCell(
+              TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Text(
                   'Date',
@@ -108,30 +108,13 @@ class PayrollInfoContent extends StatelessWidget {
               ),
               TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
-                child: Column(
-                  children: const [
-                    Text('Time in',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        )),
-                    Text('Time out',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ],
-                ),
-              ),
-              const TableCell(
-                verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Text('Rate',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     )),
               ),
-              const TableCell(
+              TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Text('Hours Worked',
                     textAlign: TextAlign.center,
@@ -139,7 +122,7 @@ class PayrollInfoContent extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     )),
               ),
-              const TableCell(
+              TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Text(
                   'Total',
@@ -158,13 +141,6 @@ class PayrollInfoContent extends StatelessWidget {
                   verticalAlignment: TableCellVerticalAlignment.middle,
                   child: Text(
                     'date data',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: Text(
-                    'time in and time out data',
                     textAlign: TextAlign.center,
                   ),
                 ),
