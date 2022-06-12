@@ -10,6 +10,7 @@ class Attendance extends Equatable {
   final int? clockout;
   final int? workDate;
   final int? status;
+
   const Attendance({
     this.id,
     this.uniqueId,
