@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,6 +33,24 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
 
   @override
   Widget build(BuildContext context) {
+    void _showDateFromPicker() {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return const ShowDateFromPicker();
+        },
+      );
+    }
+
+    void _showDateToPicker() {
+      showCupertinoModalPopup(
+        context: context,
+        builder: (BuildContext builder) {
+          return const ShowDateToPicker();
+        },
+      );
+    }
+
     return Column(
       children: [
         Align(
@@ -107,7 +123,7 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
                         Icon(Icons.calendar_month_outlined),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: _showDateFromPicker,
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(
                         width: 2.5,
@@ -150,7 +166,7 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
                         Icon(Icons.calendar_month_outlined),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: _showDateToPicker,
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(
                         width: 2.5,
@@ -167,6 +183,160 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
           ],
         ),
       ],
+    );
+  }
+}
+
+class ShowDateFromPicker extends StatelessWidget {
+  const ShowDateFromPicker({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 220),
+      child: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).copyWith().size.height * 0.42,
+            width: MediaQuery.of(context).copyWith().size.height * 0.38,
+            color: Colors.white,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+              left: 20,
+            ),
+            child: Text(
+              'Select Date',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+                right: 5,
+                bottom: 5,
+              ),
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Current Date'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: SizedBox(
+              height: MediaQuery.of(context).copyWith().size.height * 0.30,
+              width: MediaQuery.of(context).copyWith().size.height * 0.38,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                onDateTimeChanged: (value) {
+                  // setState(() {
+                  //   //selectedDate = value;
+                  // });
+                },
+                minimumYear: 1970,
+                maximumDate: DateTime.now(),
+                maximumYear: DateTime.now().year,
+                //TODO: Needs to be updated later.
+                initialDateTime: DateTime.now().subtract(
+                  const Duration(days: 50),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ShowDateToPicker extends StatelessWidget {
+  const ShowDateToPicker({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 220),
+      child: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).copyWith().size.height * 0.42,
+            width: MediaQuery.of(context).copyWith().size.height * 0.38,
+            color: Colors.white,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+              left: 20,
+            ),
+            child: Text(
+              'Select Date',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+                right: 5,
+                bottom: 5,
+              ),
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Current Date'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: SizedBox(
+              height: MediaQuery.of(context).copyWith().size.height * 0.30,
+              width: MediaQuery.of(context).copyWith().size.height * 0.38,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                onDateTimeChanged: (value) {
+                  // setState(() {
+                  //   //selectedDate = value;
+                  // });
+                },
+                minimumYear: 1970,
+                maximumDate: DateTime.now(),
+                maximumYear: DateTime.now().year,
+                //TODO: Needs to be updated later.
+                initialDateTime: DateTime.now().subtract(
+                  const Duration(days: 50),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
