@@ -51,5 +51,8 @@ List<BlocProvider> blocProviderList(BuildContext context) {
         attendanceRepository: context.read<AttendanceRepository>(),
       ),
     ),
+    BlocProvider<PayrollBloc>(
+      create: (context) => PayrollBloc(),
+    ),
   ];
 }

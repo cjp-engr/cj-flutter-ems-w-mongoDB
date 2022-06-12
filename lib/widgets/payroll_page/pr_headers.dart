@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,13 +116,22 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
                   child: ElevatedButton(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 1),
-                          child: Text('Current Date:'),
+                          padding: const EdgeInsets.only(right: 1),
+                          //From Date
+                          child: BlocBuilder<PayrollBloc, PayrollState>(
+                            builder: (context, state) {
+                              return Text(state.dateFrom.month.toString() +
+                                  '/' +
+                                  state.dateFrom.day.toString() +
+                                  '/' +
+                                  state.dateFrom.year.toString());
+                            },
+                          ),
                         ),
                         //Icon(Icons.arrow_drop_down),
-                        Icon(Icons.calendar_month_outlined),
+                        const Icon(Icons.calendar_month_outlined),
                       ],
                     ),
                     onPressed: _showDateFromPicker,
@@ -157,13 +168,22 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
                   child: ElevatedButton(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Padding(
-                          padding: EdgeInsets.only(right: 1),
-                          child: Text('Current Date:'),
+                          padding: const EdgeInsets.only(right: 1),
+                          //To Date
+                          child: BlocBuilder<PayrollBloc, PayrollState>(
+                            builder: (context, state) {
+                              return Text(state.dateTo.month.toString() +
+                                  '/' +
+                                  state.dateTo.day.toString() +
+                                  '/' +
+                                  state.dateTo.year.toString());
+                            },
+                          ),
                         ),
                         //Icon(Icons.arrow_drop_down),
-                        Icon(Icons.calendar_month_outlined),
+                        const Icon(Icons.calendar_month_outlined),
                       ],
                     ),
                     onPressed: _showDateToPicker,
@@ -192,6 +212,7 @@ class ShowDateFromPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime dateFrom = context.watch<PayrollBloc>().state.dateFrom;
     return Padding(
       padding: const EdgeInsets.only(bottom: 220),
       child: Stack(
@@ -223,11 +244,27 @@ class ShowDateFromPicker extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<PayrollBloc>().add(
+                            GetDateFromEvent(
+                              selectedDate: DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                              ),
+                            ),
+                          );
+                      Navigator.of(context).pop();
+                    },
                     child: const Text('Current Date'),
                   ),
                   TextButton(
                     onPressed: () {
+                      context.read<PayrollBloc>().add(
+                            GetDateFromEvent(
+                              selectedDate: dateFrom,
+                            ),
+                          );
                       Navigator.of(context).pop();
                     },
                     child: const Text('OK'),
@@ -244,17 +281,12 @@ class ShowDateFromPicker extends StatelessWidget {
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.date,
                 onDateTimeChanged: (value) {
-                  // setState(() {
-                  //   //selectedDate = value;
-                  // });
+                  dateFrom = value;
                 },
                 minimumYear: 1970,
                 maximumDate: DateTime.now(),
                 maximumYear: DateTime.now().year,
-                //TODO: Needs to be updated later.
-                initialDateTime: DateTime.now().subtract(
-                  const Duration(days: 50),
-                ),
+                initialDateTime: dateFrom,
               ),
             ),
           ),
@@ -269,6 +301,8 @@ class ShowDateToPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime selectedDate = context.watch<PayrollBloc>().state.dateTo;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 220),
       child: Stack(
@@ -300,11 +334,27 @@ class ShowDateToPicker extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      context.read<PayrollBloc>().add(
+                            GetDateToEvent(
+                              selectedDate: DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                              ),
+                            ),
+                          );
+                    },
                     child: const Text('Current Date'),
                   ),
                   TextButton(
                     onPressed: () {
+                      context.read<PayrollBloc>().add(
+                            GetDateToEvent(
+                              selectedDate: selectedDate,
+                            ),
+                          );
                       Navigator.of(context).pop();
                     },
                     child: const Text('OK'),
@@ -321,17 +371,12 @@ class ShowDateToPicker extends StatelessWidget {
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.date,
                 onDateTimeChanged: (value) {
-                  // setState(() {
-                  //   //selectedDate = value;
-                  // });
+                  selectedDate = value;
                 },
                 minimumYear: 1970,
                 maximumDate: DateTime.now(),
                 maximumYear: DateTime.now().year,
-                //TODO: Needs to be updated later.
-                initialDateTime: DateTime.now().subtract(
-                  const Duration(days: 50),
-                ),
+                initialDateTime: selectedDate,
               ),
             ),
           ),
