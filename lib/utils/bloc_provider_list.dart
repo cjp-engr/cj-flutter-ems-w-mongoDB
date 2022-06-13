@@ -2,6 +2,7 @@ import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/repositories/attendance_repository.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:ems_app/repositories/employee_repository.dart';
+import 'package:ems_app/repositories/payroll_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,7 +53,9 @@ List<BlocProvider> blocProviderList(BuildContext context) {
       ),
     ),
     BlocProvider<PayrollBloc>(
-      create: (context) => PayrollBloc(),
+      create: (context) => PayrollBloc(
+        payrollRepository: context.read<PayrollRepository>(),
+      ),
     ),
   ];
 }

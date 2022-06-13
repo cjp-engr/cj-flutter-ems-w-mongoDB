@@ -19,6 +19,7 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
   @override
   void initState() {
     _initLoadEmployee();
+    _initDates();
     super.initState();
     nameController = TextEditingController();
   }
@@ -31,6 +32,10 @@ class _PayrollHeadersState extends State<PayrollHeaders> {
 
   void _initLoadEmployee() {
     context.read<EmployeesBloc>().add(FetchAllEmployeesEvent());
+  }
+
+  void _initDates() {
+    context.read<PayrollBloc>().add(SetInitialDatesEvent());
   }
 
   @override
