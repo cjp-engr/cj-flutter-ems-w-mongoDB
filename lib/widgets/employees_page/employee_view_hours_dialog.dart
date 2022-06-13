@@ -27,6 +27,7 @@ class EmployeeViewHoursDialog extends StatelessWidget {
                     ),
                   ),
             ),
+            //TODO: Add Date selected
             BlocBuilder<AttendanceTimeWorkedBloc, AttendanceTimeWorkedState>(
               builder: (context, state) {
                 return int.tryParse(state.hours)! < 0 &&

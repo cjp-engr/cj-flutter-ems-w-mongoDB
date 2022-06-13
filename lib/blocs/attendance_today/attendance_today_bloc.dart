@@ -118,6 +118,7 @@ class AttendanceTodayBloc
       firstName: event.employee.firstName,
       lastName: event.employee.lastName,
       employeeId: event.employee.employeeId,
+      hourlyRate: event.employee.hourlyRate,
       clockin: DateTime.now().millisecondsSinceEpoch,
       clockout: -1,
       workDate: DateTime(
@@ -177,20 +178,30 @@ class AttendanceTodayBloc
       attTodayStatus: AttendanceTodayPinStatus.updating,
     ));
 
-    String dt = DateTime(
+    String workDate = DateTime(
       DateTime.now().year,
       DateTime.now().month,
       DateTime.now().day,
     ).millisecondsSinceEpoch.toString();
 
+    List<Attendance>? x = await attendanceRepository.fetchAttendanceList(
+        event.employee.id!, workDate);
+    int clockIn = 0;
+    for (var element in x!) {
+      if (element.clockout == -1) {
+        clockIn = element.clockin!;
+      }
+    }
+    log(clockIn.toString());
     final attendance = Attendance(
       clockout: DateTime.now().millisecondsSinceEpoch,
+      clockin: clockIn,
       status: 2,
     );
 
     await attendanceRepository.updateTodayAttendance(
       event.employee.id!,
-      dt,
+      workDate,
       attendance,
     );
 

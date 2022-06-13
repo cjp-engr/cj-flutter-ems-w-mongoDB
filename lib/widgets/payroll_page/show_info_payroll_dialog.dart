@@ -1,5 +1,7 @@
+import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShowInfoPayrollDialog extends StatelessWidget {
   const ShowInfoPayrollDialog({Key? key}) : super(key: key);
@@ -88,86 +90,90 @@ class PayrollInfoContent extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       padding: const EdgeInsets.all(15),
-      child: Table(
-        //border: TableBorder.all(width: 1, color: Colors.black45),
-        border: TableBorder.symmetric(
-          inside: const BorderSide(width: 1),
-        ), //table border
-        children: [
-          const TableRow(
+      child: BlocBuilder<PayrollBloc, PayrollState>(
+        builder: (context, state) {
+          return Table(
+            //border: TableBorder.all(width: 1, color: Colors.black45),
+            border: TableBorder.symmetric(
+              inside: const BorderSide(width: 1),
+            ), //table border
             children: [
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.middle,
-                child: Text(
-                  'Date',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+              const TableRow(
+                children: [
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Text(
+                      'Date',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.middle,
-                child: Text('Rate',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.middle,
-                child: Text('Hours Worked',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-              TableCell(
-                verticalAlignment: TableCellVerticalAlignment.middle,
-                child: Text(
-                  'Total',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Text('Rate',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
                   ),
-                ),
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Text('Hours Worked',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Text(
+                      'Total',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              for (int i = 0; i < state.listPayroll.length; i++)
+                TableRow(
+                  children: [
+                    TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: Text(
+                        state.listPayroll[i].workDate.toString(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: Text(
+                        state.listPayroll[i].hourlyRate.toString(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: Text(
+                        'hours worked data',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const TableCell(
+                      verticalAlignment: TableCellVerticalAlignment.middle,
+                      child: Text(
+                        'total data',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
             ],
-          ),
-          for (int i = 0; i < 60; i++)
-            const TableRow(
-              children: [
-                TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: Text(
-                    'date data',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: Text(
-                    'rate data',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: Text(
-                    'hours worked data',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                TableCell(
-                  verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: Text(
-                    'total data',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-        ],
+          );
+        },
       ),
     );
   }

@@ -27,7 +27,12 @@ class PayrollBloc extends Bloc<PayrollEvent, PayrollState> {
         event.uniqueId,
         state.dateTo.millisecondsSinceEpoch.toString(),
         state.dateFrom.millisecondsSinceEpoch.toString());
-    log(pr.toString());
+    int x = 0;
+    for (var element in pr!) {
+      x += element.clockout! - element.clockin!;
+    }
+    log((x / 360000).toString());
+    emit(state.copyWith(listPayroll: pr));
   }
 
   void _setInitialDates(

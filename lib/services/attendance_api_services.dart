@@ -18,6 +18,7 @@ class AttendanceApiServices {
       path: '/attendance',
     );
     try {
+      String workedHrs = ((a.clockout! - a.clockin!) / 3600000.0).toString();
       final response = await http.post(
         uri,
         headers: <String, String>{
@@ -33,6 +34,7 @@ class AttendanceApiServices {
           'workDate': a.workDate,
           'status': a.status,
           'hourlyRate': a.hourlyRate,
+          'workedHours': workedHrs,
         }),
       );
 
@@ -85,6 +87,7 @@ class AttendanceApiServices {
       host: kEmployeesHost,
       path: '/attendance/$id',
     );
+    String workedHrs = ((a.clockout! - a.clockin!) / 3600000.0).toString();
     final response = await http.put(
       uri,
       headers: <String, String>{
@@ -94,6 +97,7 @@ class AttendanceApiServices {
         'clockin': a.clockin,
         'clockout': a.clockout,
         'status': a.status,
+        'workedHours': workedHrs,
       }),
     );
 
@@ -109,6 +113,7 @@ class AttendanceApiServices {
     String workDate,
     Attendance a,
   ) async {
+    String workedHrs = ((a.clockout! - a.clockin!) / 3600000.0).toString();
     final Uri uri = Uri(
         scheme: 'https',
         host: kEmployeesHost,
@@ -119,6 +124,7 @@ class AttendanceApiServices {
           'status': '1',
           'clockout': '-1',
         });
+
     final response = await http.put(
       uri,
       headers: <String, String>{
@@ -127,6 +133,7 @@ class AttendanceApiServices {
       body: jsonEncode(<String, dynamic>{
         'clockout': a.clockout,
         'status': a.status,
+        'workedHours': workedHrs,
       }),
     );
 
