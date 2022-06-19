@@ -1,4 +1,5 @@
 import 'package:ems_app/widgets/switch_user_page/is_not_entered_dialog.dart';
+import 'package:ems_app/widgets/switch_user_page/weather_display.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../../blocs/blocs.dart';
@@ -45,12 +46,12 @@ class SwitchPin extends StatelessWidget {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          color: Colors.red,
-                        ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: WeatherDisplay(),
+                      ),
+                      const SizedBox(
+                        height: 100,
                       ),
                       StreamBuilder(
                         stream: Stream.periodic(const Duration(seconds: 1)),

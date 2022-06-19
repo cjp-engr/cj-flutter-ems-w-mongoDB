@@ -47,25 +47,13 @@ class AttendanceTodayState extends Equatable {
   });
 
   factory AttendanceTodayState.initial() {
-    return const AttendanceTodayState(
-      pin: [],
+    return AttendanceTodayState(
+      pin: const [],
       pinLength: 0,
       enteredPIN: 0,
       attTodayStatus: AttendanceTodayPinStatus.initial,
       enterStatus: EnterTodayPinStatus.initial,
-      employee: Employee(
-        firstName: '',
-        lastName: '',
-        email: '',
-        countryCode: '',
-        phoneNumber: '',
-        employeeId: '',
-        jobRole: '',
-        payType: '',
-        hourlyRate: 0,
-        weeklyHours: 0,
-        pin: 0,
-      ),
+      employee: Employee.initial(),
     );
   }
 
