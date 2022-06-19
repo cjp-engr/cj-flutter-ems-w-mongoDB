@@ -10,7 +10,7 @@ class Attendance extends Equatable {
   final int? clockout;
   final int? workDate;
   final int? status;
-  final int? hourlyRate;
+  final double? hourlyRate;
 
   const Attendance({
     this.id,
@@ -35,7 +35,8 @@ class Attendance extends Equatable {
         clockout = json['clockout'],
         workDate = json['workDate'],
         status = json['status'],
-        hourlyRate = json['hourlyRate'];
+        hourlyRate =
+            json['hourlyRate'] == null ? 0.0 : json['hourlyRate'].toDouble();
 
   factory Attendance.initial() => const Attendance(
         id: '',

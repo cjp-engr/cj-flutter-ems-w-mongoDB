@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import '../../constants/constants.dart';
 import '../../models/employee.dart';
@@ -129,8 +128,7 @@ class EmployeeApiServices {
     if (response.statusCode == 200) {
       return Employee.fromJson(jsonDecode(response.body));
     } else {
-      log('not updated');
-      throw Exception('Failed to update album.');
+      throw Exception('Failed to update employee details.');
     }
   }
 
@@ -166,8 +164,7 @@ class EmployeeApiServices {
     if (response.statusCode == 200) {
       return Employee.fromJson(jsonDecode(response.body));
     } else {
-      log('not updated');
-      throw Exception('Failed to update album.');
+      throw Exception('Failed to update employee details.');
     }
   }
 
@@ -190,7 +187,7 @@ class EmployeeApiServices {
     } else {
       // If the server did not return a "200 OK response",
       // then throw an exception.
-      throw Exception('Failed to delete album.');
+      throw Exception('Failed to delete employee.');
     }
   }
 

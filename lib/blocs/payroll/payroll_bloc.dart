@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/payroll.dart';
 import 'package:ems_app/repositories/payroll_repository.dart';
@@ -23,16 +21,17 @@ class PayrollBloc extends Bloc<PayrollEvent, PayrollState> {
     GetEmployeeUniqueIdPR event,
     Emitter<PayrollState> emit,
   ) async {
+    emit(state.copyWith(payrollStatus: PayrollStatus.loading));
     final List<Payroll>? pr = await payrollRepository.fetchPayrollList(
         event.uniqueId,
         state.dateTo.millisecondsSinceEpoch.toString(),
         state.dateFrom.millisecondsSinceEpoch.toString());
-    int x = 0;
-    for (var element in pr!) {
-      x += element.clockout! - element.clockin!;
-    }
-    log((x / 360000).toString());
-    emit(state.copyWith(listPayroll: pr));
+    // int x = 0;
+    // for (var element in pr!) {
+    //   x += element.clockout! - element.clockin!;
+    // }
+    // log((x / 360000).toString());
+    emit(state.copyWith(listPayroll: pr, payrollStatus: PayrollStatus.loaded));
   }
 
   void _setInitialDates(

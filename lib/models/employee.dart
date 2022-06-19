@@ -10,7 +10,7 @@ class Employee extends Equatable {
   final String? employeeId;
   final String? jobRole;
   final String? payType;
-  final int? hourlyRate;
+  final double? hourlyRate;
   final int? weeklyHours;
   final int? pin;
   final String? imageUrl;
@@ -41,7 +41,8 @@ class Employee extends Equatable {
         employeeId = json['employeeId'],
         jobRole = json['jobRole'],
         payType = json['payType'],
-        hourlyRate = json['hourlyRate'],
+        hourlyRate =
+            json['hourlyRate'] == null ? 0.0 : json['hourlyRate'].toDouble(),
         weeklyHours = json['weeklyHours'],
         pin = json['pin'],
         imageUrl = json['imageUrl'];

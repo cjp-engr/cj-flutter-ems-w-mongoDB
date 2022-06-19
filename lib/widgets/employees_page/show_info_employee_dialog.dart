@@ -87,7 +87,8 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
       _jobRole,
       _payType;
 
-  int? _hourlyRate, _weeklyHrs;
+  double? _hourlyRate;
+  int? _weeklyHrs;
 
   _employeeDetails() {
     return BlocProvider.of<EmployeeDetailsBloc>(context).state;
@@ -788,7 +789,7 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
   Widget _hourlyRateField(
     final fieldWidth,
     fieldHeight,
-    int hourlyRate,
+    double hourlyRate,
   ) {
     return Padding(
       padding: const EdgeInsets.only(
@@ -828,7 +829,8 @@ class _ShowEmployeeFormState extends State<ShowEmployeeForm> {
               ),
               cursorColor: focusedFieldColor,
               onSaved: (String? hr) {
-                _hourlyRate = int.tryParse(hr!);
+                // _hourlyRate = int.tryParse(hr!);
+                _hourlyRate = double.tryParse(hr!);
               },
             ),
           ),

@@ -27,24 +27,41 @@ class EmployeeViewHoursDialog extends StatelessWidget {
                     ),
                   ),
             ),
-            //TODO: Add Date selected
-            BlocBuilder<AttendanceTimeWorkedBloc, AttendanceTimeWorkedState>(
-              builder: (context, state) {
-                return int.tryParse(state.hours)! < 0 &&
-                        int.tryParse(state.minutes)! < 0
-                    ? const Text('Hello')
-                    : Text(
-                        state.hours + 'H ' + state.minutes + 'M',
-                        style: Theme.of(context).textTheme.headline5!.merge(
-                              const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                BlocBuilder<AttendanceBloc, AttendanceState>(
+                  builder: (context, state) {
+                    return Text(
+                      DateFormat('MMMM d, yyyy').format(state.workDate),
+                      style: Theme.of(context).textTheme.headline6!.merge(
+                            const TextStyle(
+                              fontWeight: FontWeight.bold,
                             ),
-                      );
-              },
+                          ),
+                    );
+                  },
+                ),
+                BlocBuilder<AttendanceTimeWorkedBloc,
+                    AttendanceTimeWorkedState>(
+                  builder: (context, state) {
+                    return int.tryParse(state.hours)! < 0 &&
+                            int.tryParse(state.minutes)! < 0
+                        ? const Text('Hello')
+                        : Text(
+                            state.hours + 'H ' + state.minutes + 'M',
+                            style: Theme.of(context).textTheme.headline6!.merge(
+                                  const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                          );
+                  },
+                ),
+              ],
             ),
             const SizedBox(
-              height: 3,
+              height: 30,
             ),
             Container(
               width: MediaQuery.of(context).size.width / 1.75,

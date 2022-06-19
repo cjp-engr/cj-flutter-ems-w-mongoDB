@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/models/attendance.dart';
 import 'package:ems_app/models/employee.dart';
@@ -192,7 +190,6 @@ class AttendanceTodayBloc
         clockIn = element.clockin!;
       }
     }
-    log(clockIn.toString());
     final attendance = Attendance(
       clockout: DateTime.now().millisecondsSinceEpoch,
       clockin: clockIn,
@@ -234,7 +231,6 @@ class AttendanceTodayBloc
             enterStatus: EnterTodayPinStatus.isNotManager,
             pinLength: 0,
           ));
-          log('is not a manager');
         }
       }
     } else {
@@ -243,7 +239,6 @@ class AttendanceTodayBloc
         enterStatus: EnterTodayPinStatus.isNotExisting,
         pinLength: 0,
       ));
-      log('is not existing');
     }
   }
 

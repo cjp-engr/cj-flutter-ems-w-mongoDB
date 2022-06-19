@@ -10,7 +10,8 @@ class Payroll extends Equatable {
   final int? clockout;
   final int? workDate;
   final int? status;
-  final int? hourlyRate;
+  final double? hourlyRate;
+  final double? workedHours;
 
   const Payroll({
     this.id,
@@ -23,6 +24,7 @@ class Payroll extends Equatable {
     this.workDate,
     this.status,
     this.hourlyRate,
+    this.workedHours,
   });
 
   Payroll.fromJson(Map<String, dynamic> json)
@@ -35,7 +37,10 @@ class Payroll extends Equatable {
         clockout = json['clockout'],
         workDate = json['workDate'],
         status = json['status'],
-        hourlyRate = json['hourlyRate'];
+        hourlyRate =
+            json['hourlyRate'] == null ? 0.0 : json['hourlyRate'].toDouble(),
+        workedHours =
+            json['workedHours'] == null ? 0.0 : json['workedHours'].toDouble();
 
   factory Payroll.initial() => const Payroll(
         id: '',
@@ -48,6 +53,7 @@ class Payroll extends Equatable {
         workDate: 0,
         status: 0,
         hourlyRate: 0,
+        workedHours: 0,
       );
 
   @override
@@ -63,11 +69,12 @@ class Payroll extends Equatable {
       workDate,
       status,
       hourlyRate,
+      workedHours,
     ];
   }
 
   @override
   String toString() {
-    return 'Payroll(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status, hourlyRate: $hourlyRate)';
+    return 'Payroll(id: $id, uniqueId: $uniqueId, firstName: $firstName, lastName: $lastName, employeeId: $employeeId, clockin: $clockin, clockout: $clockout, workDate: $workDate, status: $status, hourlyRate: $hourlyRate, workedHours: $workedHours)';
   }
 }

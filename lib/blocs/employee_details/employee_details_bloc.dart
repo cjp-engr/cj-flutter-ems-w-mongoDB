@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import '../../models/employee.dart';
@@ -30,7 +29,7 @@ class EmployeeDetailsBloc
         employeeDetails: Employee.initial(),
         employeeStatus: EmployeeStatus.adding,
       ));
-      log("addingNewEmployee");
+
       return;
     }
     if (event.id == "") {

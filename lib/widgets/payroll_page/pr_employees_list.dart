@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:ems_app/blocs/blocs.dart';
 import 'package:ems_app/widgets/payroll_page/show_info_payroll_dialog.dart';
 
-import '../../blocs/employees/employees_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -102,7 +99,6 @@ class EmployeesData extends StatelessWidget {
           itemCount: state.employeesList.length,
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              log(state.employeesList[index].id.toString());
               context.read<PayrollBloc>().add(GetEmployeeUniqueIdPR(
                   uniqueId: state.employeesList[index].id!));
               showDialog(

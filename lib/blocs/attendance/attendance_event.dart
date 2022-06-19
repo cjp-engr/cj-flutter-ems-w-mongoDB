@@ -12,7 +12,7 @@ class ShowWorkedTimeEvent extends AttendanceEvent {
   final String firstName;
   final String lastName;
   final String employeeId;
-  final int? hourlyRate;
+  final double? hourlyRate;
 
   const ShowWorkedTimeEvent({
     required this.uniqueId,
