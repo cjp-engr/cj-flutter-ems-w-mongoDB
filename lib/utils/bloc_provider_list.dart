@@ -1,5 +1,4 @@
 import 'package:ems_app/blocs/blocs.dart';
-import 'package:ems_app/blocs/weather/weather_bloc.dart';
 import 'package:ems_app/repositories/attendance_repository.dart';
 import 'package:ems_app/repositories/country_code_repository.dart';
 import 'package:ems_app/repositories/employee_repository.dart';

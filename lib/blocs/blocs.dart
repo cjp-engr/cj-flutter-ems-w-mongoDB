@@ -8,3 +8,4 @@ export 'employee_pin/employee_pin_bloc.dart';
 export 'employees/employees_bloc.dart';
 export 'payroll/payroll_bloc.dart';
 export 'side_navigation/side_navigation_bloc.dart';
+export 'weather/weather_bloc.dart';

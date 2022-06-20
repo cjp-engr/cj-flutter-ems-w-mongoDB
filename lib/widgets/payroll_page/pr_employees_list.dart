@@ -40,11 +40,11 @@ class PayrollEmployeesList extends StatelessWidget {
                     ),
                     Text('EMPLOYEE NO.'),
                     SizedBox(
-                      width: 150,
+                      width: 170,
                     ),
                     Text('RATE'),
                     SizedBox(
-                      width: 150,
+                      width: 130,
                     ),
                     Text('JOB ROLE'),
                   ],
@@ -164,9 +164,10 @@ class EmployeesData extends StatelessWidget {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
-                    child: Text(
-                        state.employeesList[index].hourlyRate!.toString() +
-                            ' '),
+                    child: Text('\$' +
+                        state.employeesList[index].hourlyRate!
+                            .toStringAsFixed(2) +
+                        ' '),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 5,

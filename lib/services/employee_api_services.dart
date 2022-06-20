@@ -16,6 +16,10 @@ class EmployeeApiServices {
       scheme: 'https',
       host: kEmployeesHost,
       path: '/employee',
+      queryParameters: {
+        'firstName': '',
+        'lastName': '',
+      },
     );
 
     try {
@@ -195,7 +199,7 @@ class EmployeeApiServices {
     final Uri uri = Uri(
       scheme: 'https',
       host: kEmployeesHost,
-      path: '/employee',
+      path: '/employee/pin',
       queryParameters: {
         'pin': pin,
       },
