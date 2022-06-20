@@ -5,6 +5,20 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Dashboard Page');
+    return Column(
+      children: const [
+        Padding(
+          padding: EdgeInsets.only(top: 100),
+          child: Text(
+            'Welcome to the Dashboard Page',
+            style: TextStyle(
+              fontSize: 90,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
   }
 }

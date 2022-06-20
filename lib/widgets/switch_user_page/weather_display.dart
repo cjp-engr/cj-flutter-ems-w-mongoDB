@@ -18,7 +18,8 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
   }
 
   void _getWeather() {
-    context.read<WeatherBloc>().add(GetWeatherEvent());
+    //TODO: uncomment this if needed
+    //context.read<WeatherBloc>().add(GetWeatherEvent());
   }
 
   @override
@@ -30,76 +31,79 @@ class _WeatherDisplayState extends State<WeatherDisplay> {
             child: CircularProgressIndicator(),
           );
         }
-        return Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      'Current Temp',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: darkBlueText,
+        if (state.weatherStatus == WeatherStatus.loaded) {
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'Current Temp',
+                        style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: darkBlueText,
+                        ),
                       ),
-                    ),
-                    Text(
-                      state.weather.temp.toString() + ' °C',
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        color: darkBlueText,
+                      Text(
+                        state.weather.temp.toString() + ' °C',
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: darkBlueText,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Image.network(
+                        state.weather.icon,
+                        width: 100,
+                        height: 100,
+                      ),
+                      Text(
+                        state.weather.description,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: darkBlueText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Text(
+                'Max. Temp. : ' + state.weather.tempMax.toString() + ' °C',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: darkBlueText,
                 ),
-                Column(
-                  children: [
-                    Image.network(
-                      state.weather.icon,
-                      width: 100,
-                      height: 100,
-                    ),
-                    Text(
-                      state.weather.description,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: darkBlueText,
-                      ),
-                    ),
-                  ],
+              ),
+              Text(
+                'Min. Temp. : ' + state.weather.tempMin.toString() + ' °C',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: darkBlueText,
                 ),
-              ],
-            ),
-            Text(
-              'Max. Temp. : ' + state.weather.tempMax.toString() + ' °C',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: darkBlueText,
               ),
-            ),
-            Text(
-              'Min. Temp. : ' + state.weather.tempMin.toString() + ' °C',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: darkBlueText,
+              Text(
+                state.weather.name + ', ' + state.weather.country,
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: darkBlueText,
+                ),
               ),
-            ),
-            Text(
-              state.weather.name + ', ' + state.weather.country,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: darkBlueText,
-              ),
-            ),
-          ],
-        );
+            ],
+          );
+        }
+        return Container();
       },
     );
   }

@@ -15,228 +15,237 @@ class SwitchPin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AttendanceTodayBloc, AttendanceTodayState>(
-      builder: (context, state) {
+    return BlocListener<AttendanceTodayBloc, AttendanceTodayState>(
+      listener: (context, state) {
         if (state.enterStatus == EnterTodayPinStatus.isManager) {
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            Navigator.of(context).pop();
-          });
-
           context
-              .read<AttendanceTodayBloc>()
-              .add(const IsEmployeeEnteredEvent(isEntered: true));
+              .read<SideNavigationBloc>()
+              .add(const SwitchActivePageEvent(activePage: 0));
         }
-        if (state.enterStatus == EnterTodayPinStatus.isNotManager ||
-            state.enterStatus == EnterTodayPinStatus.isNotExisting) {
-          SchedulerBinding.instance.addPostFrameCallback((_) {
-            showDialog(
-                context: context,
-                builder: (context) => const IsNotEnteredDialog());
-          });
-        }
+      },
+      child: BlocBuilder<AttendanceTodayBloc, AttendanceTodayState>(
+        builder: (context, state) {
+          if (state.enterStatus == EnterTodayPinStatus.isManager) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pop();
+            });
 
-        return SimpleDialog(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 2.4,
-                  height: MediaQuery.of(context).size.height / 1.3,
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: WeatherDisplay(),
-                      ),
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      StreamBuilder(
-                        stream: Stream.periodic(const Duration(seconds: 1)),
-                        builder: (context, snapshot) {
-                          return Column(
-                            children: [
-                              Text(
-                                DateFormat('h:mm a').format(DateTime.now()),
-                                style: TextStyle(
-                                  fontSize: 80,
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlueText,
-                                ),
-                              ),
-                              Text(
-                                DateFormat('E, MMM d, yyyy')
-                                    .format(DateTime.now()),
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: darkBlueText,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2.4,
-                  height: MediaQuery.of(context).size.height / 1.3,
-                  child: Column(
-                    children: [
-                      PinEntered(
-                        pinLen: state.pinLength,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        height: 350,
-                        width: 400,
-                        child: GridView.count(
-                          shrinkWrap: true,
-                          childAspectRatio: 1.6,
-                          crossAxisCount: 3,
-                          controller: ScrollController(
-                            keepScrollOffset: false,
-                          ),
-                          children: [
-                            for (int index = 1; index <= 9; index++)
-                              PinKey(character: index.toString()),
-                            const PinKey(character: '0'),
-                            const PinKey(character: '00'),
-                            const PinKey(character: 'C'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 12,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: 80,
-                              width: 130,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  context
-                                      .read<AttendanceTodayBloc>()
-                                      .add(ClockInClickedEvent());
+            context
+                .read<AttendanceTodayBloc>()
+                .add(const IsEmployeeEnteredEvent(isEntered: true));
+          }
+          if (state.enterStatus == EnterTodayPinStatus.isNotManager ||
+              state.enterStatus == EnterTodayPinStatus.isNotExisting) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              showDialog(
+                  context: context,
+                  builder: (context) => const IsNotEnteredDialog());
+            });
+          }
 
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) =>
-                                          const ClockinConfirmationDialog());
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: yellowButton,
-                                ),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'CLOCK',
-                                      style: TextStyle(
-                                        color: darkBlueText,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'IN',
-                                      style: TextStyle(
-                                        color: darkBlueText,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 80,
-                              width: 130,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  context
-                                      .read<AttendanceTodayBloc>()
-                                      .add(EnterAttClickedEvent());
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: redButton,
-                                ),
-                                child: Text(
-                                  'ENTER',
+          return SimpleDialog(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2.4,
+                    height: MediaQuery.of(context).size.height / 1.3,
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: WeatherDisplay(),
+                        ),
+                        const SizedBox(
+                          height: 100,
+                        ),
+                        StreamBuilder(
+                          stream: Stream.periodic(const Duration(seconds: 1)),
+                          builder: (context, snapshot) {
+                            return Column(
+                              children: [
+                                Text(
+                                  DateFormat('h:mm a').format(DateTime.now()),
                                   style: TextStyle(
+                                    fontSize: 80,
+                                    fontWeight: FontWeight.bold,
                                     color: darkBlueText,
+                                  ),
+                                ),
+                                Text(
+                                  DateFormat('E, MMM d, yyyy')
+                                      .format(DateTime.now()),
+                                  style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
+                                    color: darkBlueText,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.4,
+                    height: MediaQuery.of(context).size.height / 1.3,
+                    child: Column(
+                      children: [
+                        PinEntered(
+                          pinLen: state.pinLength,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 350,
+                          width: 400,
+                          child: GridView.count(
+                            shrinkWrap: true,
+                            childAspectRatio: 1.6,
+                            crossAxisCount: 3,
+                            controller: ScrollController(
+                              keepScrollOffset: false,
+                            ),
+                            children: [
+                              for (int index = 1; index <= 9; index++)
+                                PinKey(character: index.toString()),
+                              const PinKey(character: '0'),
+                              const PinKey(character: '00'),
+                              const PinKey(character: 'C'),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 12,
+                            right: 12,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                height: 80,
+                                width: 130,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    context
+                                        .read<AttendanceTodayBloc>()
+                                        .add(ClockInClickedEvent());
+
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            const ClockinConfirmationDialog());
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: yellowButton,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'CLOCK',
+                                        style: TextStyle(
+                                          color: darkBlueText,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        'IN',
+                                        style: TextStyle(
+                                          color: darkBlueText,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 80,
-                              width: 130,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  context
-                                      .read<AttendanceTodayBloc>()
-                                      .add(ClockOutClickedEvent());
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        const ClockoutConfirmationDialog(),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: yellowButton,
-                                ),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 5,
+                              SizedBox(
+                                height: 80,
+                                width: 130,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    context
+                                        .read<AttendanceTodayBloc>()
+                                        .add(EnterAttClickedEvent());
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: redButton,
+                                  ),
+                                  child: Text(
+                                    'ENTER',
+                                    style: TextStyle(
+                                      color: darkBlueText,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    Text(
-                                      'CLOCK',
-                                      style: TextStyle(
-                                        color: darkBlueText,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'OUT',
-                                      style: TextStyle(
-                                        color: darkBlueText,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 80,
+                                width: 130,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    context
+                                        .read<AttendanceTodayBloc>()
+                                        .add(ClockOutClickedEvent());
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) =>
+                                          const ClockoutConfirmationDialog(),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: yellowButton,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        'CLOCK',
+                                        style: TextStyle(
+                                          color: darkBlueText,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        'OUT',
+                                        style: TextStyle(
+                                          color: darkBlueText,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        );
-      },
+                ],
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

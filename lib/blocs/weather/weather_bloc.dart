@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:ems_app/constants/constants.dart';
 import 'package:ems_app/models/weather.dart';
@@ -19,17 +17,18 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       final json = Weather.fromJson(a!);
       emit(
         state.copyWith(
-            weather: Weather(
-              description: json.description,
-              icon: openWeatherIcon + json.icon + '@2x.png',
-              temp: json.temp,
-              tempMin: json.tempMin,
-              tempMax: json.tempMax,
-              name: json.name,
-              country: json.country,
-              lastUpdated: json.lastUpdated,
-            ),
-            weatherStatus: WeatherStatus.loaded),
+          weather: Weather(
+            description: json.description,
+            icon: openWeatherIcon + json.icon + '@2x.png',
+            temp: json.temp,
+            tempMin: json.tempMin,
+            tempMax: json.tempMax,
+            name: json.name,
+            country: json.country,
+            lastUpdated: json.lastUpdated,
+          ),
+          weatherStatus: WeatherStatus.loaded,
+        ),
       );
     });
   }
